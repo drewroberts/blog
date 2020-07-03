@@ -2,8 +2,8 @@
 
 namespace DrewRoberts\Blog\Tests;
 
-use Orchestra\Testbench\TestCase as Orchestra;
 use DrewRoberts\Blog\BlogServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {

@@ -2,8 +2,8 @@
 
 namespace DrewRoberts\Blog;
 
-use Illuminate\Support\ServiceProvider;
 use DrewRoberts\Blog\Commands\BlogCommand;
+use Illuminate\Support\ServiceProvider;
 
 class BlogServiceProvider extends ServiceProvider
 {

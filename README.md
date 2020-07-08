@@ -12,7 +12,7 @@ This is where your description should go. Limit it to a paragraph or two. Consid
 You can install the package via composer:
 
 ```bash
-composer require drewroberts/package-blog-laravel
+composer require drewroberts/blog
 ```
 
 You can publish and run the migrations with:
@@ -57,13 +57,13 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Security
 
-If you discover any security related issues, please email freek@drewroberts.be instead of using the issue tracker.
+If you discover any security related issues, please email package@drewroberts.com instead of using the issue tracker.
 
 ## Credits
 
-- [Drew Roberts](https://github.com/DrewRoberts)
+- [Drew Roberts](https://github.com/drewroberts)
 - [All Contributors](../../contributors)
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+The MIT License (MIT). Please see [License File](LICENSE) for more information.

@@ -17,7 +17,7 @@ class CreatePostsTable extends Migration
             $table->string('ogdescription')->nullable(); // Open Graph Description used for social shares. Will default to description if NULL.
             $table->unsignedInteger('pageviews')->index(); // Total current pageviews for post. Will be synced from Google Analytics API.
 
-            $table->foreignId('topic_id')->references('id')->on('topics'); // Group blog posts into topics
+            $table->foreignId('series_id')->references('id')->on('series'); // Group blog posts into topics
             $table->foreignId('image_id')->nullable()->references('id')->on('images'); // Cover image for post
             $table->foreignId('ogimage_id')->nullable()->references('id')->on('images'); // External open graph image id. Featured image for social sharing. Will default to image_id unless this is used. Allows override for play button or words on image.
             $table->foreignId('video_id')->nullable()->references('id')->on('videos'); // If blog post has a featured video.

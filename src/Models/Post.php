@@ -94,9 +94,21 @@ class Post extends Model
         return $this->belongsTo(User::class, 'author_id');
     }
 
+    public function series()
+    {
+        return $this->belongsTo(Series::class);
+    }
+
     public function topic()
     {
-        return $this->belongsTo(Topic::class);
+        return $this->hasOneThrough(
+            Topic::class,
+            Series::class,
+            'id',
+            'id',
+            'series_id',
+            'topic_id'
+        );
     }
 
     public function image()

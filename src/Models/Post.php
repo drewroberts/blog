@@ -114,17 +114,17 @@ class Post extends Model
 
     public function image()
     {
-        return $this->belongsTo(Image::class);
+        return $this->belongsTo(\DrewRoberts\Media\Models\Image::class);
     }
 
     public function ogimage()
     {
-        return $this->belongsTo(Image::class, 'ogimage_id');
+        return $this->belongsTo(\DrewRoberts\Media\Models\Image::class, 'ogimage_id');
     }
 
     public function video()
     {
-        return $this->belongsTo(Video::class);
+        return $this->belongsTo(\DrewRoberts\Media\Models\Video::class);
     }
 
     public function updater()

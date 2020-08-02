@@ -17,7 +17,7 @@ use Laravel\Nova\Resource;
 
 class Post extends Resource
 {
-    public static $model = \DrewRoberts\Blog\Post::class;
+    public static $model = \DrewRoberts\Blog\Models\Post::class;
 
     public static $title = 'title';
 
@@ -62,9 +62,9 @@ class Post extends Resource
         return [
             Textarea::make('Description'),
             Textarea::make('Open Graph Description', 'ogdescription')->nullable(),
-            BelongsTo::make('Image')->nullable()->showCreateRelationButton(),
-            BelongsTo::make('OG Image', 'ogimage', \DrewRoberts\Media\Image::class)->nullable()->showCreateRelationButton(),
-            BelongsTo::make('Video')->nullable(),
+            BelongsTo::make('Image', 'image', \DrewRoberts\Media\Nova\Image::class)->nullable()->showCreateRelationButton(),
+            BelongsTo::make('OG Image', 'ogimage', \DrewRoberts\Media\Nova\Image::class)->nullable()->showCreateRelationButton(),
+            BelongsTo::make('Video', 'image', \DrewRoberts\Media\Nova\Video::class)->nullable(),
         ];
     }
 

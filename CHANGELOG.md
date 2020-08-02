@@ -12,3 +12,7 @@ All notable changes to `blog` will be documented in this file
 - breaking changes with migration updates
 - add migration for series
 - add models
+
+## 2.0.1 - 2020-08-01
+
+- add nova resources

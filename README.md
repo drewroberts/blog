@@ -15,13 +15,6 @@ You can install the package via composer:
 composer require drewroberts/blog
 ```
 
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --provider="DrewRoberts\Blog\BlogServiceProvider" --tag="migrations"
-php artisan migrate
-```
-
 You can publish the config file with:
 ```bash
 php artisan vendor:publish --provider="DrewRoberts\Blog\BlogServiceProvider" --tag="config"
@@ -32,6 +25,20 @@ This is the contents of the published config file:
 ```php
 return [
 ];
+```
+
+The migrations will run from the package. You can extend the Models from the package if you need additional classes or functions added to them. 
+
+#### Registering the Nova resources
+
+If you would like to use the Nova resources included with this package, you need to register it manually in your `NovaServiceProvider` in the `boot` method.
+
+```php
+Nova::resources([
+    \DrewRoberts\Blog\Nova\Topic::class,
+    \DrewRoberts\Blog\Nova\Series::class,
+    \DrewRoberts\Blog\Nova\Posts::class,
+]);
 ```
 
 ## Usage

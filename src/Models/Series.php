@@ -4,9 +4,11 @@ namespace DrewRoberts\Blog\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Topic extends Model
+class Series extends Model
 {
     protected $guarded = ['id'];
+
+    protected $table = 'series';
 
     protected $dates = [
         'created_at',
@@ -36,24 +38,24 @@ class Topic extends Model
     }
 
     /**
-     * Get a string path for the topic.
+     * Get a string path for the series.
      *
      * @return string
      * @todo use config file for alternate paths
      */
     public function getPathAttribute()
     {
-        return "/{$this->slug}";
+        return "/{$this->topic->slug}/{$this->slug}";
     }
 
-    public function series()
+    public function topic()
     {
-        return $this->hasMany(Series::class);
+        return $this->belongsTo(Topic::class);
     }
 
     public function posts()
     {
-        return $this->hasManyThrough(Post::class, Series::class);
+        return $this->hasMany(Post::class);
     }
 
     public function creator()

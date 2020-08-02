@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Nova;
+namespace DrewRoberts\Blog\Nova;
 
 use Benjaminhirsch\NovaSlugField\Slug;
 use Benjaminhirsch\NovaSlugField\TextWithSlug;
@@ -13,6 +13,7 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
+use Laravel\Nova\Resource;
 
 class Post extends Resource
 {
@@ -42,7 +43,7 @@ class Post extends Resource
         return [
             TextWithSlug::make('Title')->slug('slug'),
             Slug::make('Slug')->disableAutoUpdateWhenUpdating(),
-            BelongsTo::make('Topic'),
+            BelongsTo::make('Series'),
             BelongsTo::make('Author', 'author', 'App\Nova\User'),
             DateTime::make('Published', 'published_at'),
             Markdown::make('Content')->help(

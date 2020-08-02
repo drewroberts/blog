@@ -58,6 +58,21 @@ class Series extends Model
         return $this->hasMany(Post::class);
     }
 
+    public function image()
+    {
+        return $this->belongsTo(Image::class);
+    }
+
+    public function ogimage()
+    {
+        return $this->belongsTo(Image::class, 'ogimage_id');
+    }
+
+    public function video()
+    {
+        return $this->belongsTo(Video::class);
+    }
+
     public function creator()
     {
         return $this->belongsTo(User::class, 'creator_id');

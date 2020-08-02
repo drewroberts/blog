@@ -16,3 +16,7 @@ All notable changes to `blog` will be documented in this file
 ## 2.0.1 - 2020-08-01
 
 - add nova resources
+
+## 2.0.2 - 2020-08-02
+
+- update relationships for nova resources

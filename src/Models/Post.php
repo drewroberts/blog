@@ -59,10 +59,11 @@ class Post extends Model
      * Get a string path for the blog post.
      *
      * @return string
+     * @todo use config file for alternate paths
      */
-    public function getPathAttribute()
+    public function getblogPathAttribute()
     {
-        return "/blog/{$this->slug}";
+        return "/{$this->topic->slug}/{$this->series->slug}/{$this->slug}";
     }
 
     /**
@@ -73,8 +74,8 @@ class Post extends Model
     public function getImagePathAttribute()
     {
         return $this->image === null ?
-        url('img/ogimage.jpg') :
-            'https://res.cloudinary.com/tger/t_cover/'.$this->image->filename.'.jpg';
+            url('img/ogimage.jpg') :
+            'https://res.cloudinary.com/'.env('CLOUDINARY_CLOUD_NAME').'/t_cover/'.$this->image->filename.'.jpg';
     }
 
     /**
@@ -86,7 +87,7 @@ class Post extends Model
     {
         $this->image === null ?
             url('img/ogimage.jpg') :
-            'https://res.cloudinary.com/tger/t_coverplaceholder/'.$this->image->filename.'.jpg';
+            'https://res.cloudinary.com/'.env('CLOUDINARY_CLOUD_NAME').'/t_coverplaceholder/'.$this->image->filename.'.jpg';
     }
 
     public function author()

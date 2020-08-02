@@ -18,7 +18,7 @@ use Laravel\Nova\Resource;
 
 class Topic extends Resource
 {
-    public static $model = \DrewRoberts\Blog\Topic::class;
+    public static $model = \DrewRoberts\Blog\Models\Topic::class;
 
     public static $title = 'title';
 
@@ -64,9 +64,9 @@ class Topic extends Resource
             )->stacked(),
             Textarea::make('Description'),
             Textarea::make('Open Graph Description', 'ogdescription')->nullable(),
-            BelongsTo::make('Image')->nullable()->showCreateRelationButton(),
-            BelongsTo::make('OG Image', 'ogimage', \DrewRoberts\Media\Image::class)->nullable()->showCreateRelationButton(),
-            BelongsTo::make('Video')->nullable(),
+            BelongsTo::make('Image', 'image', \DrewRoberts\Media\Nova\Image::class)->nullable()->showCreateRelationButton(),
+            BelongsTo::make('OG Image', 'ogimage', \DrewRoberts\Media\Nova\Image::class)->nullable()->showCreateRelationButton(),
+            BelongsTo::make('Video', 'image', \DrewRoberts\Media\Nova\Video::class)->nullable(),
         ];
     }
 

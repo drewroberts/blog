@@ -16,9 +16,9 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
 use Laravel\Nova\Resource;
 
-class Topic extends Resource
+class Series extends Resource
 {
-    public static $model = \DrewRoberts\Blog\Topic::class;
+    public static $model = \DrewRoberts\Blog\Series::class;
 
     public static $title = 'title';
 
@@ -35,7 +35,7 @@ class Topic extends Resource
             ID::make()->sortable(),
             Text::make('Slug')->sortable(),
             Text::make('Title')->sortable(),
-            // @todo add count for Series
+            BelongsTo::make('Topic'),
             // @todo add count for Posts
         ];
     }
@@ -45,11 +45,11 @@ class Topic extends Resource
         return [
             TextWithSlug::make('Title')->slug('slug'),
             Slug::make('Slug')->disableAutoUpdateWhenUpdating(),
+            BelongsTo::make('Topic'),
             Textarea::make('Note')->nullable(),
 
             new Panel('Content Fields', $this->contentFields()),
 
-            HasMany::make('Series'),
             HasMany::make('Posts'),
             
             new Panel('Data Fields', $this->dataFields()),

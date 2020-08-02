@@ -34,6 +34,7 @@ class Post extends Resource
             ID::make()->sortable(),
             Text::make('Slug')->sortable(),
             Text::make('Title')->sortable(),
+            BelongsTo::make('Series'),
             BelongsTo::make('Author', 'author', 'App\Nova\User')->sortable(),
             DateTime::make('Published', 'published_at')->format('YYYY-MM-DD')->sortable(),
         ];

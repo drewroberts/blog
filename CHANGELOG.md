@@ -20,3 +20,7 @@ All notable changes to `blog` will be documented in this file
 ## 2.0.2 - 2020-08-02
 
 - update relationships for nova resources
+
+## 2.0.3 - 2020-09-15
+
+- update topics

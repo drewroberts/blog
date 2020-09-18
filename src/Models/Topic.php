@@ -29,6 +29,9 @@ class Topic extends Model
         });
 
         static::saving(function ($topic) {
+            if (empty($topic->pageviews)) {
+                $topic->pageviews = 0;
+            }
             if (auth()->check()) {
                 $topic->updater_id = auth()->id();
             }

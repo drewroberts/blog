@@ -16,7 +16,7 @@ class CreateTopicsTable extends Migration
             $table->text('content')->nullable(); // Will be written in Markdown.
             $table->string('description')->nullable(); // Primary description used for SEO.
             $table->string('ogdescription')->nullable(); // Open Graph Description used for social shares. Will default to description if NULL.
-            $table->unsignedInteger('pageviews')->nullable(); // Total current pageviews for topic page. Will be synced from Google Analytics API.
+            $table->unsignedInteger('pageviews')->index(); // Total current pageviews for topic page. Will be synced from Google Analytics API.
 
             $table->foreignId('image_id')->nullable()->references('id')->on('images'); // Cover image for topic
             $table->foreignId('ogimage_id')->nullable()->references('id')->on('images'); // External open graph image id. Featured image for social sharing. Will default to image_id unless this is used. Allows override for play button or words on image.

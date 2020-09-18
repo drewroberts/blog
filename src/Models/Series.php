@@ -24,15 +24,18 @@ class Series extends Model
     {
         parent::boot();
 
-        static::creating(function ($topic) {
+        static::creating(function ($series) {
             if (auth()->check()) {
-                $topic->creator_id = auth()->id();
+                $series->creator_id = auth()->id();
             }
         });
 
-        static::saving(function ($topic) {
+        static::saving(function ($series) {
+            if (empty($series->pageviews)) {
+                $series->pageviews = 0;
+            }
             if (auth()->check()) {
-                $topic->updater_id = auth()->id();
+                $series->updater_id = auth()->id();
             }
         });
     }

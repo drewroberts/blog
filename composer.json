@@ -18,7 +18,7 @@
     ],
     "require": {
         "php": "^7.3",
-        "benjaminhirsch/nova-slug-field": "^1.2",
+        "laravel/nova": "^3.10.0",
         "drewroberts/media": "^1.0"
     },
     "require-dev": {

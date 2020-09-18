@@ -2,13 +2,12 @@
 
 namespace DrewRoberts\Blog\Nova;
 
-use Benjaminhirsch\NovaSlugField\Slug;
-use Benjaminhirsch\NovaSlugField\TextWithSlug;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Markdown;
+use Laravel\Nova\Fields\Slug;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -43,8 +42,8 @@ class Post extends Resource
     public function fields(Request $request)
     {
         return [
-            TextWithSlug::make('Title')->slug('slug'),
-            Slug::make('Slug')->disableAutoUpdateWhenUpdating(),
+            Text::make('Title')->required(),
+            Slug::make('Slug')->from('Title'),
             DateTime::make('Published', 'published_at'),
             BelongsTo::make('Series'),
             BelongsTo::make('Author', 'author', 'App\Nova\User')->nullable(),
@@ -72,9 +71,9 @@ class Post extends Resource
     {
         return [
             ID::make(),
-            DateTime::make('Created At')->hideWhenCreating()->hideWhenUpdating(),
-            BelongsTo::make('Updated By', 'updater', 'App\Nova\User')->hideWhenCreating()->hideWhenUpdating(),
-            DateTime::make('Updated At')->hideWhenCreating()->hideWhenUpdating(),
+            DateTime::make('Created At')->exceptOnForms(),
+            BelongsTo::make('Updated By', 'updater', 'App\Nova\User')->exceptOnForms(),
+            DateTime::make('Updated At')->exceptOnForms(),
         ];
     }
 

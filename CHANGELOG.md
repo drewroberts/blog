@@ -24,3 +24,8 @@ All notable changes to `blog` will be documented in this file
 ## 2.0.3 - 2020-09-15
 
 - update topics
+
+## 2.0.4 - 2020-09-18
+
+- use new slug field in Nova
+- set default pageviews value

@@ -38,6 +38,12 @@
             "DrewRoberts\\Blog\\Tests\\": "tests"
         }
     },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://nova.laravel.com"
+        }
+    ],
     "scripts": {
         "psalm": "vendor/bin/psalm",
         "test": "vendor/bin/phpunit",

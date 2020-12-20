@@ -34,7 +34,7 @@ class Post extends Resource
             Text::make('Slug')->sortable(),
             Text::make('Title')->sortable(),
             BelongsTo::make('Series'),
-            BelongsTo::make('Author', 'author', '\App\Nova\User')->sortable(),
+            BelongsTo::make('Author', 'author', \App\Nova\User::class)->sortable(),
             DateTime::make('Published', 'published_at')->format('YYYY-MM-DD')->sortable(),
         ];
     }
@@ -46,7 +46,7 @@ class Post extends Resource
             Slug::make('Slug')->from('Title'),
             DateTime::make('Published', 'published_at'),
             BelongsTo::make('Series'),
-            BelongsTo::make('Author', 'author', '\App\Nova\User')->nullable(),
+            BelongsTo::make('Author', 'author', \App\Nova\User::class)->nullable(),
             Markdown::make('Content')->help(
                 '<a href="#">External Link</a>'
             )->stacked(),
@@ -72,7 +72,7 @@ class Post extends Resource
         return [
             ID::make(),
             DateTime::make('Created At')->exceptOnForms(),
-            BelongsTo::make('Updated By', 'updater', '\App\Nova\User')->exceptOnForms(),
+            BelongsTo::make('Updated By', 'updater', \App\Nova\User::class)->exceptOnForms(),
             DateTime::make('Updated At')->exceptOnForms(),
         ];
     }

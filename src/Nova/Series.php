@@ -73,9 +73,9 @@ class Series extends Resource
     {
         return [
             ID::make(),
-            BelongsTo::make('Created By', 'updater', '\App\Nova\User')->exceptOnForms(),
+            BelongsTo::make('Created By', 'updater', \App\Nova\User::class)->exceptOnForms(),
             DateTime::make('Created At')->exceptOnForms(),
-            BelongsTo::make('Updated By', 'updater', '\App\Nova\User')->exceptOnForms(),
+            BelongsTo::make('Updated By', 'updater', \App\Nova\User::class)->exceptOnForms(),
             DateTime::make('Updated At')->exceptOnForms(),
         ];
     }

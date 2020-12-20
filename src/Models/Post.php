@@ -75,7 +75,7 @@ class Post extends Model
     {
         return $this->image === null ?
             url('img/ogimage.jpg') :
-            'https://res.cloudinary.com/'.env('CLOUDINARY_CLOUD_NAME').'/t_cover/'.$this->image->filename.'.jpg';
+            'https://res.cloudinary.com/' . env('CLOUDINARY_CLOUD_NAME') . '/t_cover/' . $this->image->filename . '.jpg';
     }
 
     /**
@@ -87,7 +87,7 @@ class Post extends Model
     {
         $this->image === null ?
             url('img/ogimage.jpg') :
-            'https://res.cloudinary.com/'.env('CLOUDINARY_CLOUD_NAME').'/t_coverplaceholder/'.$this->image->filename.'.jpg';
+            'https://res.cloudinary.com/' . env('CLOUDINARY_CLOUD_NAME') . '/t_coverplaceholder/' . $this->image->filename . '.jpg';
     }
 
     public function author()
@@ -129,7 +129,7 @@ class Post extends Model
 
     public function updater()
     {
-        return $this->belongsTo(User::class, 'updater_id');
+        return $this->belongsTo(\Illuminate\Foundation\Auth\User::class, 'updater_id');
     }
 
     public function isPublished()

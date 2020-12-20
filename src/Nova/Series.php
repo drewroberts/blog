@@ -50,7 +50,7 @@ class Series extends Resource
             new Panel('Content Fields', $this->contentFields()),
 
             HasMany::make('Posts'),
-            
+
             new Panel('Data Fields', $this->dataFields()),
         ];
     }
@@ -73,9 +73,9 @@ class Series extends Resource
     {
         return [
             ID::make(),
-            BelongsTo::make('Created By', 'updater', 'App\Nova\User')->exceptOnForms(),
+            BelongsTo::make('Created By', 'updater', '\App\Nova\User')->exceptOnForms(),
             DateTime::make('Created At')->exceptOnForms(),
-            BelongsTo::make('Updated By', 'updater', 'App\Nova\User')->exceptOnForms(),
+            BelongsTo::make('Updated By', 'updater', '\App\Nova\User')->exceptOnForms(),
             DateTime::make('Updated At')->exceptOnForms(),
         ];
     }

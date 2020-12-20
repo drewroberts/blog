@@ -29,3 +29,7 @@ All notable changes to `blog` will be documented in this file
 
 - use new slug field in Nova
 - set default pageviews value
+
+## 2.0.5 - 2020-12-20
+
+- reference nova user resource

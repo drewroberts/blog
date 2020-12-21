@@ -78,11 +78,11 @@ class Series extends Model
 
     public function creator()
     {
-        return $this->belongsTo(\Illuminate\Foundation\Auth\User::class, 'creator_id');
+        return $this->belongsTo(\App\Models\User::class, 'creator_id');
     }
 
     public function updater()
     {
-        return $this->belongsTo(\Illuminate\Foundation\Auth\User::class, 'updater_id');
+        return $this->belongsTo(\App\Models\User::class, 'updater_id');
     }
 }

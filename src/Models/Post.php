@@ -24,16 +24,13 @@ class Post extends Model
     {
         parent::boot();
 
-        static::creating(function ($post) {
+        static::saving(function ($post) {
             if (empty($post->author_id)) { // Can specify a different author for a post than Auth user
                 $post->author_id = auth()->user()->id;
             }
-            if (empty($post->topic_id)) {
-                throw new \Exception('Blog post must be assigned to a topic.');
+            if (empty($post->series_id)) {
+                throw new \Exception('Blog post must be assigned to a series.');
             }
-        });
-
-        static::saving(function ($post) {
             if (auth()->check()) {
                 $post->updater_id = auth()->id();
             }
@@ -92,7 +89,7 @@ class Post extends Model
 
     public function author()
     {
-        return $this->belongsTo(\Illuminate\Foundation\Auth\User::class, 'author_id');
+        return $this->belongsTo(\App\Models\User::class, 'author_id');
     }
 
     public function series()
@@ -129,7 +126,7 @@ class Post extends Model
 
     public function updater()
     {
-        return $this->belongsTo(\Illuminate\Foundation\Auth\User::class, 'updater_id');
+        return $this->belongsTo(\App\Models\User::class, 'updater_id');
     }
 
     public function isPublished()

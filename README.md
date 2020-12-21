@@ -16,7 +16,7 @@ composer require drewroberts/blog
 ```
 
 You can publish the config file with:
-```bash
+``` bash
 php artisan vendor:publish --provider="DrewRoberts\Blog\BlogServiceProvider" --tag="config"
 ```
 
@@ -29,7 +29,7 @@ return [
 
 The migrations will run from the package. You can extend the Models from the package if you need additional classes or functions added to them. 
 
-#### Registering the Nova resources
+### Registering the Nova resources
 
 If you would like to use the Nova resources included with this package, you need to register it manually in your `NovaServiceProvider` in the `boot` method.
 

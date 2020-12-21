@@ -59,13 +59,13 @@ class Topic extends Resource
     {
         return [
             Markdown::make('Content')->help(
-                '<a href="#">External Link</a>'
+                '<a href="https://www.markdownguide.org">MarkdownGuide.org</a>'
             )->stacked(),
             Textarea::make('Description'),
             Textarea::make('Open Graph Description', 'ogdescription')->nullable(),
             BelongsTo::make('Image', 'image', \DrewRoberts\Media\Nova\Image::class)->nullable()->showCreateRelationButton(),
             BelongsTo::make('OG Image', 'ogimage', \DrewRoberts\Media\Nova\Image::class)->nullable()->showCreateRelationButton(),
-            BelongsTo::make('Video', 'image', \DrewRoberts\Media\Nova\Video::class)->nullable(),
+            BelongsTo::make('Video', 'image', \DrewRoberts\Media\Nova\Video::class)->nullable()->showCreateRelationButton(),
         ];
     }
 

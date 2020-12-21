@@ -45,3 +45,7 @@ All notable changes to `blog` will be documented in this file
 ## 2.0.8 - 2020-12-20
 
 - reference nova user class
+
+## 2.0.9 - 2020-12-21
+
+- update user class

@@ -53,3 +53,7 @@ All notable changes to `blog` will be documented in this file
 ## 2.1.0 - 2020-12-21
 
 - update nova resources
+
+## 3.0.0 - 2020-12-22
+
+- add creator to posts

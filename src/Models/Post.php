@@ -124,6 +124,11 @@ class Post extends Model
         return $this->belongsTo(\DrewRoberts\Media\Models\Video::class);
     }
 
+    public function creator()
+    {
+        return $this->belongsTo(\App\Models\User::class, 'creator_id');
+    }
+
     public function updater()
     {
         return $this->belongsTo(\App\Models\User::class, 'updater_id');

@@ -16,7 +16,8 @@ composer require drewroberts/blog
 ```
 
 You can publish the config file with:
-``` bash
+
+```bash
 php artisan vendor:publish --provider="DrewRoberts\Blog\BlogServiceProvider" --tag="config"
 ```
 

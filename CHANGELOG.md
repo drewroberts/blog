@@ -57,3 +57,7 @@ All notable changes to `blog` will be documented in this file
 ## 3.0.0 - 2020-12-22
 
 - add creator to posts
+
+## 3.0.1 - 2020-12-22
+
+- add pages

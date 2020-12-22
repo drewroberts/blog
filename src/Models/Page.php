@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Post extends Model
+class Page extends Model
 {
     use SoftDeletes;
 
@@ -21,27 +21,24 @@ class Post extends Model
     {
         parent::boot();
 
-        static::creating(function ($post) {
+        static::creating(function ($page) {
             if (auth()->check()) {
-                $post->creator_id = auth()->id();
+                $page->creator_id = auth()->id();
             }
         });
 
-        static::saving(function ($post) {
-            if (empty($post->author_id)) { // Can specify a different author for a post than Auth user
-                $post->author_id = auth()->user()->id;
-            }
-            if (empty($post->series_id)) {
-                throw new \Exception('Blog post must be assigned to a series.');
+        static::saving(function ($page) {
+            if (empty($page->author_id)) { // Can specify a different author for a page than Auth user
+                $page->author_id = auth()->user()->id;
             }
             if (auth()->check()) {
-                $post->updater_id = auth()->id();
+                $page->updater_id = auth()->id();
             }
-            if (empty($post->pageviews)) {
-                $post->pageviews = 0;
+            if (empty($page->pageviews)) {
+                $page->pageviews = 0;
             }
-            if (empty($post->published_at)) {
-                $post->published_at = Carbon::now();
+            if (empty($page->published_at)) {
+                $page->published_at = Carbon::now();
             }
         });
 
@@ -56,18 +53,7 @@ class Post extends Model
     }
 
     /**
-     * Get a string path for the blog post.
-     *
-     * @return string
-     * @todo use config file for alternate paths
-     */
-    public function getblogPathAttribute()
-    {
-        return "/{$this->topic->slug}/{$this->series->slug}/{$this->slug}";
-    }
-
-    /**
-     * Get a string path for the blog post image.
+     * Get a string path for the page image.
      *
      * @return string
      */
@@ -79,7 +65,7 @@ class Post extends Model
     }
 
     /**
-     * Get a string path for the blog post image's placeholder.
+     * Get a string path for the page image's placeholder.
      *
      * @return string
      */
@@ -95,21 +81,9 @@ class Post extends Model
         return $this->belongsTo(\App\Models\User::class, 'author_id');
     }
 
-    public function series()
+    public function parent()
     {
-        return $this->belongsTo(Series::class);
-    }
-
-    public function topic()
-    {
-        return $this->hasOneThrough(
-            Topic::class,
-            Series::class,
-            'id',
-            'id',
-            'series_id',
-            'topic_id'
-        );
+        return $this->belongsTo(Page::class, 'parent_id');
     }
 
     public function image()

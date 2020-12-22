@@ -14,9 +14,9 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
 use Laravel\Nova\Resource;
 
-class Post extends Resource
+class Page extends Resource
 {
-    public static $model = \DrewRoberts\Blog\Models\Post::class;
+    public static $model = \DrewRoberts\Blog\Models\Page::class;
 
     public static $title = 'title';
 
@@ -25,7 +25,7 @@ class Post extends Resource
         'title',
     ];
 
-    public static $group = 'Website Blog';
+    public static $group = 'Website Content';
 
     public function fieldsForIndex(NovaRequest $request)
     {
@@ -33,7 +33,7 @@ class Post extends Resource
             ID::make()->sortable(),
             Text::make('Slug')->sortable(),
             Text::make('Title')->sortable(),
-            BelongsTo::make('Series'),
+            BelongsTo::make('Parent', 'parent', \DrewRoberts\Blog\Nova\Page::class)->sortable(),
             BelongsTo::make('Author', 'author', \App\Nova\User::class)->sortable(),
             DateTime::make('Published', 'published_at')->format('YYYY-MM-DD')->sortable(),
         ];
@@ -45,7 +45,7 @@ class Post extends Resource
             Text::make('Title')->required(),
             Slug::make('Slug')->from('Title'),
             DateTime::make('Published', 'published_at'),
-            BelongsTo::make('Series'),
+            BelongsTo::make('Parent', 'parent', \DrewRoberts\Blog\Nova\Page::class)->nullable(),
             Markdown::make('Content')->help(
                 '<a href="https://www.markdownguide.org">MarkdownGuide.org</a>'
             )->stacked(),

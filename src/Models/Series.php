@@ -10,11 +10,6 @@ class Series extends Model
 
     protected $table = 'series';
 
-    protected $dates = [
-        'created_at',
-        'updated_at',
-    ];
-
     public function getRouteKeyName()
     {
         return 'slug';

@@ -65,3 +65,7 @@ All notable changes to `blog` will be documented in this file
 ## 3.0.2 - 2021-01-13
 
 - add model factories
+
+## 3.0.3 - 2021-01-13
+
+- update helper function

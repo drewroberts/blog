@@ -1,6 +1,6 @@
 <?php
 
-function randomOrCreate($className)
+function randomOrCreateRelation($className)
 {
     if ($className::count() > 0) {
         return $className::all()->random();

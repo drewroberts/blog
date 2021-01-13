@@ -141,4 +141,9 @@ class Post extends Model
     {
         return $this->published_at->isPast();
     }
+
+    protected static function newFactory()
+    {
+        return new \DrewRoberts\Blog\Database\Factories\PostFactory;
+    }
 }

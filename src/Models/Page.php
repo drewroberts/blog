@@ -115,4 +115,9 @@ class Page extends Model
     {
         return $this->published_at->isPast();
     }
+
+    protected static function newFactory()
+    {
+        return new \DrewRoberts\Blog\Database\Factories\PageFactory;
+    }
 }

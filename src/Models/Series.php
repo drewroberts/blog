@@ -80,4 +80,9 @@ class Series extends Model
     {
         return $this->belongsTo(\App\Models\User::class, 'updater_id');
     }
+
+    protected static function newFactory()
+    {
+        return new \DrewRoberts\Blog\Database\Factories\SeriesFactory;
+    }
 }

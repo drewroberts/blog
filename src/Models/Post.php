@@ -3,6 +3,7 @@
 namespace DrewRoberts\Blog\Models;
 
 use Carbon\Carbon;
+use DrewRoberts\Blog\Traits\HasPackageFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Post extends Model
 {
     use SoftDeletes;
+    use HasPackageFactory;
 
     protected $guarded = ['id'];
 
@@ -140,10 +142,5 @@ class Post extends Model
     public function isPublished()
     {
         return $this->published_at->isPast();
-    }
-
-    protected static function newFactory()
-    {
-        return \Database\Factories\DrewRoberts\Blog\PostFactory::new();
     }
 }

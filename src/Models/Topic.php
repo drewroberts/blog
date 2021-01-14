@@ -2,10 +2,13 @@
 
 namespace DrewRoberts\Blog\Models;
 
+use DrewRoberts\Blog\Traits\HasPackageFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Topic extends Model
 {
+    use HasPackageFactory;
+
     protected $guarded = ['id'];
 
     public function getRouteKeyName()
@@ -77,10 +80,5 @@ class Topic extends Model
     public function updater()
     {
         return $this->belongsTo(\App\Models\User::class, 'updater_id');
-    }
-
-    protected static function newFactory()
-    {
-        return \Database\Factories\DrewRoberts\Blog\TopicFactory::new();
     }
 }

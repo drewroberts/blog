@@ -31,7 +31,7 @@
     "autoload": {
         "psr-4": {
             "DrewRoberts\\Blog\\": "src",
-            "Database\\Factories\\": "database/factories/"
+            "DrewRoberts\\Blog\\Database\\Factories\\": "database/factories/"
         },
         "files": [
             "src/Helpers/Test.php"

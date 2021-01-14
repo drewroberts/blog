@@ -3,9 +3,12 @@
 namespace DrewRoberts\Blog\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use DrewRoberts\Blog\Traits\HasPackageFactory;
 
 class Series extends Model
 {
+    use HasPackageFactory;
+
     protected $guarded = ['id'];
 
     protected $table = 'series';
@@ -79,10 +82,5 @@ class Series extends Model
     public function updater()
     {
         return $this->belongsTo(\App\Models\User::class, 'updater_id');
-    }
-
-    protected static function newFactory()
-    {
-        return \Database\Factories\DrewRoberts\Blog\SeriesFactory::new();
     }
 }

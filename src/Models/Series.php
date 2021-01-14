@@ -2,8 +2,8 @@
 
 namespace DrewRoberts\Blog\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use DrewRoberts\Blog\Traits\HasPackageFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Series extends Model
 {

@@ -73,3 +73,7 @@ All notable changes to `blog` will be documented in this file
 ## 3.0.4 - 2021-01-14
 
 - update factory namespaces
+
+## 3.0.5 - 2021-01-14
+
+- add model factory trait

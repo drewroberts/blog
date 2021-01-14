@@ -69,3 +69,7 @@ All notable changes to `blog` will be documented in this file
 ## 3.0.3 - 2021-01-13
 
 - update helper function
+
+## 3.0.4 - 2021-01-14
+
+- update factory namespaces

@@ -118,6 +118,6 @@ class Page extends Model
 
     protected static function newFactory()
     {
-        return new \DrewRoberts\Blog\Database\Factories\PageFactory;
+        return \Database\Factories\DrewRoberts\Blog\PageFactory::new();
     }
 }

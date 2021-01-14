@@ -81,6 +81,6 @@ class Topic extends Model
 
     protected static function newFactory()
     {
-        return new \DrewRoberts\Blog\Database\Factories\TopicFactory;
+        return \Database\Factories\DrewRoberts\Blog\TopicFactory::new();
     }
 }

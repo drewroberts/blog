@@ -83,6 +83,6 @@ class Series extends Model
 
     protected static function newFactory()
     {
-        return new \DrewRoberts\Blog\Database\Factories\SeriesFactory;
+        return \Database\Factories\DrewRoberts\Blog\SeriesFactory::new();
     }
 }

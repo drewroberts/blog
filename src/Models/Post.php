@@ -144,6 +144,6 @@ class Post extends Model
 
     protected static function newFactory()
     {
-        return new \DrewRoberts\Blog\Database\Factories\PostFactory;
+        return \Database\Factories\DrewRoberts\Blog\PostFactory::new();
     }
 }

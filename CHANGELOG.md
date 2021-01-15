@@ -77,3 +77,7 @@ All notable changes to `blog` will be documented in this file
 ## 3.0.5 - 2021-01-14
 
 - add model factory trait
+
+## 4.0.0 - 2021-01-15
+
+- update posts with nullable topics & series

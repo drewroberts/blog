@@ -45,13 +45,21 @@ class Post extends Resource
             Text::make('Title')->required(),
             Slug::make('Slug')->from('Title'),
             DateTime::make('Published', 'published_at'),
-            BelongsTo::make('Series'),
             Markdown::make('Content')->help(
                 '<a href="https://www.markdownguide.org">MarkdownGuide.org</a>'
             )->stacked(),
 
+            new Panel('Sorting Fields', $this->sortFields()),
             new Panel('Info Fields', $this->infoFields()),
             new Panel('Data Fields', $this->dataFields()),
+        ];
+    }
+
+    protected function sortFields()
+    {
+        return [
+            BelongsTo::make('Topic')->exceptOnForms(),
+            BelongsTo::make('Series')->nullable(),
         ];
     }
 

@@ -19,7 +19,7 @@
     "require": {
         "php": "^7.3",
         "laravel/nova": "^3.17",
-        "drewroberts/media": "^2.0.1"
+        "drewroberts/media": "^3.0.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16",

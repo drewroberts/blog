@@ -33,8 +33,8 @@ class Post extends Model
             if (empty($post->author_id)) { // Can specify a different author for a post than Auth user
                 $post->author_id = auth()->user()->id;
             }
-            if (empty($post->series_id)) {
-                throw new \Exception('Blog post must be assigned to a series.');
+            if (!empty($post->series_id)) {
+                $post->topic_id = $post->series->topic_id;
             }
             if (auth()->check()) {
                 $post->updater_id = auth()->id();
@@ -65,6 +65,7 @@ class Post extends Model
      */
     public function getblogPathAttribute()
     {
+        // @todo - Set blog path based on config options
         return "/{$this->topic->slug}/{$this->series->slug}/{$this->slug}";
     }
 
@@ -97,21 +98,14 @@ class Post extends Model
         return $this->belongsTo(\App\Models\User::class, 'author_id');
     }
 
+    public function topic()
+    {
+        return $this->belongsTo(Topic::class);
+    }
+
     public function series()
     {
         return $this->belongsTo(Series::class);
-    }
-
-    public function topic()
-    {
-        return $this->hasOneThrough(
-            Topic::class,
-            Series::class,
-            'id',
-            'id',
-            'series_id',
-            'topic_id'
-        );
     }
 
     public function image()

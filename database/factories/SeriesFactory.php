@@ -22,9 +22,9 @@ class SeriesFactory extends Factory
             'note'              => $this->faker->sentences(1, true),
             'description'       => $this->faker->sentences(1, true),
             'pageviews'         => $this->faker->numberBetween(0, 5000),
-            'topic_id'          => randomOrCreateRelation(Topic::class),
-            'creator_id'        => randomOrCreateRelation(User::class),
-            'updater_id'        => randomOrCreateRelation(User::class),
+            'topic_id'          => randomOrCreate(Topic::class),
+            'creator_id'        => randomOrCreate(User::class),
+            'updater_id'        => randomOrCreate(User::class),
         ];
     }
 }

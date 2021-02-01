@@ -2,8 +2,8 @@
 
 namespace DrewRoberts\Blog\Models;
 
-use DrewRoberts\Blog\Traits\HasPackageFactory;
 use Illuminate\Database\Eloquent\Model;
+use Tipoff\Support\Traits\HasPackageFactory;
 
 class Topic extends Model
 {

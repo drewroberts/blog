@@ -24,12 +24,12 @@ class PageFactory extends Factory
             'content'          => $this->faker->sentences(3, true),
             'description'      => $this->faker->sentences(1, true),
             'pageviews'        => $this->faker->numberBetween(1, 400),
-            'image_id'         => randomOrCreateRelation(Image::class),
-            'ogimage_id'       => randomOrCreateRelation(Image::class),
-            'video_id'         => randomOrCreateRelation(Video::class),
-            'author_id'        => randomOrCreateRelation(User::class),
-            'creator_id'       => randomOrCreateRelation(User::class),
-            'updater_id'       => randomOrCreateRelation(User::class),
+            'image_id'         => randomOrCreate(Image::class),
+            'ogimage_id'       => randomOrCreate(Image::class),
+            'video_id'         => randomOrCreate(Video::class),
+            'author_id'        => randomOrCreate(User::class),
+            'creator_id'       => randomOrCreate(User::class),
+            'updater_id'       => randomOrCreate(User::class),
             'published_at'     => $this->faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null),
         ];
     }

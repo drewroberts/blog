@@ -33,7 +33,7 @@ class Post extends Model
             if (empty($post->author_id)) { // Can specify a different author for a post than Auth user
                 $post->author_id = auth()->user()->id;
             }
-            if (!empty($post->series_id)) {
+            if (! empty($post->series_id)) {
                 $post->topic_id = $post->series->topic_id;
             }
             if (auth()->check()) {

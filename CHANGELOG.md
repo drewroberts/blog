@@ -81,3 +81,7 @@ All notable changes to `blog` will be documented in this file
 ## 4.0.0 - 2021-01-15
 
 - update posts with nullable topics & series
+
+## 4.0.1 - 2021-01-31
+
+- require tipoff support package

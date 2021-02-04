@@ -17,8 +17,6 @@
         }
     ],
     "require": {
-        "php": "^7.3|^8.0",
-        "laravel/nova": "^3.17",
         "drewroberts/media": "^3.0.2",
         "tipoff/support": "^1.0.1"
     },

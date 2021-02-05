@@ -48,7 +48,7 @@ class BlogServiceProvider extends ServiceProvider
                 '2017_05_20_100000_create_topics_table',
                 '2017_05_20_110000_create_series_table',
                 '2017_05_20_120000_create_posts_table',
-                '2017_05_20_130000_create_pages_table'
+                '2017_05_20_130000_create_pages_table',
             ])
             ->hasCommand(BlogCommand::class);
     }

@@ -1,7 +1,7 @@
 # Laravel package for opinionated blog implementation
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/drewroberts/blog.svg?style=flat-square)](https://packagist.org/packages/drewroberts/blog)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/drewroberts/blog/run-tests?label=tests)](https://github.com/drewroberts/blog/actions?query=workflow%3Arun-tests+branch%3Amaster)
+![Tests](https://github.com/drewroberts/blog/workflows/Tests/badge.svg)
 [![Total Downloads](https://img.shields.io/packagist/dt/drewroberts/blog.svg?style=flat-square)](https://packagist.org/packages/drewroberts/blog)
 
 

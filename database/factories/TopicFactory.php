@@ -22,7 +22,7 @@ class TopicFactory extends Factory
             'note'              => $this->faker->sentences(1, true),
             'pageviews'         => $this->faker->numberBetween(1, 400),
             'creator_id'        => randomOrCreate(app('user')),
-            'updater_id'        => randomOrCreate(app('user')),
+            'updater_id'        => randomOrCreate(app('user'))
         ];
     }
 }

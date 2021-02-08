@@ -4,11 +4,11 @@ namespace DrewRoberts\Blog\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Tipoff\Support\Models\BaseModel;
 use Tipoff\Support\Traits\HasPackageFactory;
 
-class Page extends Model
+class Page extends BaseModel
 {
     use SoftDeletes;
     use HasPackageFactory;
@@ -100,7 +100,7 @@ class Page extends Model
 
     public function video()
     {
-        return $this->belongsTo(app('video')::class);
+        return $this->belongsTo(app('video'));
     }
 
     public function creator()

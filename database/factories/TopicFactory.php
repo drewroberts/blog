@@ -1,4 +1,4 @@
-app('user')<?php
+<?php
 
 namespace DrewRoberts\Blog\Database\Factories;
 

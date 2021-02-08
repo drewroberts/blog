@@ -21,8 +21,8 @@ class TopicFactory extends Factory
             'description'       => $this->faker->sentences(1, true),
             'note'              => $this->faker->sentences(1, true),
             'pageviews'         => $this->faker->numberBetween(1, 400),
-            'creator_id'        => randomOrCreate(User::class),
-            'updater_id'        => randomOrCreate(User::class),
+            'creator_id'        => randomOrCreate(app('user')),
+            'updater_id'        => randomOrCreate(app('user'))
         ];
     }
 }

@@ -25,14 +25,14 @@ class PostFactory extends Factory
             'content'          => $this->faker->sentences(3, true),
             'description'      => $this->faker->sentences(1, true),
             'pageviews'        => $this->faker->numberBetween(1, 400),
-            'series_id'        => randomOrCreate(Series::class),
-            'image_id'         => randomOrCreate(Image::class),
-            'ogimage_id'       => randomOrCreate(Image::class),
-            'video_id'         => randomOrCreate(Video::class),
-            'author_id'        => randomOrCreate(User::class),
-            'creator_id'       => randomOrCreate(User::class),
-            'updater_id'       => randomOrCreate(User::class),
-            'published_at'     => $this->faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null),
+            'series_id'        => randomOrCreate(app('series')),
+            'image_id'         => randomOrCreate(app('image')),
+            'ogimage_id'       => randomOrCreate(app('image')),
+            'video_id'         => randomOrCreate(app('video')),
+            'author_id'        => randomOrCreate(app('user')),
+            'creator_id'       => randomOrCreate(app('user')),
+            'updater_id'       => randomOrCreate(app('user')),
+            'published_at'     => $this->faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null)
         ];
     }
 }

@@ -30,7 +30,7 @@ class PageFactory extends Factory
             'author_id'        => randomOrCreate(app('user')),
             'creator_id'       => randomOrCreate(app('user')),
             'updater_id'       => randomOrCreate(app('user')),
-            'published_at'     => $this->faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null),
+            'published_at'     => $this->faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null)
         ];
     }
 }

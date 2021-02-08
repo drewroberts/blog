@@ -2,10 +2,10 @@
 
 namespace DrewRoberts\Blog\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Tipoff\Support\Models\BaseModel;
 use Tipoff\Support\Traits\HasPackageFactory;
 
-class Series extends Model
+class Series extends BaseModel
 {
     use HasPackageFactory;
 

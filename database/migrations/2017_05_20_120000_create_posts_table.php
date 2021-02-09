@@ -18,7 +18,8 @@ class CreatePostsTable extends Migration
             $table->unsignedInteger('pageviews')->index(); // Total current pageviews for post. Will be synced from Google Analytics API.
 
             $table->foreignIdFor(app('topic'))->nullable(); // Group blog posts into topics
-            $table->foreignIdFor(app('image'))->nullable(); // Group blog posts into series
+            $table->foreignIdFor(app('series'))->nullable(); // Group blog posts into series
+            $table->foreignIdFor(app('image'))->nullable(); // Cover image for blog post
             $table->foreignIdFor(app('image'), 'ogimage_id')->nullable(); // External open graph image id. Featured image for social sharing. Will default to image_id unless this is used. Allows override for play button or words on image.
             $table->foreignIdFor(app('video'))->nullable(); // If blog post has a featured video.
 

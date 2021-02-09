@@ -1,11 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DrewRoberts\Blog\Database\Factories;
 
-use App\Models\User;
 use DrewRoberts\Blog\Models\Page;
-use DrewRoberts\Media\Models\Image;
-use DrewRoberts\Media\Models\Video;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

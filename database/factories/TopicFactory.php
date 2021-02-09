@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DrewRoberts\Blog\Database\Factories;
 
-use App\Models\User;
 use DrewRoberts\Blog\Models\Topic;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;

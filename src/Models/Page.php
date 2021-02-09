@@ -1,17 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DrewRoberts\Blog\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Tipoff\Support\Models\BaseModel;
+use Tipoff\Support\Traits\HasCreator;
 use Tipoff\Support\Traits\HasPackageFactory;
+use Tipoff\Support\Traits\HasUpdater;
 
 class Page extends BaseModel
 {
-    use SoftDeletes;
-    use HasPackageFactory;
+    use SoftDeletes, HasCreator, HasUpdater, HasPackageFactory;
 
     protected $guarded = ['id'];
 
@@ -23,18 +26,9 @@ class Page extends BaseModel
     {
         parent::boot();
 
-        static::creating(function ($page) {
-            if (auth()->check()) {
-                $page->creator_id = auth()->id();
-            }
-        });
-
         static::saving(function ($page) {
             if (empty($page->author_id)) { // Can specify a different author for a page than Auth user
                 $page->author_id = auth()->user()->id;
-            }
-            if (auth()->check()) {
-                $page->updater_id = auth()->id();
             }
             if (empty($page->pageviews)) {
                 $page->pageviews = 0;
@@ -101,16 +95,6 @@ class Page extends BaseModel
     public function video()
     {
         return $this->belongsTo(app('video'));
-    }
-
-    public function creator()
-    {
-        return $this->belongsTo(app('user'), 'creator_id');
-    }
-
-    public function updater()
-    {
-        return $this->belongsTo(app('user'), 'updater_id');
     }
 
     public function isPublished()

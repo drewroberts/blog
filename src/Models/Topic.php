@@ -1,13 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DrewRoberts\Blog\Models;
 
 use Tipoff\Support\Models\BaseModel;
+use Tipoff\Support\Traits\HasCreator;
 use Tipoff\Support\Traits\HasPackageFactory;
+use Tipoff\Support\Traits\HasUpdater;
 
 class Topic extends BaseModel
 {
-    use HasPackageFactory;
+    use HasCreator, HasUpdater, HasPackageFactory;
 
     protected $guarded = ['id'];
 
@@ -20,18 +24,9 @@ class Topic extends BaseModel
     {
         parent::boot();
 
-        static::creating(function ($topic) {
-            if (auth()->check()) {
-                $topic->creator_id = auth()->id();
-            }
-        });
-
         static::saving(function ($topic) {
             if (empty($topic->pageviews)) {
                 $topic->pageviews = 0;
-            }
-            if (auth()->check()) {
-                $topic->updater_id = auth()->id();
             }
         });
     }
@@ -70,15 +65,5 @@ class Topic extends BaseModel
     public function video()
     {
         return $this->belongsTo(app('video'));
-    }
-
-    public function creator()
-    {
-        return $this->belongsTo(app('user'), 'creator_id');
-    }
-
-    public function updater()
-    {
-        return $this->belongsTo(app('user'), 'updater_id');
     }
 }

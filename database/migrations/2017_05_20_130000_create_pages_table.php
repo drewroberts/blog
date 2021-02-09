@@ -17,14 +17,14 @@ class CreatePagesTable extends Migration
             $table->string('ogdescription')->nullable(); // Open Graph Description used for social shares. Will default to description if NULL.
             $table->unsignedInteger('pageviews')->index(); // Total current pageviews for page. Will be synced from Google Analytics API.
 
-            $table->foreignId('parent_id')->nullable()->references('id')->on('pages'); // Parent Page
-            $table->foreignId('image_id')->nullable()->references('id')->on('images'); // Cover image for page
-            $table->foreignId('ogimage_id')->nullable()->references('id')->on('images'); // External open graph image id. Featured image for social sharing. Will default to image_id unless this is used. Allows override for play button or words on image.
-            $table->foreignId('video_id')->nullable()->references('id')->on('videos'); // If page has a featured video.
+            $table->foreignIdFor(app('page'), 'parent_id')->nullable(); // Parent Page
+            $table->foreignIdFor(app('image'))->nullable(); // Cover image for page
+            $table->foreignIdFor(app('image'), 'ogimage_id')->nullable(); // External open graph image id. Featured image for social sharing. Will default to image_id unless this is used. Allows override for play button or words on image.
+            $table->foreignIdFor(app('video'))->nullable(); // If page has a featured video.
 
-            $table->foreignId('author_id')->references('id')->on('users'); // Author of the page
-            $table->foreignId('creator_id')->references('id')->on('users');
-            $table->foreignId('updater_id')->references('id')->on('users');
+            $table->foreignIdFor(app('user'), 'author_id'); // Author of the page
+            $table->foreignIdFor(app('user'), 'creator_id');
+            $table->foreignIdFor(app('user'), 'updater_id');
 
             $table->dateTime('published_at'); // Allows pages to be published at a later date.
             $table->softDeletes();

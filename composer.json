@@ -19,7 +19,7 @@
     "require": {
         "php": "^7.3|^8.0",
         "drewroberts/media": "^3.0.2",
-        "tipoff/support": "^1.1.0",
+        "tipoff/support": "^1.1.1",
         "cakephp/chronos": "^1.2|^2.0"
     },
     "require-dev": {

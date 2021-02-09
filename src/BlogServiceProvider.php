@@ -7,7 +7,7 @@ namespace DrewRoberts\Blog;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class ReviewsServiceProvider extends PackageServiceProvider
+class BlogServiceProvider extends PackageServiceProvider
 {
     public function boot()
     {

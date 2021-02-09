@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Tipoff\Support\Models\BaseModel;
 use Tipoff\Support\Traits\HasCreator;
-use Tipoff\Support\Traits\HasUpdater;
 use Tipoff\Support\Traits\HasPackageFactory;
+use Tipoff\Support\Traits\HasUpdater;
 
 class Post extends BaseModel
 {
@@ -30,7 +30,7 @@ class Post extends BaseModel
             if (empty($post->author_id)) { // Can specify a different author for a post than Auth user
                 $post->author_id = auth()->user()->id;
             }
-            if (!empty($post->series_id)) {
+            if (! empty($post->series_id)) {
                 $post->topic_id = $post->series->topic_id;
             }
             if (empty($post->pageviews)) {

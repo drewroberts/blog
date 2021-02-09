@@ -6,8 +6,8 @@ namespace DrewRoberts\Blog\Models;
 
 use Tipoff\Support\Models\BaseModel;
 use Tipoff\Support\Traits\HasCreator;
-use Tipoff\Support\Traits\HasUpdater;
 use Tipoff\Support\Traits\HasPackageFactory;
+use Tipoff\Support\Traits\HasUpdater;
 
 class Series extends BaseModel
 {

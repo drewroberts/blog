@@ -1,13 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DrewRoberts\Blog\Models;
 
 use Tipoff\Support\Models\BaseModel;
+use Tipoff\Support\Traits\HasCreator;
+use Tipoff\Support\Traits\HasUpdater;
 use Tipoff\Support\Traits\HasPackageFactory;
 
 class Series extends BaseModel
 {
-    use HasPackageFactory;
+    use HasCreator, HasUpdater, HasPackageFactory;
 
     protected $guarded = ['id'];
 
@@ -22,18 +26,9 @@ class Series extends BaseModel
     {
         parent::boot();
 
-        static::creating(function ($series) {
-            if (auth()->check()) {
-                $series->creator_id = auth()->id();
-            }
-        });
-
         static::saving(function ($series) {
             if (empty($series->pageviews)) {
                 $series->pageviews = 0;
-            }
-            if (auth()->check()) {
-                $series->updater_id = auth()->id();
             }
         });
     }
@@ -72,15 +67,5 @@ class Series extends BaseModel
     public function video()
     {
         return $this->belongsTo(app('video'));
-    }
-
-    public function creator()
-    {
-        return $this->belongsTo(app('user'), 'creator_id');
-    }
-
-    public function updater()
-    {
-        return $this->belongsTo(app('user'), 'updater_id');
     }
 }

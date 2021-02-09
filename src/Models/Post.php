@@ -1,17 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DrewRoberts\Blog\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Tipoff\Support\Models\BaseModel;
+use Tipoff\Support\Traits\HasCreator;
+use Tipoff\Support\Traits\HasUpdater;
 use Tipoff\Support\Traits\HasPackageFactory;
 
 class Post extends BaseModel
 {
-    use SoftDeletes;
-    use HasPackageFactory;
+    use SoftDeletes, HasCreator, HasUpdater, HasPackageFactory;
 
     protected $guarded = ['id'];
 
@@ -23,21 +26,12 @@ class Post extends BaseModel
     {
         parent::boot();
 
-        static::creating(function ($post) {
-            if (auth()->check()) {
-                $post->creator_id = auth()->id();
-            }
-        });
-
         static::saving(function ($post) {
             if (empty($post->author_id)) { // Can specify a different author for a post than Auth user
                 $post->author_id = auth()->user()->id;
             }
-            if (! empty($post->series_id)) {
+            if (!empty($post->series_id)) {
                 $post->topic_id = $post->series->topic_id;
-            }
-            if (auth()->check()) {
-                $post->updater_id = auth()->id();
             }
             if (empty($post->pageviews)) {
                 $post->pageviews = 0;
@@ -121,16 +115,6 @@ class Post extends BaseModel
     public function video()
     {
         return $this->belongsTo(app('video'));
-    }
-
-    public function creator()
-    {
-        return $this->belongsTo(app('user'), 'creator_id');
-    }
-
-    public function updater()
-    {
-        return $this->belongsTo(app('user'), 'updater_id');
     }
 
     public function isPublished()

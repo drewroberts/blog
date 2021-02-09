@@ -99,3 +99,7 @@ All notable changes to `blog` will be documented in this file
 ## 4.0.4 - 2021-02-09
 
 - update service provider
+
+## 4.0.5 - 2021-02-09
+
+- fix post migration

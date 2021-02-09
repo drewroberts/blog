@@ -95,3 +95,7 @@ All notable changes to `blog` will be documented in this file
 ## 4.0.3 - 2021-02-09
 
 - load migrations from package
+
+## 4.0.4 - 2021-02-09
+
+- update service provider

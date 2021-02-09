@@ -91,3 +91,7 @@ All notable changes to `blog` will be documented in this file
 - extend tipoff/support base model
 - use creator & updater traits
 - resolve classes based on tipoff/support config
+
+## 4.0.3 - 2021-02-09
+
+- load migrations from package

@@ -4,10 +4,14 @@ namespace DrewRoberts\Blog\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Tipoff\Support\Traits\HasPackageFactory;
+use Tipoff\Support\Traits\HasCreator;
+use Tipoff\Support\Traits\HasUpdater;
 
 class Topic extends Model
 {
-    use HasPackageFactory;
+    use HasPackageFactory;    
+    use HasCreator;
+    use HasUpdater;
 
     protected $guarded = ['id'];
 
@@ -20,18 +24,9 @@ class Topic extends Model
     {
         parent::boot();
 
-        static::creating(function ($topic) {
-            if (auth()->check()) {
-                $topic->creator_id = auth()->id();
-            }
-        });
-
         static::saving(function ($topic) {
             if (empty($topic->pageviews)) {
                 $topic->pageviews = 0;
-            }
-            if (auth()->check()) {
-                $topic->updater_id = auth()->id();
             }
         });
     }
@@ -72,13 +67,4 @@ class Topic extends Model
         return $this->belongsTo(\DrewRoberts\Media\Models\Video::class);
     }
 
-    public function creator()
-    {
-        return $this->belongsTo(\App\Models\User::class, 'creator_id');
-    }
-
-    public function updater()
-    {
-        return $this->belongsTo(\App\Models\User::class, 'updater_id');
-    }
 }

@@ -44,27 +44,27 @@ class Topic extends Model
 
     public function series()
     {
-        return $this->hasMany(Series::class);
+        return $this->hasMany(app('series'));
     }
 
     public function posts()
     {
-        return $this->hasManyThrough(Post::class, Series::class);
+        return $this->hasManyThrough(app('post'), app('series'));
     }
 
     public function image()
     {
-        return $this->belongsTo(\DrewRoberts\Media\Models\Image::class);
+        return $this->belongsTo(app('image'));
     }
 
     public function ogimage()
     {
-        return $this->belongsTo(\DrewRoberts\Media\Models\Image::class, 'ogimage_id');
+        return $this->belongsTo(app('image'), 'ogimage_id');
     }
 
     public function video()
     {
-        return $this->belongsTo(\DrewRoberts\Media\Models\Video::class);
+        return $this->belongsTo(app('video'));
     }
 
 }

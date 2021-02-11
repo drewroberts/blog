@@ -76,27 +76,27 @@ class Page extends Model
 
     public function author()
     {
-        return $this->belongsTo(\App\Models\User::class, 'author_id');
+        return $this->belongsTo(app('user'), 'author_id');
     }
 
     public function parent()
     {
-        return $this->belongsTo(Page::class, 'parent_id');
+        return $this->belongsTo(app('page'), 'parent_id');
     }
 
     public function image()
     {
-        return $this->belongsTo(\DrewRoberts\Media\Models\Image::class);
+        return $this->belongsTo(app('image'));
     }
 
     public function ogimage()
     {
-        return $this->belongsTo(\DrewRoberts\Media\Models\Image::class, 'ogimage_id');
+        return $this->belongsTo(app('image'), 'ogimage_id');
     }
 
     public function video()
     {
-        return $this->belongsTo(\DrewRoberts\Media\Models\Video::class);
+        return $this->belongsTo(app('video'));
     }
 
     public function isPublished()

@@ -46,27 +46,27 @@ class Series extends Model
 
     public function topic()
     {
-        return $this->belongsTo(Topic::class);
+        return $this->belongsTo(app('topic'));
     }
 
     public function posts()
     {
-        return $this->hasMany(Post::class);
+        return $this->hasMany(app('post'));
     }
 
     public function image()
     {
-        return $this->belongsTo(\DrewRoberts\Media\Models\Image::class);
+        return $this->belongsTo(app('image'));
     }
 
     public function ogimage()
     {
-        return $this->belongsTo(\DrewRoberts\Media\Models\Image::class, 'ogimage_id');
+        return $this->belongsTo(app('image'), 'ogimage_id');
     }
 
     public function video()
     {
-        return $this->belongsTo(\DrewRoberts\Media\Models\Video::class);
+        return $this->belongsTo(app('video'));
     }
 
 }

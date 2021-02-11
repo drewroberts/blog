@@ -20,7 +20,7 @@
         "php": "^7.3|^8.0",
         "laravel/nova": "^3.17",
         "drewroberts/media": "^3.0.2",
-        "tipoff/support": "^1.0.1"
+        "tipoff/support": "^1.0.2"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16",

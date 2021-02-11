@@ -89,7 +89,7 @@ class Post extends BaseModel
 
     public function author()
     {
-        return $this->belongsTo(\App\Models\User::class, 'author_id');
+        return $this->belongsTo(app('user'), 'author_id');
     }
 
     public function topic()

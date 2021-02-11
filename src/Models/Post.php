@@ -7,11 +7,15 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Tipoff\Support\Traits\HasPackageFactory;
+use Tipoff\Support\Traits\HasCreator;
+use Tipoff\Support\Traits\HasUpdater;
 
 class Post extends Model
 {
     use SoftDeletes;
     use HasPackageFactory;
+    use HasCreator;
+    use HasUpdater;
 
     protected $guarded = ['id'];
 
@@ -23,21 +27,12 @@ class Post extends Model
     {
         parent::boot();
 
-        static::creating(function ($post) {
-            if (auth()->check()) {
-                $post->creator_id = auth()->id();
-            }
-        });
-
         static::saving(function ($post) {
             if (empty($post->author_id)) { // Can specify a different author for a post than Auth user
                 $post->author_id = auth()->user()->id;
             }
             if (! empty($post->series_id)) {
                 $post->topic_id = $post->series->topic_id;
-            }
-            if (auth()->check()) {
-                $post->updater_id = auth()->id();
             }
             if (empty($post->pageviews)) {
                 $post->pageviews = 0;
@@ -121,16 +116,6 @@ class Post extends Model
     public function video()
     {
         return $this->belongsTo(\DrewRoberts\Media\Models\Video::class);
-    }
-
-    public function creator()
-    {
-        return $this->belongsTo(\App\Models\User::class, 'creator_id');
-    }
-
-    public function updater()
-    {
-        return $this->belongsTo(\App\Models\User::class, 'updater_id');
     }
 
     public function isPublished()

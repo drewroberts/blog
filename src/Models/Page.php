@@ -14,7 +14,6 @@ use Tipoff\Support\Traits\HasUpdater;
 
 class Page extends BaseModel
 {
-
     use SoftDeletes, HasCreator, HasUpdater, HasPackageFactory;
 
     protected $guarded = ['id'];
@@ -26,7 +25,7 @@ class Page extends BaseModel
     protected static function boot()
     {
         parent::boot();
-      
+
         static::saving(function ($page) {
             if (empty($page->author_id)) { // Can specify a different author for a page than Auth user
                 $page->author_id = auth()->user()->id;

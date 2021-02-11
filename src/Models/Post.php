@@ -1,21 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DrewRoberts\Blog\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Tipoff\Support\Traits\HasPackageFactory;
+use Tipoff\Support\Models\BaseModel;
 use Tipoff\Support\Traits\HasCreator;
+use Tipoff\Support\Traits\HasPackageFactory;
 use Tipoff\Support\Traits\HasUpdater;
 
-class Post extends Model
+class Post extends BaseModel
 {
-    use SoftDeletes;
-    use HasPackageFactory;
-    use HasCreator;
-    use HasUpdater;
+    use SoftDeletes, HasCreator, HasUpdater, HasPackageFactory;
 
     protected $guarded = ['id'];
 

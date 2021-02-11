@@ -1,11 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DrewRoberts\Blog\Database\Factories;
 
-use App\Models\User;
 use DrewRoberts\Blog\Models\Page;
-use DrewRoberts\Media\Models\Image;
-use DrewRoberts\Media\Models\Video;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -24,13 +23,13 @@ class PageFactory extends Factory
             'content'          => $this->faker->sentences(3, true),
             'description'      => $this->faker->sentences(1, true),
             'pageviews'        => $this->faker->numberBetween(1, 400),
-            'image_id'         => randomOrCreate(Image::class),
-            'ogimage_id'       => randomOrCreate(Image::class),
-            'video_id'         => randomOrCreate(Video::class),
-            'author_id'        => randomOrCreate(User::class),
-            'creator_id'       => randomOrCreate(User::class),
-            'updater_id'       => randomOrCreate(User::class),
-            'published_at'     => $this->faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null),
+            'image_id'         => randomOrCreate(app('image')),
+            'ogimage_id'       => randomOrCreate(app('image')),
+            'video_id'         => randomOrCreate(app('video')),
+            'author_id'        => randomOrCreate(app('user')),
+            'creator_id'       => randomOrCreate(app('user')),
+            'updater_id'       => randomOrCreate(app('user')),
+            'published_at'     => $this->faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null)
         ];
     }
 }

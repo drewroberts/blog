@@ -18,12 +18,12 @@ class CreateTopicsTable extends Migration
             $table->string('ogdescription')->nullable(); // Open Graph Description used for social shares. Will default to description if NULL.
             $table->unsignedInteger('pageviews')->index(); // Total current pageviews for topic page. Will be synced from Google Analytics API.
 
-            $table->foreignId('image_id')->nullable()->references('id')->on('images'); // Cover image for topic
-            $table->foreignId('ogimage_id')->nullable()->references('id')->on('images'); // External open graph image id. Featured image for social sharing. Will default to image_id unless this is used. Allows override for play button or words on image.
-            $table->foreignId('video_id')->nullable()->references('id')->on('videos'); // If topic has a featured video.
+            $table->foreignIdFor(app('image'))->nullable(); // Cover image for topic
+            $table->foreignIdFor(app('image'), 'ogimage_id')->nullable(); // External open graph image id. Featured image for social sharing. Will default to image_id unless this is used. Allows override for play button or words on image.
+            $table->foreignIdFor(app('video'))->nullable(); // If topic has a featured video.
 
-            $table->foreignId('creator_id')->references('id')->on('users');
-            $table->foreignId('updater_id')->references('id')->on('users');
+            $table->foreignIdFor(app('user'), 'creator_id');
+            $table->foreignIdFor(app('user'), 'updater_id');
             $table->timestamps();
         });
     }

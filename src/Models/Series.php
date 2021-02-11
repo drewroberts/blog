@@ -1,17 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DrewRoberts\Blog\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Tipoff\Support\Traits\HasPackageFactory;
+use Tipoff\Support\Models\BaseModel;
 use Tipoff\Support\Traits\HasCreator;
+use Tipoff\Support\Traits\HasPackageFactory;
 use Tipoff\Support\Traits\HasUpdater;
 
-class Series extends Model
+class Series extends BaseModel
 {
-    use HasPackageFactory;
-    use HasCreator;
-    use HasUpdater;
+    use HasCreator, HasUpdater, HasPackageFactory;
 
     protected $guarded = ['id'];
 
@@ -68,5 +68,4 @@ class Series extends Model
     {
         return $this->belongsTo(app('video'));
     }
-
 }

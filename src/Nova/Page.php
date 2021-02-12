@@ -34,7 +34,7 @@ class Page extends Resource
             Text::make('Slug')->sortable(),
             Text::make('Title')->sortable(),
             BelongsTo::make('Parent', 'parent', \DrewRoberts\Blog\Nova\Page::class)->sortable(),
-            BelongsTo::make('Author', 'author', \App\Nova\User::class)->sortable(),
+            BelongsTo::make('Author', 'author', app('nova.user'))->sortable(),
             DateTime::make('Published', 'published_at')->format('YYYY-MM-DD')->sortable(),
         ];
     }
@@ -58,7 +58,7 @@ class Page extends Resource
     protected function infoFields()
     {
         return [
-            BelongsTo::make('Author', 'author', \App\Nova\User::class)->nullable(),
+            BelongsTo::make('Author', 'author', app('nova.user'))->nullable(),
             Textarea::make('Description'),
             Textarea::make('Open Graph Description', 'ogdescription')->nullable(),
             BelongsTo::make('Image', 'image', \DrewRoberts\Media\Nova\Image::class)->nullable()->showCreateRelationButton(),
@@ -71,9 +71,9 @@ class Page extends Resource
     {
         return [
             ID::make(),
-            BelongsTo::make('Created By', 'creator', \App\Nova\User::class)->exceptOnForms(),
+            BelongsTo::make('Created By', 'creator', app('nova.user'))->exceptOnForms(),
             DateTime::make('Created At')->exceptOnForms(),
-            BelongsTo::make('Updated By', 'updater', \App\Nova\User::class)->exceptOnForms(),
+            BelongsTo::make('Updated By', 'updater', app('nova.user'))->exceptOnForms(),
             DateTime::make('Updated At')->exceptOnForms(),
         ];
     }

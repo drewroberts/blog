@@ -19,6 +19,7 @@
     "require": {
         "php": "^7.3|^8.0",
         "drewroberts/media": "^3.0.2",
+        "laravel/legacy-factories": "^1.1",
         "tipoff/support": "^1.2.0"
     },
     "require-dev": {

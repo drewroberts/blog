@@ -51,7 +51,7 @@ class Page extends BaseModel
     /**
      * Get a string path for the page image.
      *
-     * @return string
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\UrlGenerator|string
      */
     public function getImagePathAttribute()
     {
@@ -63,11 +63,11 @@ class Page extends BaseModel
     /**
      * Get a string path for the page image's placeholder.
      *
-     * @return string
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\UrlGenerator|string
      */
     public function getPlaceholderPathAttribute()
     {
-        $this->image === null ?
+        return $this->image === null ?
             url('img/ogimage.jpg') :
             'https://res.cloudinary.com/' . env('CLOUDINARY_CLOUD_NAME') . '/t_coverplaceholder/' . $this->image->filename . '.jpg';
     }

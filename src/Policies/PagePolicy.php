@@ -2,9 +2,9 @@
 
 namespace DrewRoberts\Blog\Policies;
 
-use Tipoff\Support\Contracts\Models\UserInterface;
 use DrewRoberts\Blog\Models\Page;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Tipoff\Support\Contracts\Models\UserInterface;
 
 class PagePolicy
 {

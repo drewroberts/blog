@@ -4,19 +4,12 @@ declare(strict_types=1);
 
 namespace DrewRoberts\Blog;
 
-use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Tipoff\Support\TipoffPackage;
+use Tipoff\Support\TipoffServiceProvider;
 
-class BlogServiceProvider extends PackageServiceProvider
+class BlogServiceProvider extends TipoffServiceProvider
 {
-    public function boot()
-    {
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
-
-        parent::boot();
-    }
-
-    public function configurePackage(Package $package): void
+    public function configureTipoffPackage(TipoffPackage $package): void
     {
         $package
             ->name('blog')

@@ -19,8 +19,6 @@ class Series extends BaseModel
         HasMedia,
         HasPageViews;
 
-    protected $guarded = ['id'];
-
     protected $table = 'series';
 
     public function getRouteKeyName()

@@ -23,8 +23,6 @@ class Page extends BaseModel
         HasMedia,
         HasPageViews;
 
-    protected $guarded = ['id'];
-
     protected $casts = [
         'published_at' => 'datetime',
     ];

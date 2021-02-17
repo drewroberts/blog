@@ -19,8 +19,6 @@ class Topic extends BaseModel
         HasMedia,
         HasPageViews;
 
-    protected $guarded = ['id'];
-
     public function getRouteKeyName()
     {
         return 'slug';

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace DrewRoberts\Blog\Models;
 
 use DrewRoberts\Blog\Traits\HasMedia;
+use DrewRoberts\Blog\Traits\HasPageViews;
 use Tipoff\Support\Models\BaseModel;
 use Tipoff\Support\Traits\HasCreator;
 use Tipoff\Support\Traits\HasPackageFactory;
@@ -15,7 +16,8 @@ class Series extends BaseModel
     use HasCreator,
         HasUpdater,
         HasPackageFactory,
-        HasMedia;
+        HasMedia,
+        HasPageViews;
 
     protected $guarded = ['id'];
 
@@ -24,17 +26,6 @@ class Series extends BaseModel
     public function getRouteKeyName()
     {
         return 'slug';
-    }
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::saving(function ($series) {
-            if (empty($series->pageviews)) {
-                $series->pageviews = 0;
-            }
-        });
     }
 
     /**

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace DrewRoberts\Blog\Models;
 
 use DrewRoberts\Blog\Traits\HasMedia;
+use DrewRoberts\Blog\Traits\HasPageViews;
 use DrewRoberts\Blog\Traits\Publishable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Tipoff\Support\Models\BaseModel;
@@ -19,7 +20,8 @@ class Page extends BaseModel
         HasUpdater,
         HasPackageFactory,
         Publishable,
-        HasMedia;
+        HasMedia,
+        HasPageViews;
 
     protected $guarded = ['id'];
 
@@ -35,10 +37,6 @@ class Page extends BaseModel
             // Can specify a different author for a page than Auth user
             if (empty($page->author_id)) {
                 $page->author_id = auth()->user()->id;
-            }
-
-            if (empty($page->pageviews)) {
-                $page->pageviews = 0;
             }
         });
     }

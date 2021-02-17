@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace DrewRoberts\Blog\Models;
 
 use Carbon\Carbon;
+use DrewRoberts\Blog\Traits\Publishable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Tipoff\Support\Models\BaseModel;
@@ -14,7 +15,11 @@ use Tipoff\Support\Traits\HasUpdater;
 
 class Post extends BaseModel
 {
-    use SoftDeletes, HasCreator, HasUpdater, HasPackageFactory;
+    use SoftDeletes,
+        HasCreator,
+        HasUpdater,
+        HasPackageFactory,
+        Publishable;
 
     protected $guarded = ['id'];
 
@@ -36,13 +41,6 @@ class Post extends BaseModel
             if (empty($post->pageviews)) {
                 $post->pageviews = 0;
             }
-            if (empty($post->published_at)) {
-                $post->published_at = Carbon::now();
-            }
-        });
-
-        static::addGlobalScope('published', function (Builder $builder) {
-            $builder->where('published_at', '<', now());
         });
     }
 
@@ -57,7 +55,7 @@ class Post extends BaseModel
      * @return string
      * @todo use config file for alternate paths
      */
-    public function getblogPathAttribute()
+    public function getPathAttribute()
     {
         // @todo - Set blog path based on config options
         return "/{$this->topic->slug}/{$this->series->slug}/{$this->slug}";
@@ -66,25 +64,25 @@ class Post extends BaseModel
     /**
      * Get a string path for the blog post image.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\UrlGenerator|string
+     * @return string
      */
     public function getImagePathAttribute()
     {
         return $this->image === null ?
             url('img/ogimage.jpg') :
-            'https://res.cloudinary.com/' . env('CLOUDINARY_CLOUD_NAME') . '/t_cover/' . $this->image->filename . '.jpg';
+            'https://res.cloudinary.com/' . config('filesystem.disks.cloudinary.cloud_name') . '/t_cover/' . $this->image->filename;
     }
 
     /**
      * Get a string path for the blog post image's placeholder.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\UrlGenerator|string
+     * @return string
      */
     public function getPlaceholderPathAttribute()
     {
         return $this->image === null ?
             url('img/ogimage.jpg') :
-            'https://res.cloudinary.com/' . env('CLOUDINARY_CLOUD_NAME') . '/t_coverplaceholder/' . $this->image->filename . '.jpg';
+            'https://res.cloudinary.com/' . config('filesystem.disks.cloudinary.cloud_name') . '/t_coverplaceholder/' . $this->image->filename;
     }
 
     public function author()
@@ -115,10 +113,5 @@ class Post extends BaseModel
     public function video()
     {
         return $this->belongsTo(app('video'));
-    }
-
-    public function isPublished()
-    {
-        return $this->published_at->isPast();
     }
 }

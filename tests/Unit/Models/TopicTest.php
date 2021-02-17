@@ -10,11 +10,103 @@ use DrewRoberts\Blog\Tests\Support\Models\User;
 use DrewRoberts\Blog\Tests\Support\Models\Video;
 use DrewRoberts\Blog\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Collection;
 
 class TopicTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase,
+        WithFaker;
+
+    /** @test */
+    public function it_has_a_slug()
+    {
+        $slug = $this->faker->slug;
+        $topic = Topic::factory()->create(['slug' => $slug]);
+
+        $this->assertEquals($slug, $topic->slug);
+    }
+
+    /** @test */
+    public function it_uses_its_slug_for_route_model_binding()
+    {
+        $topic = Topic::factory()->create();
+
+        $this->assertEquals('slug', $topic->getRouteKeyName());
+    }
+
+    /** @test */
+    public function it_has_a_path()
+    {
+        $topic = Topic::factory()->create();
+
+        $this->assertEquals(
+            "/{$topic->slug}",
+            $topic->path
+        );
+    }
+
+    /** @test */
+    public function it_has_a_title()
+    {
+        $title = $this->faker->sentence;
+        $page = Topic::factory()->create(['title' => $title]);
+
+        $this->assertEquals($title, $page->title);
+    }
+    
+    /** @test */
+    public function it_has_content()
+    {
+        $content = $this->faker->paragraph;
+        $page = Topic::factory()->create(['content' => $content]);
+
+        $this->assertEquals($content, $page->content);
+    }
+
+    /** @test */
+    public function it_has_a_description()
+    {
+        $description = $this->faker->sentence;
+        $page = Topic::factory()->create(['description' => $description]);
+
+        $this->assertEquals($description, $page->description);
+    }
+
+    /** @test */
+    public function it_has_a_og_description()
+    {
+        $og_description = $this->faker->sentence;
+        $page = Topic::factory()->create(['ogdescription' => $og_description]);
+
+        $this->assertEquals($og_description, $page->ogdescription);
+    }
+
+    /** @test */
+    public function it_has_notes()
+    {
+        $note = $this->faker->sentence;
+        $page = Topic::factory()->create(['note' => $note]);
+
+        $this->assertEquals($note, $page->note);
+    }
+
+    /** @test */
+    public function it_has_page_views()
+    {
+        $pageViews = $this->faker->randomNumber;
+        $topic = Topic::factory()->create(['pageviews' => $pageViews]);
+
+        $this->assertEquals($pageViews, $topic->pageviews);
+    }
+
+    /** @test */
+    public function page_views_defaults_to_zero_if_empty()
+    {
+        $topic = Topic::factory()->create(['pageviews' => null]);
+
+        $this->assertEquals(0, $topic->pageviews);
+    }
 
     /** @test */
     public function it_has_series()

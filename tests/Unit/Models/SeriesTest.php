@@ -109,6 +109,56 @@ class SeriesTest extends TestCase
     }
 
     /** @test */
+    public function it_has_an_image_path()
+    {
+        config(['filesystem.disks.cloudinary.cloud_name' => 'test']);
+
+        $image = Image::factory()->create();
+        $series = Series::factory()->create(['image_id' => $image->id]);
+
+        $this->assertEquals(
+            "https://res.cloudinary.com/test/t_cover/{$image->filename}",
+            $series->image_path
+        );
+    }
+
+    /** @test */
+    public function it_uses_a_default_image_path_in_case_the_page_does_not_have_one()
+    {
+        $series = Series::factory()->create(['image_id' => null]);
+
+        $this->assertStringEndsWith(
+            'img/ogimage.jpg',
+            $series->image_path
+        );
+    }
+
+    /** @test */
+    public function it_has_a_placeholder_path()
+    {
+        config(['filesystem.disks.cloudinary.cloud_name' => 'test']);
+
+        $image = Image::factory()->create();
+        $series = Series::factory()->create(['image_id' => $image->id]);
+
+        $this->assertEquals(
+            "https://res.cloudinary.com/test/t_coverplaceholder/{$image->filename}",
+            $series->placeholder_path
+        );
+    }
+
+    /** @test */
+    public function it_uses_a_default_placeholder_path_in_case_the_page_does_not_have_one()
+    {
+        $series = Series::factory()->create(['image_id' => null]);
+
+        $this->assertStringEndsWith(
+            'img/ogimage.jpg',
+            $series->placeholder_path
+        );
+    }
+
+    /** @test */
     public function it_belongs_to_a_topic()
     {
         $series = Series::factory()->create();

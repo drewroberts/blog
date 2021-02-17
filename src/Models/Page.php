@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DrewRoberts\Blog\Models;
 
+use DrewRoberts\Blog\Traits\HasMetaData;
 use DrewRoberts\Blog\Traits\Publishable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Tipoff\Support\Models\BaseModel;
@@ -17,7 +18,8 @@ class Page extends BaseModel
         HasCreator,
         HasUpdater,
         HasPackageFactory,
-        Publishable;
+        Publishable,
+        HasMetaData;
 
     protected $guarded = ['id'];
 
@@ -30,9 +32,11 @@ class Page extends BaseModel
         parent::boot();
 
         static::saving(function ($page) {
-            if (empty($page->author_id)) { // Can specify a different author for a page than Auth user
+            // Can specify a different author for a page than Auth user
+            if (empty($page->author_id)) {
                 $page->author_id = auth()->user()->id;
             }
+
             if (empty($page->pageviews)) {
                 $page->pageviews = 0;
             }
@@ -44,34 +48,6 @@ class Page extends BaseModel
         return 'slug';
     }
 
-    /**
-     * Get a string path for the page image.
-     *
-     * @return string
-     */
-    public function getImagePathAttribute()
-    {
-        $cloudName = config('filesystem.disks.cloudinary.cloud_name');
-
-        return $this->image === null ?
-            url('img/ogimage.jpg') :
-            "https://res.cloudinary.com/{$cloudName}/t_cover/{$this->image->filename}";
-    }
-
-    /**
-     * Get a string path for the page image's placeholder.
-     *
-     * @return string
-     */
-    public function getPlaceholderPathAttribute()
-    {
-        $cloudName = config('filesystem.disks.cloudinary.cloud_name');
-
-        return $this->image === null ?
-            url('img/ogimage.jpg') :
-            "https://res.cloudinary.com/{$cloudName}/t_coverplaceholder/{$this->image->filename}";
-    }
-
     public function author()
     {
         return $this->belongsTo(app('user'), 'author_id');
@@ -80,21 +56,6 @@ class Page extends BaseModel
     public function parent()
     {
         return $this->belongsTo(app('page'), 'parent_id');
-    }
-
-    public function image()
-    {
-        return $this->belongsTo(app('image'));
-    }
-
-    public function ogimage()
-    {
-        return $this->belongsTo(app('image'), 'ogimage_id');
-    }
-
-    public function video()
-    {
-        return $this->belongsTo(app('video'));
     }
 
     public function setParent(Page $parent)

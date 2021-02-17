@@ -54,7 +54,7 @@ class TopicTest extends TestCase
 
         $this->assertEquals($title, $page->title);
     }
-    
+
     /** @test */
     public function it_has_content()
     {
@@ -106,6 +106,56 @@ class TopicTest extends TestCase
         $topic = Topic::factory()->create(['pageviews' => null]);
 
         $this->assertEquals(0, $topic->pageviews);
+    }
+
+    /** @test */
+    public function it_has_an_image_path()
+    {
+        config(['filesystem.disks.cloudinary.cloud_name' => 'test']);
+
+        $image = Image::factory()->create();
+        $topic = Topic::factory()->create(['image_id' => $image->id]);
+
+        $this->assertEquals(
+            "https://res.cloudinary.com/test/t_cover/{$image->filename}",
+            $topic->image_path
+        );
+    }
+
+    /** @test */
+    public function it_uses_a_default_image_path_in_case_the_page_does_not_have_one()
+    {
+        $topic = Topic::factory()->create(['image_id' => null]);
+
+        $this->assertStringEndsWith(
+            'img/ogimage.jpg',
+            $topic->image_path
+        );
+    }
+
+    /** @test */
+    public function it_has_a_placeholder_path()
+    {
+        config(['filesystem.disks.cloudinary.cloud_name' => 'test']);
+
+        $image = Image::factory()->create();
+        $topic = Topic::factory()->create(['image_id' => $image->id]);
+
+        $this->assertEquals(
+            "https://res.cloudinary.com/test/t_coverplaceholder/{$image->filename}",
+            $topic->placeholder_path
+        );
+    }
+
+    /** @test */
+    public function it_uses_a_default_placeholder_path_in_case_the_page_does_not_have_one()
+    {
+        $topic = Topic::factory()->create(['image_id' => null]);
+
+        $this->assertStringEndsWith(
+            'img/ogimage.jpg',
+            $topic->placeholder_path
+        );
     }
 
     /** @test */

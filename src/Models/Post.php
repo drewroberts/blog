@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace DrewRoberts\Blog\Models;
 
-use Carbon\Carbon;
+use DrewRoberts\Blog\Traits\HasMetaData;
 use DrewRoberts\Blog\Traits\Publishable;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Tipoff\Support\Models\BaseModel;
 use Tipoff\Support\Traits\HasCreator;
@@ -19,7 +18,8 @@ class Post extends BaseModel
         HasCreator,
         HasUpdater,
         HasPackageFactory,
-        Publishable;
+        Publishable,
+        HasMetaData;
 
     protected $guarded = ['id'];
 
@@ -32,12 +32,15 @@ class Post extends BaseModel
         parent::boot();
 
         static::saving(function ($post) {
-            if (empty($post->author_id)) { // Can specify a different author for a post than Auth user
+            // Can specify a different author for a post than Auth user
+            if (empty($post->author_id)) {
                 $post->author_id = auth()->user()->id;
             }
+
             if (! empty($post->series_id)) {
                 $post->topic_id = $post->series->topic_id;
             }
+
             if (empty($post->pageviews)) {
                 $post->pageviews = 0;
             }
@@ -61,30 +64,6 @@ class Post extends BaseModel
         return "/{$this->topic->slug}/{$this->series->slug}/{$this->slug}";
     }
 
-    /**
-     * Get a string path for the blog post image.
-     *
-     * @return string
-     */
-    public function getImagePathAttribute()
-    {
-        return $this->image === null ?
-            url('img/ogimage.jpg') :
-            'https://res.cloudinary.com/' . config('filesystem.disks.cloudinary.cloud_name') . '/t_cover/' . $this->image->filename;
-    }
-
-    /**
-     * Get a string path for the blog post image's placeholder.
-     *
-     * @return string
-     */
-    public function getPlaceholderPathAttribute()
-    {
-        return $this->image === null ?
-            url('img/ogimage.jpg') :
-            'https://res.cloudinary.com/' . config('filesystem.disks.cloudinary.cloud_name') . '/t_coverplaceholder/' . $this->image->filename;
-    }
-
     public function author()
     {
         return $this->belongsTo(app('user'), 'author_id');
@@ -98,20 +77,5 @@ class Post extends BaseModel
     public function series()
     {
         return $this->belongsTo(app('series'));
-    }
-
-    public function image()
-    {
-        return $this->belongsTo(app('image'));
-    }
-
-    public function ogimage()
-    {
-        return $this->belongsTo(app('image'), 'ogimage_id');
-    }
-
-    public function video()
-    {
-        return $this->belongsTo(app('video'));
     }
 }

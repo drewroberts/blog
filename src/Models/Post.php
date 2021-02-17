@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace DrewRoberts\Blog\Models;
 
-use DrewRoberts\Blog\Traits\HasMetaData;
+use DrewRoberts\Blog\Traits\HasMedia;
 use DrewRoberts\Blog\Traits\Publishable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Tipoff\Support\Models\BaseModel;
@@ -19,7 +19,7 @@ class Post extends BaseModel
         HasUpdater,
         HasPackageFactory,
         Publishable,
-        HasMetaData;
+        HasMedia;
 
     protected $guarded = ['id'];
 

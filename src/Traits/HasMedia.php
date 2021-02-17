@@ -2,7 +2,7 @@
 
 namespace DrewRoberts\Blog\Traits;
 
-trait HasMetaData
+trait HasMedia
 {
     public function image()
     {

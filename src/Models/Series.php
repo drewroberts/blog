@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace DrewRoberts\Blog\Models;
 
-use DrewRoberts\Blog\Traits\HasMetaData;
+use DrewRoberts\Blog\Traits\HasMedia;
 use Tipoff\Support\Models\BaseModel;
 use Tipoff\Support\Traits\HasCreator;
 use Tipoff\Support\Traits\HasPackageFactory;
@@ -15,7 +15,7 @@ class Series extends BaseModel
     use HasCreator,
         HasUpdater,
         HasPackageFactory,
-        HasMetaData;
+        HasMedia;
 
     protected $guarded = ['id'];
 

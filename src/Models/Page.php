@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace DrewRoberts\Blog\Models;
 
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Builder;
+use DrewRoberts\Blog\Traits\Publishable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Tipoff\Support\Models\BaseModel;
 use Tipoff\Support\Traits\HasCreator;
@@ -14,7 +13,11 @@ use Tipoff\Support\Traits\HasUpdater;
 
 class Page extends BaseModel
 {
-    use SoftDeletes, HasCreator, HasUpdater, HasPackageFactory;
+    use SoftDeletes,
+        HasCreator,
+        HasUpdater,
+        HasPackageFactory,
+        Publishable;
 
     protected $guarded = ['id'];
 
@@ -33,13 +36,6 @@ class Page extends BaseModel
             if (empty($page->pageviews)) {
                 $page->pageviews = 0;
             }
-            if (empty($page->published_at)) {
-                $page->published_at = Carbon::now();
-            }
-        });
-
-        static::addGlobalScope('published', function (Builder $builder) {
-            $builder->where('published_at', '<', now());
         });
     }
 
@@ -99,11 +95,6 @@ class Page extends BaseModel
     public function video()
     {
         return $this->belongsTo(app('video'));
-    }
-
-    public function isPublished()
-    {
-        return $this->published_at->isPast();
     }
 
     public function setParent(Page $parent)

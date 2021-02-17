@@ -3,36 +3,30 @@
 namespace DrewRoberts\Blog\Tests;
 
 use DrewRoberts\Blog\BlogServiceProvider;
-use Orchestra\Testbench\TestCase as Orchestra;
+use DrewRoberts\Blog\Tests\Support\Models\Image;
+use DrewRoberts\Blog\Tests\Support\Models\User;
+use DrewRoberts\Blog\Tests\Support\Models\Video;
+use Tipoff\Support\SupportServiceProvider;
+use Tipoff\TestSupport\BaseTestCase;
 
-class TestCase extends Orchestra
+class TestCase extends BaseTestCase
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->withFactories(__DIR__.'/database/factories');
-    }
-
     protected function getPackageProviders($app)
     {
         return [
+            SupportServiceProvider::class,
             BlogServiceProvider::class,
         ];
     }
 
     public function getEnvironmentSetUp($app)
     {
-        $app['config']->set('database.default', 'sqlite');
-        $app['config']->set('database.connections.sqlite', [
-            'driver' => 'sqlite',
-            'database' => ':memory:',
-            'prefix' => '',
-        ]);
+        parent::getEnvironmentSetUp($app);
 
-        /*
-        include_once __DIR__.'/../database/migrations/create_blog_table.php.stub';
-        (new \CreatePackageTable())->up();
-        */
+        $app['config']->set('tipoff.model_class.user', User::class);
+        $app['config']->set('tipoff.model_class.image', Image::class);
+        $app['config']->set('tipoff.model_class.video', Video::class);
+
+        $app['config']->set('filesystem.disks.cloudinary.cloud_name', 'test');
     }
 }

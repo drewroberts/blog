@@ -24,6 +24,9 @@ class SeriesFactory extends Factory
             'description'       => $this->faker->sentences(1, true),
             'pageviews'         => $this->faker->numberBetween(0, 5000),
             'topic_id'          => randomOrCreate(Topic::class),
+            'image_id'          => randomOrCreate(app('image')),
+            'ogimage_id'        => randomOrCreate(app('image')),
+            'video_id'          => randomOrCreate(app('video')),
             'creator_id'        => randomOrCreate(app('user')),
             'updater_id'        => randomOrCreate(app('user'))
         ];

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace DrewRoberts\Blog\Models;
 
+use DrewRoberts\Blog\Traits\HasMedia;
+use DrewRoberts\Blog\Traits\HasPageViews;
 use Tipoff\Support\Models\BaseModel;
 use Tipoff\Support\Traits\HasCreator;
 use Tipoff\Support\Traits\HasPackageFactory;
@@ -11,26 +13,17 @@ use Tipoff\Support\Traits\HasUpdater;
 
 class Series extends BaseModel
 {
-    use HasCreator, HasUpdater, HasPackageFactory;
-
-    protected $guarded = ['id'];
+    use HasCreator,
+        HasUpdater,
+        HasPackageFactory,
+        HasMedia,
+        HasPageViews;
 
     protected $table = 'series';
 
     public function getRouteKeyName()
     {
         return 'slug';
-    }
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::saving(function ($series) {
-            if (empty($series->pageviews)) {
-                $series->pageviews = 0;
-            }
-        });
     }
 
     /**
@@ -52,20 +45,5 @@ class Series extends BaseModel
     public function posts()
     {
         return $this->hasMany(app('post'));
-    }
-
-    public function image()
-    {
-        return $this->belongsTo(app('image'));
-    }
-
-    public function ogimage()
-    {
-        return $this->belongsTo(app('image'), 'ogimage_id');
-    }
-
-    public function video()
-    {
-        return $this->belongsTo(app('video'));
     }
 }

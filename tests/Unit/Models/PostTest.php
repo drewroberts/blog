@@ -47,6 +47,42 @@ class PostTest extends TestCase
     }
 
     /** @test */
+    public function it_has_a_title()
+    {
+        $title = $this->faker->sentence;
+        $post = Post::factory()->create(['title' => $title]);
+
+        $this->assertEquals($title, $post->title);
+    }
+
+    /** @test */
+    public function it_has_content()
+    {
+        $content = $this->faker->text;
+        $post = Post::factory()->create(['content' => $content]);
+
+        $this->assertEquals($content, $post->content);
+    }
+
+    /** @test */
+    public function it_has_a_description()
+    {
+        $description = $this->faker->text;
+        $post = Post::factory()->create(['description' => $description]);
+
+        $this->assertEquals($description, $post->description);
+    }
+
+    /** @test */
+    public function it_has_an_og_description()
+    {
+        $og_description = $this->faker->text;
+        $post = Post::factory()->create(['ogdescription' => $og_description]);
+
+        $this->assertEquals($og_description, $post->ogdescription);
+    }
+
+    /** @test */
     public function it_has_page_views()
     {
         $pageViews = $this->faker->randomNumber;

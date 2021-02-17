@@ -17,7 +17,6 @@ class BlogServiceProvider extends TipoffServiceProvider
             ->hasPolicies([
                 Page::class => PagePolicy::class,
             ])
-            ->name('blog')
-            ->hasConfigFile();
+            ->name('blog');
     }
 }

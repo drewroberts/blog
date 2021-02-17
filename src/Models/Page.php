@@ -51,25 +51,29 @@ class Page extends BaseModel
     /**
      * Get a string path for the page image.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\UrlGenerator|string
+     * @return string
      */
     public function getImagePathAttribute()
     {
+        $cloudName = config('filesystem.disks.cloudinary.cloud_name');
+
         return $this->image === null ?
             url('img/ogimage.jpg') :
-            'https://res.cloudinary.com/' . env('CLOUDINARY_CLOUD_NAME') . '/t_cover/' . $this->image->filename . '.jpg';
+            "https://res.cloudinary.com/{$cloudName}/t_cover/{$this->image->filename}";
     }
 
     /**
      * Get a string path for the page image's placeholder.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\UrlGenerator|string
+     * @return string
      */
     public function getPlaceholderPathAttribute()
     {
+        $cloudName = config('filesystem.disks.cloudinary.cloud_name');
+
         return $this->image === null ?
             url('img/ogimage.jpg') :
-            'https://res.cloudinary.com/' . env('CLOUDINARY_CLOUD_NAME') . '/t_coverplaceholder/' . $this->image->filename . '.jpg';
+            "https://res.cloudinary.com/{$cloudName}/t_coverplaceholder/{$this->image->filename}";
     }
 
     public function author()

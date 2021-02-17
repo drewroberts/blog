@@ -101,4 +101,9 @@ class Page extends BaseModel
     {
         return $this->published_at->isPast();
     }
+
+    public function setParent(Page $parent)
+    {
+        $this->update(['parent_id' => $parent->id]);
+    }
 }

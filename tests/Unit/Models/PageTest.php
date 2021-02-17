@@ -122,7 +122,7 @@ class PageTest extends TestCase
         $page = Page::factory()->create(['image_id' => null]);
 
         $this->assertStringEndsWith(
-        'img/ogimage.jpg',
+            'img/ogimage.jpg',
             $page->image_path
         );
     }

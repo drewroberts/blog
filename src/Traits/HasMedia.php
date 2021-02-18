@@ -2,6 +2,8 @@
 
 namespace DrewRoberts\Blog\Traits;
 
+use Illuminate\Contracts\Routing\UrlGenerator;
+
 trait HasMedia
 {
     public function image()
@@ -29,7 +31,7 @@ trait HasMedia
         $cloudName = config('filesystem.disks.cloudinary.cloud_name');
 
         return $this->image === null ?
-            url('img/ogimage.jpg') :
+            (string) url('img/ogimage.jpg') :
             "https://res.cloudinary.com/{$cloudName}/t_cover/{$this->image->filename}";
     }
 
@@ -43,7 +45,7 @@ trait HasMedia
         $cloudName = config('filesystem.disks.cloudinary.cloud_name');
 
         return $this->image === null ?
-            url('img/ogimage.jpg') :
+            (string) url('img/ogimage.jpg') :
             "https://res.cloudinary.com/{$cloudName}/t_coverplaceholder/{$this->image->filename}";
     }
 }

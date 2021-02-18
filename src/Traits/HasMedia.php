@@ -2,6 +2,8 @@
 
 namespace DrewRoberts\Blog\Traits;
 
+use Illuminate\Contracts\Routing\UrlGenerator;
+
 trait HasMedia
 {
     public function image()

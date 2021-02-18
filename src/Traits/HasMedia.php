@@ -24,28 +24,28 @@ trait HasMedia
     /**
      * Get a string path for the page image.
      *
-     * @return string
+     * @return UrlGenerator|string
      */
     public function getImagePathAttribute()
     {
         $cloudName = config('filesystem.disks.cloudinary.cloud_name');
 
-        return $this->image === null ?
-            (string) url('img/ogimage.jpg') :
-            "https://res.cloudinary.com/{$cloudName}/t_cover/{$this->image->filename}";
+        return $this->image === null
+            ? url('img/ogimage.jpg')
+            : "https://res.cloudinary.com/{$cloudName}/t_cover/{$this->image->filename}";
     }
 
     /**
      * Get a string path for the page image's placeholder.
      *
-     * @return string
+     * @return UrlGenerator|string
      */
     public function getPlaceholderPathAttribute()
     {
         $cloudName = config('filesystem.disks.cloudinary.cloud_name');
 
-        return $this->image === null ?
-            (string) url('img/ogimage.jpg') :
-            "https://res.cloudinary.com/{$cloudName}/t_coverplaceholder/{$this->image->filename}";
+        return $this->image === null
+            ? url('img/ogimage.jpg')
+            : "https://res.cloudinary.com/{$cloudName}/t_coverplaceholder/{$this->image->filename}";
     }
 }

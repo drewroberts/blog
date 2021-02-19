@@ -46,12 +46,16 @@ Nova::resources([
 ]);
 ```
 
-## Usage
+## Models
 
-``` php
-$blog = new DrewRoberts\Blog();
-echo $blog->echoPhrase('Hello, DrewRoberts!');
-```
+We include the following models in this package:
+
+**List of Models**
+
+- Page
+- Post
+- Series
+- Topic
 
 ## Testing
 

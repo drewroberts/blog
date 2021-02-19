@@ -18,10 +18,10 @@ class BlogServiceProvider extends TipoffServiceProvider
                 Page::class => PagePolicy::class,
             ])
             ->hasNovaResources([
-                \Tipoff\Locations\Nova\Page::class,
-                \Tipoff\Locations\Nova\Post::class,
-                \Tipoff\Locations\Nova\Series::class,
-                \Tipoff\Locations\Nova\Topic::class,
+                \DrewRoberts\Blog\Nova\Page::class,
+                \DrewRoberts\Blog\Nova\Post::class,
+                \DrewRoberts\Blog\Nova\Series::class,
+                \DrewRoberts\Blog\Nova\Topic::class,
             ])
             ->name('blog');
     }

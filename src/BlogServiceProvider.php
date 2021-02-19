@@ -17,6 +17,12 @@ class BlogServiceProvider extends TipoffServiceProvider
             ->hasPolicies([
                 Page::class => PagePolicy::class,
             ])
+            ->hasNovaResources([
+                \Tipoff\Locations\Nova\Page::class,
+                \Tipoff\Locations\Nova\Post::class,
+                \Tipoff\Locations\Nova\Series::class,
+                \Tipoff\Locations\Nova\Topic::class,
+            ])
             ->name('blog');
     }
 }

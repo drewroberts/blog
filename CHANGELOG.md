@@ -103,3 +103,10 @@ All notable changes to `blog` will be documented in this file
 ## 4.0.5 - 2021-02-09
 
 - fix post migration
+
+## 4.1.0 - 2021-02-20
+
+- add policies
+- register policies
+- add nova resources
+- register nova resources

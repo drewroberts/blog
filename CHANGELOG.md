@@ -115,3 +115,7 @@ All notable changes to `blog` will be documented in this file
 
 - update policies
 - register policies
+
+## 4.1.2 - 2021-02-22
+
+- refactor has media trait

@@ -6,7 +6,7 @@ use DrewRoberts\Blog\Models\Series;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Tipoff\Support\Contracts\Models\UserInterface;
 
-class PagePolicy
+class SeriesPolicy
 {
     use HandlesAuthorization;
 

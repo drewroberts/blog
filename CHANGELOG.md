@@ -110,3 +110,8 @@ All notable changes to `blog` will be documented in this file
 - register policies
 - add nova resources
 - register nova resources
+
+## 4.1.1 - 2021-02-22
+
+- update policies
+- register policies

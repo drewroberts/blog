@@ -30,18 +30,18 @@ class PagePolicy
         return $user->hasPermissionTo('update series');
     }
     
-    public function delete(UserInterface $user, Series $series)	
-    {	
-        return false;	
-    }	
+    public function delete(UserInterface $user, Series $series)
+    {
+        return false;
+    }
 
-    public function restore(UserInterface $user, Series $series)	
-    {	
-        return false;	
-    }	
+    public function restore(UserInterface $user, Series $series)
+    {
+        return false;
+    }
 
-    public function forceDelete(UserInterface $user, Series $series)	
-    {	
-        return false;	
+    public function forceDelete(UserInterface $user, Series $series)
+    {
+        return false;
     }
 }

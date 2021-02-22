@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace DrewRoberts\Blog\Models;
 
-use DrewRoberts\Blog\Traits\HasMedia;
 use DrewRoberts\Blog\Traits\HasPageViews;
 use DrewRoberts\Blog\Traits\Publishable;
+use DrewRoberts\Media\Traits\HasMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Tipoff\Support\Models\BaseModel;
 use Tipoff\Support\Traits\HasCreator;

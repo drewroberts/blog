@@ -30,18 +30,18 @@ class PagePolicy
         return $user->hasPermissionTo('update pages');
     }
     
-    public function delete(UserInterface $user, Page $page)	
-    {	
-        return false;	
-    }	
+    public function delete(UserInterface $user, Page $page)
+    {
+        return false;
+    }
 
-    public function restore(UserInterface $user, Page $page)	
-    {	
-        return false;	
-    }	
+    public function restore(UserInterface $user, Page $page)
+    {
+        return false;
+    }
 
-    public function forceDelete(UserInterface $user, Page $page)	
-    {	
-        return false;	
+    public function forceDelete(UserInterface $user, Page $page)
+    {
+        return false;
     }
 }

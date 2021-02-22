@@ -30,7 +30,7 @@ class PostPolicy
         return $user->hasPermissionTo('update posts');
     }
     
-    public function delete(UserInterface $user, Page $page)
+    public function delete(UserInterface $user, Post $post)
     {
         return false;
     }

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace DrewRoberts\Blog\Models;
 
-use DrewRoberts\Blog\Traits\HasMedia;
 use DrewRoberts\Blog\Traits\HasPageViews;
+use DrewRoberts\Media\Traits\HasMedia;
 use Tipoff\Support\Models\BaseModel;
 use Tipoff\Support\Traits\HasCreator;
 use Tipoff\Support\Traits\HasPackageFactory;

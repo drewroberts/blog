@@ -19,7 +19,6 @@
     "require": {
         "php": "^7.3|^8.0",
         "drewroberts/media": "^3.2.2",
-        "laravel/legacy-factories": "^1.1",
         "tipoff/authorization": "^2.3.1",
         "tipoff/support": "^1.5.7"
     },

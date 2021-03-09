@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TopicResourceTest extends TestCase
 {
-    use RefreshDatabase; 
+    use RefreshDatabase;
 
     /** @test */
     public function index()

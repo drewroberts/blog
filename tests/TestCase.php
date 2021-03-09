@@ -2,12 +2,12 @@
 
 namespace DrewRoberts\Blog\Tests;
 
-use Laravel\Nova\NovaCoreServiceProvider;
 use DrewRoberts\Blog\BlogServiceProvider;
 use DrewRoberts\Blog\Tests\Support\Models\Image;
 use DrewRoberts\Blog\Tests\Support\Models\User;
 use DrewRoberts\Blog\Tests\Support\Models\Video;
 use DrewRoberts\Blog\Tests\Support\Providers\NovaPackageServiceProvider;
+use Laravel\Nova\NovaCoreServiceProvider;
 use Tipoff\Support\SupportServiceProvider;
 use Tipoff\TestSupport\BaseTestCase;
 

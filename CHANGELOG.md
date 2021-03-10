@@ -119,3 +119,7 @@ All notable changes to `blog` will be documented in this file
 ## 4.1.2 - 2021-02-22
 
 - refactor has media trait
+
+## 4.1.3 - 2021-03-10
+
+- update dependencies

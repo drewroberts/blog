@@ -9,18 +9,18 @@ class AddBlogPermissions extends BasePermissionsMigration
     public function up()
     {
         $permissions = [
-                 'view pages',
-                 'create pages',
-                 'update pages',
-                 'view posts',
-                 'create posts',
-                 'update posts',
-                 'view series',
-                 'create series',
-                 'update series',
-                 'view topics',
-                 'create topics',
-                 'update topics',
+                 'view pages' => ['Owner', 'Staff'],
+                 'create pages' => ['Owner'],
+                 'update pages' => ['Owner'],
+                 'view posts' => ['Owner', 'Staff'],
+                 'create posts' => ['Owner'],
+                 'update posts' => ['Owner'],
+                 'view series' => ['Owner', 'Staff'],
+                 'create series' => ['Owner'],
+                 'update series' => ['Owner'],
+                 'view topics' => ['Owner', 'Staff'],
+                 'create topics' => ['Owner'],
+                 'update topics' => ['Owner'],
         ];
 
         $this->createPermissions($permissions);

@@ -6,7 +6,7 @@ use DrewRoberts\Blog\Models\Post;
 use DrewRoberts\Blog\Models\Series;
 use DrewRoberts\Blog\Models\Topic;
 use DrewRoberts\Blog\Tests\Support\Models\Image;
-use DrewRoberts\Blog\Tests\Support\Models\User;
+use Tipoff\Authorization\Models\User;
 use DrewRoberts\Blog\Tests\Support\Models\Video;
 use DrewRoberts\Blog\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;

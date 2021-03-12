@@ -4,7 +4,7 @@ namespace DrewRoberts\Blog\Tests\Unit\Models;
 
 use DrewRoberts\Blog\Models\Page;
 use DrewRoberts\Blog\Tests\Support\Models\Image;
-use DrewRoberts\Blog\Tests\Support\Models\User;
+use Tipoff\Authorization\Models\User;
 use DrewRoberts\Blog\Tests\Support\Models\Video;
 use DrewRoberts\Blog\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;

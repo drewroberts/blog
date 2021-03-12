@@ -1,13 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DrewRoberts\Blog\Tests;
 
 use DrewRoberts\Blog\BlogServiceProvider;
-use DrewRoberts\Blog\Tests\Support\Models\Image;
-use DrewRoberts\Blog\Tests\Support\Models\User;
-use DrewRoberts\Blog\Tests\Support\Models\Video;
 use DrewRoberts\Blog\Tests\Support\Providers\NovaPackageServiceProvider;
+use DrewRoberts\Media\MediaServiceProvider;
 use Laravel\Nova\NovaCoreServiceProvider;
+use Spatie\Permission\PermissionServiceProvider;
+use Tipoff\Authorization\AuthorizationServiceProvider;
+use Tipoff\Statuses\StatusesServiceProvider;
 use Tipoff\Support\SupportServiceProvider;
 use Tipoff\TestSupport\BaseTestCase;
 
@@ -17,19 +20,18 @@ class TestCase extends BaseTestCase
     {
         return [
             SupportServiceProvider::class,
+            AuthorizationServiceProvider::class,
+            PermissionServiceProvider::class,
+            MediaServiceProvider::class,
             BlogServiceProvider::class,
-            NovaPackageServiceProvider::class,
             NovaCoreServiceProvider::class,
+            NovaPackageServiceProvider::class,
         ];
     }
 
     public function getEnvironmentSetUp($app)
     {
         parent::getEnvironmentSetUp($app);
-
-        $app['config']->set('tipoff.model_class.user', User::class);
-        $app['config']->set('tipoff.model_class.image', Image::class);
-        $app['config']->set('tipoff.model_class.video', Video::class);
 
         $app['config']->set('filesystem.disks.cloudinary.cloud_name', 'test');
     }

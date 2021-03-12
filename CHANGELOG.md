@@ -123,3 +123,9 @@ All notable changes to `blog` will be documented in this file
 ## 4.1.3 - 2021-03-10
 
 - update dependencies
+
+## 4.2.0 - 2021-03-12
+
+- migrate permissions
+- grant permissions to roles
+- improve tests

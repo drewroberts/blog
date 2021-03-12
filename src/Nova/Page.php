@@ -34,7 +34,7 @@ class Page extends Resource
             Text::make('Slug')->sortable(),
             Text::make('Title')->sortable(),
             BelongsTo::make('Parent', 'parent', \DrewRoberts\Blog\Nova\Page::class)->sortable(),
-            BelongsTo::make('Author', 'author', app('nova.user'))->sortable(),
+            BelongsTo::make('Author', 'author', app()->getAlias('nova.user'))->sortable(),
             DateTime::make('Published', 'published_at')->format('YYYY-MM-DD')->sortable(),
         ];
     }

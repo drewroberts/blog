@@ -5,13 +5,13 @@ namespace DrewRoberts\Blog\Tests\Unit\Models;
 use DrewRoberts\Blog\Models\Post;
 use DrewRoberts\Blog\Models\Series;
 use DrewRoberts\Blog\Models\Topic;
-use DrewRoberts\Blog\Tests\Support\Models\Image;
-use DrewRoberts\Blog\Tests\Support\Models\User;
-use DrewRoberts\Blog\Tests\Support\Models\Video;
 use DrewRoberts\Blog\Tests\TestCase;
+use DrewRoberts\Media\Models\Image;
+use DrewRoberts\Media\Models\Video;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Carbon;
+use Tipoff\Authorization\Models\User;
 
 class PostTest extends TestCase
 {

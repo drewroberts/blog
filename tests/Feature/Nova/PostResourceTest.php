@@ -7,6 +7,7 @@ namespace DrewRoberts\Blog\Tests\Feature\Nova;
 use DrewRoberts\Blog\Models\Post;
 use DrewRoberts\Blog\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Config;
 
 class PostResourceTest extends TestCase
 {
@@ -15,6 +16,8 @@ class PostResourceTest extends TestCase
     /** @test */
     public function index()
     {
+        Config::set('app.key', 'base64:CA0WFs+ECA4gq/G95GpRwEaYsoNdUF0cAziYkc83ISE=');
+        
         Post::factory()->count(1)->create();
 
         $this->actingAs(self::createPermissionedUser('view posts', true));

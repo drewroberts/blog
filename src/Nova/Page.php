@@ -34,7 +34,7 @@ class Page extends BaseResource
             Text::make('Slug')->sortable(),
             Text::make('Title')->sortable(),
             nova('page') ? BelongsTo::make('Parent', 'parent', nova('page'))->sortable() : null,
-            BelongsTo::make('Author', 'author', nova('user'))->sortable(),
+            nova('user') ? BelongsTo::make('Author', 'author', nova('user'))->sortable() : null,
             DateTime::make('Published', 'published_at')->format('YYYY-MM-DD')->sortable(),
         ];
     }
@@ -58,7 +58,7 @@ class Page extends BaseResource
     protected function infoFields()
     {
         return [
-            BelongsTo::make('Author', 'author', app('nova.user'))->nullable(),
+            nova('user') ? BelongsTo::make('Author', 'author', nova('user'))->nullable() : null,
             Textarea::make('Description'),
             Textarea::make('Open Graph Description', 'ogdescription')->nullable(),
             nova('image') ? BelongsTo::make('Image', 'image', nova('image'))->nullable()->showCreateRelationButton() : null,

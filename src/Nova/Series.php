@@ -13,9 +13,9 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
-use Laravel\Nova\Resource;
+use Tipoff\Support\Nova\BaseResource;
 
-class Series extends Resource
+class Series extends BaseResource
 {
     public static $model = \DrewRoberts\Blog\Models\Series::class;
 
@@ -69,44 +69,12 @@ class Series extends Resource
         ];
     }
 
-    protected function dataFields()
+    protected function dataFields(): array
     {
-        return [
-            ID::make(),
-            BelongsTo::make('Created By', 'creator', app('nova.user'))->exceptOnForms(),
-            DateTime::make('Created At')->exceptOnForms(),
-            BelongsTo::make('Updated By', 'updater', app('nova.user'))->exceptOnForms(),
-            DateTime::make('Updated At')->exceptOnForms(),
-        ];
-    }
-
-    public function cards(Request $request)
-    {
-        return [];
-    }
-
-    public function filters(Request $request)
-    {
-        return [];
-    }
-
-    public function lenses(Request $request)
-    {
-        return [];
-    }
-
-    public function actions(Request $request)
-    {
-        return [];
-    }
-
-    public function authorizedToDelete(Request $request)
-    {
-        return false;
-    }
-
-    public function authorizedToForceDelete(Request $request)
-    {
-        return false;
+        return array_merge(
+            parent::dataFields(),
+            $this->creatorDataFields(),
+            $this->updaterDataFields(),
+        );
     }
 }

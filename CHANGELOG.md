@@ -129,3 +129,7 @@ All notable changes to `blog` will be documented in this file
 - migrate permissions
 - grant permissions to roles
 - improve tests
+
+## 4.2.1 - 2021-03-17
+
+- improve nova resources

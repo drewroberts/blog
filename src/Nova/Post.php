@@ -33,8 +33,8 @@ class Post extends BaseResource
             ID::make()->sortable(),
             Text::make('Slug')->sortable(),
             Text::make('Title')->sortable(),
-            BelongsTo::make('Series'),
-            BelongsTo::make('Author', 'author', nova('user'))->sortable(),
+            nova('series') ? BelongsTo::make('Series', 'series', nova('series'))->sortable() : null,
+            nova('user') ? BelongsTo::make('Author', 'author', nova('user'))->sortable() : null,
             DateTime::make('Published', 'published_at')->format('YYYY-MM-DD')->sortable(),
         ];
     }
@@ -58,20 +58,20 @@ class Post extends BaseResource
     protected function sortFields()
     {
         return [
-            BelongsTo::make('Topic')->exceptOnForms(),
-            BelongsTo::make('Series')->nullable(),
+            nova('topic') ? BelongsTo::make('Topic', 'topic', nova('topic'))->exceptOnForms() : null,
+            nova('series') ? BelongsTo::make('Series', 'series', nova('series'))->nullable() : null,
         ];
     }
 
     protected function infoFields()
     {
         return [
-            BelongsTo::make('Author', 'author', app('nova.user'))->nullable(),
+            nova('user') ? BelongsTo::make('Author', 'author', nova('user'))->nullable() : null,
             Textarea::make('Description'),
             Textarea::make('Open Graph Description', 'ogdescription')->nullable(),
-            BelongsTo::make('Image', 'image', \DrewRoberts\Media\Nova\Image::class)->nullable()->showCreateRelationButton(),
-            BelongsTo::make('OG Image', 'ogimage', \DrewRoberts\Media\Nova\Image::class)->nullable()->showCreateRelationButton(),
-            BelongsTo::make('Video', 'video', \DrewRoberts\Media\Nova\Video::class)->nullable()->showCreateRelationButton(),
+            nova('image') ? BelongsTo::make('Image', 'image', nova('image'))->nullable()->showCreateRelationButton() : null,
+            nova('image') ? BelongsTo::make('OG Image', 'ogimage', nova('image'))->nullable()->showCreateRelationButton() : null,
+            nova('video') ? BelongsTo::make('Video', 'video', nova('video'))->nullable()->showCreateRelationButton() : null,
         ];
     }
 

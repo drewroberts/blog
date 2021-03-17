@@ -33,8 +33,8 @@ class Page extends BaseResource
             ID::make()->sortable(),
             Text::make('Slug')->sortable(),
             Text::make('Title')->sortable(),
-            BelongsTo::make('Parent', 'parent', \DrewRoberts\Blog\Nova\Page::class)->sortable(),
-            BelongsTo::make('Author', 'author', nova('user'))->sortable(),
+            nova('page') ? BelongsTo::make('Parent', 'parent', nova('page'))->sortable() : null,
+            nova('user') ? BelongsTo::make('Author', 'author', nova('user'))->sortable() : null,
             DateTime::make('Published', 'published_at')->format('YYYY-MM-DD')->sortable(),
         ];
     }
@@ -45,7 +45,7 @@ class Page extends BaseResource
             Text::make('Title')->required(),
             Slug::make('Slug')->from('Title'),
             DateTime::make('Published', 'published_at'),
-            BelongsTo::make('Parent', 'parent', \DrewRoberts\Blog\Nova\Page::class)->nullable(),
+            nova('page') ? BelongsTo::make('Parent', 'parent', nova('page'))->nullable() : null,
             Markdown::make('Content')->help(
                 '<a href="https://www.markdownguide.org">MarkdownGuide.org</a>'
             )->stacked(),
@@ -58,12 +58,12 @@ class Page extends BaseResource
     protected function infoFields()
     {
         return [
-            BelongsTo::make('Author', 'author', app('nova.user'))->nullable(),
+            nova('user') ? BelongsTo::make('Author', 'author', nova('user'))->nullable() : null,
             Textarea::make('Description'),
             Textarea::make('Open Graph Description', 'ogdescription')->nullable(),
-            BelongsTo::make('Image', 'image', \DrewRoberts\Media\Nova\Image::class)->nullable()->showCreateRelationButton(),
-            BelongsTo::make('OG Image', 'ogimage', \DrewRoberts\Media\Nova\Image::class)->nullable()->showCreateRelationButton(),
-            BelongsTo::make('Video', 'video', \DrewRoberts\Media\Nova\Video::class)->nullable()->showCreateRelationButton(),
+            nova('image') ? BelongsTo::make('Image', 'image', nova('image'))->nullable()->showCreateRelationButton() : null,
+            nova('image') ? BelongsTo::make('OG Image', 'ogimage', nova('image'))->nullable()->showCreateRelationButton() : null,
+            nova('video') ? BelongsTo::make('Video', 'video', nova('video'))->nullable()->showCreateRelationButton() : null,
         ];
     }
 

@@ -33,7 +33,7 @@ class Series extends BaseResource
             ID::make()->sortable(),
             Text::make('Slug')->sortable(),
             Text::make('Title')->sortable(),
-            BelongsTo::make('Topic'),
+            nova('topic') ? BelongsTo::make('Topic', 'topic', nova('topic'))->sortable() : null,
             // @todo add count for Posts
         ];
     }
@@ -43,12 +43,12 @@ class Series extends BaseResource
         return [
             Text::make('Title')->required(),
             Slug::make('Slug')->from('Title'),
-            BelongsTo::make('Topic'),
+            nova('topic') ? BelongsTo::make('Topic', 'topic', nova('topic')) : null,
             Textarea::make('Note')->nullable(),
 
             new Panel('Content Fields', $this->contentFields()),
 
-            HasMany::make('Posts'),
+            nova('post') ? HasMany::make('Posts', 'post', nova('post')) : null,
 
             new Panel('Data Fields', $this->dataFields()),
         ];
@@ -62,9 +62,9 @@ class Series extends BaseResource
             )->stacked(),
             Textarea::make('Description'),
             Textarea::make('Open Graph Description', 'ogdescription')->nullable(),
-            BelongsTo::make('Image', 'image', \DrewRoberts\Media\Nova\Image::class)->nullable()->showCreateRelationButton(),
-            BelongsTo::make('OG Image', 'ogimage', \DrewRoberts\Media\Nova\Image::class)->nullable()->showCreateRelationButton(),
-            BelongsTo::make('Video', 'video', \DrewRoberts\Media\Nova\Video::class)->nullable()->showCreateRelationButton(),
+            nova('image') ? BelongsTo::make('Image', 'image', nova('image'))->nullable()->showCreateRelationButton() : null,
+            nova('image') ? BelongsTo::make('OG Image', 'ogimage', nova('image'))->nullable()->showCreateRelationButton() : null,
+            nova('video') ? BelongsTo::make('Video', 'video', nova('video'))->nullable()->showCreateRelationButton() : null,
         ];
     }
 

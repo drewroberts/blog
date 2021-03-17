@@ -47,8 +47,8 @@ class Topic extends BaseResource
 
             new Panel('Content Fields', $this->contentFields()),
 
-            HasMany::make('Series'),
-            HasMany::make('Posts'),
+            nova('series') ? HasMany::make('Series', 'series', nova('series')) : null,
+            nova('post') ? HasMany::make('Posts', 'post', nova('post')) : null,
 
             new Panel('Data Fields', $this->dataFields()),
         ];
@@ -62,9 +62,9 @@ class Topic extends BaseResource
             )->stacked(),
             Textarea::make('Description'),
             Textarea::make('Open Graph Description', 'ogdescription')->nullable(),
-            BelongsTo::make('Image', 'image', \DrewRoberts\Media\Nova\Image::class)->nullable()->showCreateRelationButton(),
-            BelongsTo::make('OG Image', 'ogimage', \DrewRoberts\Media\Nova\Image::class)->nullable()->showCreateRelationButton(),
-            BelongsTo::make('Video', 'video', \DrewRoberts\Media\Nova\Video::class)->nullable()->showCreateRelationButton(),
+            nova('image') ? BelongsTo::make('Image', 'image', nova('image'))->nullable()->showCreateRelationButton() : null,
+            nova('image') ? BelongsTo::make('OG Image', 'ogimage', nova('image'))->nullable()->showCreateRelationButton() : null,
+            nova('video') ? BelongsTo::make('Video', 'video', nova('video'))->nullable()->showCreateRelationButton() : null,
         ];
     }
 

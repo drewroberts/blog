@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace DrewRoberts\Blog\Tests;
 
 use DrewRoberts\Blog\BlogServiceProvider;
-use DrewRoberts\Blog\Tests\Support\Providers\NovaPackageServiceProvider;
 use DrewRoberts\Media\MediaServiceProvider;
 use Laravel\Nova\NovaCoreServiceProvider;
 use Spatie\Permission\PermissionServiceProvider;
 use Tipoff\Authorization\AuthorizationServiceProvider;
 use Tipoff\Support\SupportServiceProvider;
 use Tipoff\TestSupport\BaseTestCase;
+use Tipoff\TestSupport\Providers\NovaPackageServiceProvider;
 
 class TestCase extends BaseTestCase
 {

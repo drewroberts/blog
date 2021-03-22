@@ -133,3 +133,7 @@ All notable changes to `blog` will be documented in this file
 ## 4.2.1 - 2021-03-17
 
 - improve nova resources
+
+## 4.2.2 - 2021-03-21
+
+- update tests

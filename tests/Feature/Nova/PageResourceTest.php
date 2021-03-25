@@ -6,24 +6,37 @@ namespace DrewRoberts\Blog\Tests\Feature\Nova;
 
 use DrewRoberts\Blog\Models\Page;
 use DrewRoberts\Blog\Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Config;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tipoff\Authorization\Models\User;
 
 class PageResourceTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
 
     /** @test */
     public function index()
     {
-        Config::set('app.key', 'base64:CA0WFs+ECA4gq/G95GpRwEaYsoNdUF0cAziYkc83ISE=');
+        Page::factory()->count(4)->create();
 
-        Page::factory()->count(1)->create();
+        $this->actingAs(User::factory()->create()->assignRole('Admin'));
 
-        $this->actingAs(self::createPermissionedUser('view pages', true));
+        $response = $this->getJson('nova-api/pages')
+            ->assertOk();
 
-        $response = $this->getJson('nova-api/pages')->assertOk();
+        $this->assertCount(4, $response->json('resources'));
+    }
 
-        $this->assertCount(1, $response->json('resources'));
+    /** @test */
+    public function show()
+    {
+        $user = User::factory()->create();
+        $page = Page::factory()->create();
+
+        $this->actingAs(User::factory()->create()->assignRole('Admin'));
+
+        $response = $this->getJson("nova-api/pages/{$page->id}")
+            ->assertOk();
+
+        $this->assertEquals($page->id, $response->json('resource.id.value'));
     }
 }

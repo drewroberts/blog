@@ -6,24 +6,37 @@ namespace DrewRoberts\Blog\Tests\Feature\Nova;
 
 use DrewRoberts\Blog\Models\Topic;
 use DrewRoberts\Blog\Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Config;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tipoff\Authorization\Models\User;
 
 class TopicResourceTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
 
     /** @test */
     public function index()
     {
-        Config::set('app.key', 'base64:CA0WFs+ECA4gq/G95GpRwEaYsoNdUF0cAziYkc83ISE=');
-        
-        Topic::factory()->count(1)->create();
+        Topic::factory()->count(4)->create();
 
-        $this->actingAs(self::createPermissionedUser('view topics', true));
+        $this->actingAs(User::factory()->create()->assignRole('Admin'));
 
-        $response = $this->getJson('nova-api/topics')->assertOk();
+        $response = $this->getJson('nova-api/topics')
+            ->assertOk();
 
-        $this->assertCount(1, $response->json('resources'));
+        $this->assertCount(4, $response->json('resources'));
+    }
+
+    /** @test */
+    public function show()
+    {
+        $user = User::factory()->create();
+        $topic = Topic::factory()->create();
+
+        $this->actingAs(User::factory()->create()->assignRole('Admin'));
+
+        $response = $this->getJson("nova-api/topics/{$topic->id}")
+            ->assertOk();
+
+        $this->assertEquals($topic->id, $response->json('resource.id.value'));
     }
 }

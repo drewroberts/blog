@@ -37,6 +37,6 @@ class PageResourceTest extends TestCase
         $response = $this->getJson("nova-api/pages/{$page->id}")
             ->assertOk();
 
-        $this->assertEquals($note->id, $response->json('resource.id.value'));
+        $this->assertEquals($page->id, $response->json('resource.id.value'));
     }
 }

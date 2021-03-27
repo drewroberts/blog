@@ -12,6 +12,7 @@ class CreatePagesTable extends Migration
             $table->id();
             $table->string('slug')->unique()->index();
             $table->string('title')->unique();
+            $table->boolean('location_based')->default('false');
             $table->foreignIdFor(app('page'), 'parent_id')->nullable(); // Parent Page
             $table->text('content')->nullable(); // Will be written in Markdown.
 

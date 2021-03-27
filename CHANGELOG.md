@@ -137,3 +137,8 @@ All notable changes to `blog` will be documented in this file
 ## 4.2.2 - 2021-03-21
 
 - update tests
+
+## 4.3.0 - 2021-03-27
+
+- update migrations for webpage relationships
+- update migrations for location-based pages

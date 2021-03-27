@@ -12,12 +12,14 @@ class CreatePagesTable extends Migration
             $table->id();
             $table->string('slug')->unique()->index();
             $table->string('title')->unique();
+            $table->foreignIdFor(app('page'), 'parent_id')->nullable(); // Parent Page
             $table->text('content')->nullable(); // Will be written in Markdown.
-            $table->string('description')->nullable(); // Primary description used for SEO.
-            $table->string('ogdescription')->nullable(); // Open Graph Description used for social shares. Will default to description if NULL.
+
+            $table->foreignIdFor(app('webpage'))->nullable(); // Used to track seo rankings
             $table->unsignedInteger('pageviews')->index(); // Total current pageviews for page. Will be synced from Google Analytics API.
 
-            $table->foreignIdFor(app('page'), 'parent_id')->nullable(); // Parent Page
+            $table->string('description')->nullable(); // Primary description used for SEO.
+            $table->string('ogdescription')->nullable(); // Open Graph Description used for social shares. Will default to description if NULL.
             $table->foreignIdFor(app('image'))->nullable(); // Cover image for page
             $table->foreignIdFor(app('image'), 'ogimage_id')->nullable(); // External open graph image id. Featured image for social sharing. Will default to image_id unless this is used. Allows override for play button or words on image.
             $table->foreignIdFor(app('video'))->nullable(); // If page has a featured video.

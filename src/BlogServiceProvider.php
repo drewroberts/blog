@@ -48,6 +48,9 @@ class BlogServiceProvider extends TipoffServiceProvider
         app(Kernel::class)->appendToMiddlewarePriority(ResolvePage::class);
 
         Route::model('page', Page::class);
+        Route::model('series', Series::class);
+        Route::model('topic', Topic::class);
+        Route::model('post', Post::class);
 
 
 

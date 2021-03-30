@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace DrewRoberts\Blog;
 
+use Illuminate\Foundation\Http\Kernel;
+use Illuminate\Support\Facades\Route;
 use DrewRoberts\Blog\Models\Page;
 use DrewRoberts\Blog\Models\Post;
 use DrewRoberts\Blog\Models\Series;
@@ -14,6 +16,7 @@ use DrewRoberts\Blog\Policies\SeriesPolicy;
 use DrewRoberts\Blog\Policies\TopicPolicy;
 use Tipoff\Support\TipoffPackage;
 use Tipoff\Support\TipoffServiceProvider;
+use DrewRoberts\Blog\Http\Middleware\ResolvePage;
 
 class BlogServiceProvider extends TipoffServiceProvider
 {
@@ -32,6 +35,22 @@ class BlogServiceProvider extends TipoffServiceProvider
                 \DrewRoberts\Blog\Nova\Series::class,
                 \DrewRoberts\Blog\Nova\Topic::class,
             ])
+            ->hasWebRoute('web')
+            ->hasViews()
             ->name('blog');
+    }
+
+    public function bootingPackage()
+    {
+        parent::bootingPackage();
+
+        // Must happen AFTER SubstituteBindings middleware has been applied
+        app(Kernel::class)->appendToMiddlewarePriority(ResolvePage::class);
+
+        Route::model('page', Page::class);
+
+
+
+       // View::composer('locations::location_select', LocationSelectComposer::class);
     }
 }

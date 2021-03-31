@@ -12,7 +12,7 @@ Route::middleware(config('tipoff.web.middleware_group'))
         Route::get('{page}/{child_page}/{grand_child_page}', PageController::class)
             ->name('page');
 
-            Route::get('{topic}/{series}/{post}', TopicController::class)
-            ->name('blog');
+        Route::get('{topic}/{series}/{post}', TopicController::class)
+            ->name('topic');
 
     });

@@ -44,6 +44,8 @@ class BlogServiceProvider extends TipoffServiceProvider
         parent::bootingPackage();
 
         Route::model('page', Page::class);
+        Route::model('child_page', Page::class);
+        Route::model('grand_child_page', Page::class);
         Route::model('series', Series::class);
         Route::model('topic', Topic::class);
         Route::model('post', Post::class);

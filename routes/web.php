@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use DrewRoberts\Blog\Http\Controllers\PageController;
 use DrewRoberts\Blog\Http\Controllers\TopicController;
-use DrewRoberts\Blog\Http\Middleware\ResolvePage;
 
 
 Route::middleware(config('tipoff.web.middleware_group'))

@@ -16,7 +16,6 @@ use DrewRoberts\Blog\Policies\SeriesPolicy;
 use DrewRoberts\Blog\Policies\TopicPolicy;
 use Tipoff\Support\TipoffPackage;
 use Tipoff\Support\TipoffServiceProvider;
-use DrewRoberts\Blog\Http\Middleware\ResolvePage;
 
 class BlogServiceProvider extends TipoffServiceProvider
 {
@@ -44,16 +43,9 @@ class BlogServiceProvider extends TipoffServiceProvider
     {
         parent::bootingPackage();
 
-        // Must happen AFTER SubstituteBindings middleware has been applied
-        app(Kernel::class)->appendToMiddlewarePriority(ResolvePage::class);
-
         Route::model('page', Page::class);
         Route::model('series', Series::class);
         Route::model('topic', Topic::class);
         Route::model('post', Post::class);
-
-
-
-       // View::composer('locations::location_select', LocationSelectComposer::class);
     }
 }

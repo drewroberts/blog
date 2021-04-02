@@ -14,5 +14,4 @@ class Layout extends BaseModel
     use HasCreator;
     use HasPackageFactory;
     use HasUpdater;
-
 }

@@ -41,7 +41,8 @@ class Page extends BaseModel
         });
 
         static::deleting(function ($page) {
-            if(!(empty($page->children))){
+
+            if(count($page->children)>0){
                 throw new \Exception("cannot delete a page having a children");      
             }
         });

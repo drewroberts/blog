@@ -34,28 +34,13 @@ class Page extends BaseModel
         parent::boot();
 
         static::saving(function ($page) {
-            
-            $page->author_id = 1; // @todo we can remove this line when the blog model is fixed
-            $page->creator_id = 1; //@todo the page model has the trait, we can remove this when the blog is fixed
-            $page->updater_id = 1; //@todo the page model has the trait, we can remove this when the blog is fixed
-
             // Can specify a different author for a page than Auth user
             if (empty($page->author_id)) {
                 $page->author_id = auth()->user()->id;
             }
         });
     }
-
-    public static function create($slug, $title)
-    {
-        $page = new Page;
-        $page->slug = $slug;
-        $page->title = $title;
-        $page->save();
-
-        return $page;
-    }
-
+    
     public function getRouteKeyName()
     {
         return 'slug';

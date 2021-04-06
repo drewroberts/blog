@@ -39,8 +39,14 @@ class Page extends BaseModel
                 $page->author_id = auth()->user()->id;
             }
         });
+
+        static::deleting(function ($page) {
+            if(!(empty($page->children))){
+                throw new \Exception("cannot delete a page having a children");      
+            }
+        });
     }
-    
+
     public function getRouteKeyName()
     {
         return 'slug';
@@ -53,7 +59,12 @@ class Page extends BaseModel
 
     public function market()
     {
-        return $this->belongsTo(app('market'));
+        return $this->hasMany(app('market'));
+    }
+
+    public function location()
+    {
+        return $this->hasMany(app('location'));
     }
 
     public function parent()
@@ -61,8 +72,15 @@ class Page extends BaseModel
         return $this->belongsTo(app('page'), 'parent_id');
     }
 
+    public function children()
+    {
+        return $this->hasMany(app('page'), 'parent_id');
+    }
+
+
     public function setParent(Page $parent)
     {
-        $this->update(['parent_id' => $parent->id]);
+        $this->parent_id = $parent->id;
+        $this->save();
     }
 }

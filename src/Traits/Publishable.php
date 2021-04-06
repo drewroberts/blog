@@ -9,7 +9,7 @@ trait Publishable
     public static function bootPublishable()
     {
         static::addGlobalScope('published', static function (Builder $builder) {
-            $builder->where('published_at', '<', now());
+            $builder->where('published_at', '<=', now());
         });
 
         static::saving(static function ($publishable) {
@@ -21,6 +21,7 @@ trait Publishable
 
     public function isPublished()
     {
-        return $this->published_at->isPast();
+        return $this->published_at->lessThanOrEqualTo(now());
+
     }
 }

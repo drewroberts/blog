@@ -81,7 +81,7 @@ class PageControllerTest extends TestCase
         $child = Page::factory()->create()->setParent($page);
 
         $segments = [$page->slug, $child->slug];
-        foreach($segments as $slug1) {
+        foreach ($segments as $slug1) {
             $this->get($this->webUrl("/{$slug1}"))
                 ->assertStatus(404);
 
@@ -115,7 +115,7 @@ class PageControllerTest extends TestCase
         $grandChild = Page::factory()->create()->setParent($child);
 
         $segments = [$page->slug, $child->slug, $grandChild->slug];
-        foreach($segments as $slug1) {
+        foreach ($segments as $slug1) {
             $this->get($this->webUrl("/{$slug1}"))
                 ->assertStatus(404);
 

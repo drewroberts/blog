@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace DrewRoberts\Blog\Http\Middleware;
 
-
 use DrewRoberts\Blog\Http\Controllers\BlogController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Nova\Http\Middleware\ServeNova;
@@ -26,7 +25,7 @@ class ServeBlog extends ServeNova
     {
         // If NOT a nova request, register blog routes now.  Registration of routes when it
         // is a Nova request will be triggered by Nova::booted(...)
-        if (!$this->isNovaRequest($request)) {
+        if (! $this->isNovaRequest($request)) {
             (self::blogRoutes())();
         }
 

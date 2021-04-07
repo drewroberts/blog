@@ -61,6 +61,7 @@ class BlogController extends BaseController
     {
         if (empty($slug2)) {
             abort_unless($page->isLeaf(), 404);
+
             return app(PageController::class)($request, $page);
         }
 
@@ -71,6 +72,7 @@ class BlogController extends BaseController
             ->first()) {
             if (empty($slug3)) {
                 abort_unless($childPage->isLeaf(), 404);
+
                 return app(PageController::class)($request, $page, $childPage);
             }
 

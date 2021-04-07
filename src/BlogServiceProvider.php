@@ -43,8 +43,13 @@ class BlogServiceProvider extends TipoffServiceProvider
     {
         parent::bootingPackage();
 
-        // Deferred route registration if this is a Nova request
-        Nova::booted(ServeBlog::blogRoutes());
+        if (app()->runningInConsole() && ! app()->runningUnitTests()) {
+            // Really just so route will appear in artisan route:list
+            app()->booted(ServeBlog::blogRoutes());
+        } else {
+            // Deferred route registration if this is a Nova request
+            Nova::booted(ServeBlog::blogRoutes());
+        }
 
         // Middleware to support dynamic registration if NOT a Nova request
         $this->app->make(HttpKernel::class)

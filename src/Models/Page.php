@@ -60,12 +60,12 @@ class Page extends BaseModel
 
     public function market()
     {
-        return $this->hasMany(app('market'));
+        return $this->hasOne(app('market'));
     }
 
     public function location()
     {
-        return $this->hasMany(app('location'));
+        return $this->hasOne(app('location'));
     }
 
     public function parent()

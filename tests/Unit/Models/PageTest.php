@@ -271,4 +271,23 @@ class PageTest extends TestCase
         $this->assertCount(1, $pages);
         $this->assertTrue($pages->contains($publishedPage));
     }
+
+    /**
+     * @test
+     * @expectedException Exception
+     */
+    public function it_cannot_delete_when_have_relations()
+    {
+        $user = User::factory()->create();
+        $this->be($user);
+
+        $parent = Page::factory()->create();
+
+        $child_page = Page::factory()->create();
+        $child_page->setParent($parent);
+
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage("cannot delete a page having a children");  
+        $parent->delete();
+    }
 }

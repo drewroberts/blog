@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace DrewRoberts\Blog;
 
+use Illuminate\Foundation\Http\Kernel;
+use Illuminate\Support\Facades\Route;
 use DrewRoberts\Blog\Models\Page;
 use DrewRoberts\Blog\Models\Post;
 use DrewRoberts\Blog\Models\Series;
@@ -32,6 +34,20 @@ class BlogServiceProvider extends TipoffServiceProvider
                 \DrewRoberts\Blog\Nova\Series::class,
                 \DrewRoberts\Blog\Nova\Topic::class,
             ])
+            ->hasWebRoute('web')
+            ->hasViews()
             ->name('blog');
+    }
+
+    public function bootingPackage()
+    {
+        parent::bootingPackage();
+
+        Route::model('page', Page::class);
+        Route::model('child_page', Page::class);
+        Route::model('grand_child_page', Page::class);
+        Route::model('series', Series::class);
+        Route::model('topic', Topic::class);
+        Route::model('post', Post::class);
     }
 }

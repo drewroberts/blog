@@ -27,6 +27,8 @@ class Page extends BaseModel
         'published_at' => 'datetime',
     ];
 
+    protected $fillable = ['slug', 'title'];
+
     protected static function boot()
     {
         parent::boot();
@@ -35,6 +37,13 @@ class Page extends BaseModel
             // Can specify a different author for a page than Auth user
             if (empty($page->author_id)) {
                 $page->author_id = auth()->user()->id;
+            }
+        });
+
+        static::deleting(function ($page) {
+
+            if(count($page->children)>0){
+                throw new \Exception("cannot delete a page having a children");      
             }
         });
     }
@@ -49,13 +58,30 @@ class Page extends BaseModel
         return $this->belongsTo(app('user'), 'author_id');
     }
 
+    public function market()
+    {
+        return $this->hasOne(app('market'));
+    }
+
+    public function location()
+    {
+        return $this->hasOne(app('location'));
+    }
+
     public function parent()
     {
         return $this->belongsTo(app('page'), 'parent_id');
     }
 
+    public function children()
+    {
+        return $this->hasMany(app('page'), 'parent_id');
+    }
+
+
     public function setParent(Page $parent)
     {
-        $this->update(['parent_id' => $parent->id]);
+        $this->parent_id = $parent->id;
+        $this->save();
     }
 }

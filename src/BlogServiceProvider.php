@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace DrewRoberts\Blog;
 
-use Illuminate\Foundation\Http\Kernel;
-use Illuminate\Support\Facades\Route;
 use DrewRoberts\Blog\Models\Page;
 use DrewRoberts\Blog\Models\Post;
 use DrewRoberts\Blog\Models\Series;
@@ -14,6 +12,7 @@ use DrewRoberts\Blog\Policies\PagePolicy;
 use DrewRoberts\Blog\Policies\PostPolicy;
 use DrewRoberts\Blog\Policies\SeriesPolicy;
 use DrewRoberts\Blog\Policies\TopicPolicy;
+use Illuminate\Support\Facades\Route;
 use Tipoff\Support\TipoffPackage;
 use Tipoff\Support\TipoffServiceProvider;
 

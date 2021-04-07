@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace DrewRoberts\Blog\Http\Controllers;
 
-use Illuminate\Http\Request;
 use DrewRoberts\Blog\Models\Series;
 use DrewRoberts\Blog\Models\Topic;
+use Illuminate\Http\Request;
 use Tipoff\Support\Http\Controllers\BaseController;
 
 class SeriesController extends BaseController
@@ -15,7 +15,7 @@ class SeriesController extends BaseController
     {
         return view('blog::series', [
             'topic' => $topic,
-            'series' => $series
+            'series' => $series,
         ]);
     }
 }

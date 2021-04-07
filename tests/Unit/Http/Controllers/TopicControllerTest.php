@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace DrewRoberts\Blog\Tests\Unit\Http\Controllers;
 
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use DrewRoberts\Blog\Models\Topic;
 use DrewRoberts\Blog\Tests\TestCase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class TopicControllerTest extends TestCase
 {

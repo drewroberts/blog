@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace DrewRoberts\Blog\Http\Controllers;
 
-use Illuminate\Http\Request;
 use DrewRoberts\Blog\Models\Page;
+use Illuminate\Http\Request;
 use Tipoff\Support\Http\Controllers\BaseController;
 
 class PageController extends BaseController
@@ -17,6 +17,5 @@ class PageController extends BaseController
             'child_page' => $child_page,
             'grand_child_page' => $grand_child_page,
         ]);
-
     }
 }

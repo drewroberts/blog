@@ -287,7 +287,7 @@ class PageTest extends TestCase
         $child_page->setParent($parent);
 
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage("cannot delete a page having a children");  
+        $this->expectExceptionMessage("cannot delete a page having a children");
         $parent->delete();
     }
 }

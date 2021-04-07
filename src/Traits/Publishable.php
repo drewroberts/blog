@@ -22,6 +22,5 @@ trait Publishable
     public function isPublished()
     {
         return $this->published_at->lessThanOrEqualTo(now());
-
     }
 }

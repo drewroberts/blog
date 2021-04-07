@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace DrewRoberts\Blog\Http\Controllers;
 
-use Illuminate\Http\Request;
 use DrewRoberts\Blog\Models\Topic;
-use DrewRoberts\Blog\Models\Series;
-use DrewRoberts\Blog\Models\Post;
+use Illuminate\Http\Request;
 use Tipoff\Support\Http\Controllers\BaseController;
 
 class TopicController extends BaseController

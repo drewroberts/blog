@@ -15,16 +15,50 @@ class PostControllerTest extends TestCase
     use DatabaseTransactions;
 
     /** @test */
-    public function index_single_post()
+    public function index_proper_linkage()
     {
         $topic = Topic::factory()->create();
-        $series = Series::factory()->create();
-        $post = Post::factory()->create();
+        $series = Series::factory()->create([
+            'topic_id' => $topic,
+        ]);
+        $post = Post::factory()->create([
+            'series_id' => $series,
+        ]);
 
-        $this->get($this->webUrl("/blog/{$topic->slug}/{$series->slug}/{$post->slug}"))
+        $this->get($this->webUrl("/{$topic->slug}/{$series->slug}/{$post->slug}"))
             ->assertOk()
-            ->assertSee($topic->name)
-            ->assertSee($series->name)
-            ->assertSee($post->name);
+            ->assertSee("Topic: {$topic->name}")
+            ->assertSee("Series: {$series->name}")
+            ->assertSee("Post: {$post->name}");
+    }
+
+    /** @test */
+    public function index_post_has_bad_series()
+    {
+        $topic = Topic::factory()->create();
+        $series = Series::factory()->create([
+            'topic_id' => $topic,
+        ]);
+        $post = Post::factory()->create([
+            'series_id' => Series::factory()->create(),
+        ]);
+
+        $this->get($this->webUrl("/{$topic->slug}/{$series->slug}/{$post->slug}"))
+            ->assertStatus(404);
+    }
+
+    /** @test */
+    public function index_series_has_bad_topic()
+    {
+        $topic = Topic::factory()->create();
+        $series = Series::factory()->create([
+            'topic_id' => Topic::factory()->create(),
+        ]);
+        $post = Post::factory()->create([
+            'series_id' => $series,
+        ]);
+
+        $this->get($this->webUrl("/{$topic->slug}/{$series->slug}/{$post->slug}"))
+            ->assertStatus(404);
     }
 }

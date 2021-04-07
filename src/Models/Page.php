@@ -77,10 +77,16 @@ class Page extends BaseModel
         return $this->hasMany(app('page'), 'parent_id');
     }
 
+    public function isLeaf(): bool
+    {
+        return $this->children()->count() === 0;
+    }
 
-    public function setParent(Page $parent)
+    public function setParent(Page $parent): self
     {
         $this->parent_id = $parent->id;
         $this->save();
+
+        return $this;
     }
 }

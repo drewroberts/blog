@@ -10,12 +10,12 @@ use Tipoff\Support\Http\Controllers\BaseController;
 
 class PageController extends BaseController
 {
-    public function __invoke(Request $request, Page $page, Page $child_page, Page $grand_child_page)
+    public function __invoke(Request $request, Page $page, ?Page $childPage = null, Page $grandChildPage = null)
     {
         return view('blog::page', [
             'page' => $page,
-            'child_page' => $child_page,
-            'grand_child_page' => $grand_child_page,
+            'child_page' => $childPage,
+            'grand_child_page' => $grandChildPage,
         ]);
     }
 }

@@ -1,6 +1,8 @@
 @extends('support::layout')
 
 @section('content')
-    {{ $topic->name }}
-    {{ $series->name }}
+    <ul>
+        <li>Topic: {{ $topic->name }}</li>
+        <li>Series: {{ $series->name }}</li>
+    </ul>
 @endsection

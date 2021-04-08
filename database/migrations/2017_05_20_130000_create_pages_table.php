@@ -10,7 +10,7 @@ class CreatePagesTable extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
             $table->id();
-            $table->string('slug')->unique()->index();
+            $table->string('slug')->index();
             $table->string('title')->unique();
             $table->foreignIdFor(app('layout'))->nullable(); // Will remove nullable and default a basic layout for pages. Allows some pages to have different layout (AMP or regular html & other variations)
             $table->boolean('location_based')->default('false');
@@ -33,6 +33,8 @@ class CreatePagesTable extends Migration
             $table->dateTime('published_at'); // Allows pages to be published at a later date.
             $table->softDeletes();
             $table->timestamps();
+
+            $table->unique(['slug', 'parent_id']);
         });
     }
 }

@@ -11,7 +11,7 @@ class CreateSeriesTable extends Migration
         Schema::create('series', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(app('topic')); // Group series into larger topics
-            $table->string('slug')->unique()->index();
+            $table->string('slug')->index();
             $table->string('title')->unique();
             $table->string('note')->nullable(); // Just for internal reference purposes only, not displayed on website.
             $table->text('content')->nullable(); // Will be written in Markdown.
@@ -28,6 +28,8 @@ class CreateSeriesTable extends Migration
             $table->foreignIdFor(app('user'), 'creator_id');
             $table->foreignIdFor(app('user'), 'updater_id');
             $table->timestamps();
+
+            $table->unique(['slug', 'topic_id']);
         });
     }
 }

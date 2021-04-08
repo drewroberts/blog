@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace DrewRoberts\Blog;
 
-
 use DrewRoberts\Blog\Models\Layout;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;

@@ -2,6 +2,8 @@
 
 namespace DrewRoberts\Blog\Tests\Unit\Models;
 
+use DrewRoberts\Blog\Exceptions\InvalidSlugException;
+use DrewRoberts\Blog\Models\Page;
 use DrewRoberts\Blog\Models\Post;
 use DrewRoberts\Blog\Models\Series;
 use DrewRoberts\Blog\Models\Topic;
@@ -11,6 +13,7 @@ use DrewRoberts\Media\Models\Video;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Collection;
+use Laravel\Nova\Nova;
 use Tipoff\Authorization\Models\User;
 
 class TopicTest extends TestCase
@@ -231,5 +234,54 @@ class TopicTest extends TestCase
 
         $this->assertInstanceOf(User::class, $topic->updater);
         $this->assertEquals($user->id, $topic->updater->id);
+    }
+
+    /** @test */
+    public function cannot_use_root_page_slug()
+    {
+        $page = Page::factory()->create();
+
+        $this->expectException(InvalidSlugException::class);
+        $this->expectExceptionMessage("Slug is not allowed.");
+
+        Topic::factory()->create([
+            'slug' => $page->slug,
+        ]);
+    }
+
+    /** @test */
+    public function can_use_not_root_page_slug()
+    {
+        $page = Page::factory()->create();
+        $child = Page::factory()->create()->setParent($page);
+
+        $topic = Topic::factory()->create([
+            'slug' => $child->slug,
+        ]);
+
+        $this->assertEquals($child->slug, $topic->slug);
+    }
+
+    /**
+     * @test
+     * @dataProvider dataProviderForNovaSlug
+     */
+    public function cannot_use_nova_slug($slug)
+    {
+        $this->expectException(InvalidSlugException::class);
+        $this->expectExceptionMessage("Slug is not allowed.");
+
+        Topic::factory()->create([
+            'slug' => is_callable($slug) ? ($slug)() : $slug,
+        ]);
+    }
+
+    public function dataProviderForNovaSlug()
+    {
+        return [
+            [ function() { return trim(Nova::path(), '/'); } ],     // Need to defer evaluation until app exists
+            [ 'nova-api' ],
+            [ 'nova-vendor' ],
+        ];
     }
 }

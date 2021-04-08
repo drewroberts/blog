@@ -2,13 +2,18 @@
 
 namespace DrewRoberts\Blog\Tests\Unit\Models;
 
+use DrewRoberts\Blog\Exceptions\HasChildrenException;
+use DrewRoberts\Blog\Exceptions\InvalidSlugException;
+use DrewRoberts\Blog\Exceptions\NestingTooDeepException;
 use DrewRoberts\Blog\Models\Page;
+use DrewRoberts\Blog\Models\Topic;
 use DrewRoberts\Blog\Tests\TestCase;
 use DrewRoberts\Media\Models\Image;
 use DrewRoberts\Media\Models\Video;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Carbon;
+use Laravel\Nova\Nova;
 use Tipoff\Authorization\Models\User;
 
 class PageTest extends TestCase
@@ -272,10 +277,7 @@ class PageTest extends TestCase
         $this->assertTrue($pages->contains($publishedPage));
     }
 
-    /**
-     * @test
-     * @expectedException Exception
-     */
+    /** @test */
     public function it_cannot_delete_when_have_relations()
     {
         $user = User::factory()->create();
@@ -286,8 +288,126 @@ class PageTest extends TestCase
         $child_page = Page::factory()->create();
         $child_page->setParent($parent);
 
-        $this->expectException(\Exception::class);
-        $this->expectExceptionMessage("cannot delete a page having a children");
+        $this->expectException(HasChildrenException::class);
+        $this->expectExceptionMessage("Cannot delete when children exist");
         $parent->delete();
+    }
+
+    /** @test */
+    public function cannot_nest_more_than_3_levels()
+    {
+        $this->actingAs(User::factory()->create());
+
+        $page = Page::factory()->create();
+        $child = Page::factory()->create()->setParent($page);
+        $grandChild = Page::factory()->create()->setParent($child);
+
+        $this->expectException(NestingTooDeepException::class);
+        $this->expectExceptionMessage("Cannot nest pages more than 3 levels deep.");
+
+        Page::factory()->create()->setParent($grandChild);
+    }
+
+    /** @test */
+    public function cannot_use_topic_slug_at_root()
+    {
+        $topic = Topic::factory()->create();
+
+        $this->expectException(InvalidSlugException::class);
+        $this->expectExceptionMessage("Slug is not allowed.");
+
+        Page::factory()->create([
+            'slug' => $topic->slug,
+        ]);
+    }
+
+    /** @test */
+    public function can_use_topic_slug_not_at_root()
+    {
+        $topic = Topic::factory()->create();
+
+        $parent = Page::factory()->create();
+        $child = Page::factory()->create([
+            'parent_id' => $parent,
+            'slug' => $topic->slug,
+        ]);
+
+        $this->assertEquals($topic->slug, $child->slug);
+    }
+
+    /** @test */
+    public function can_use_same_slug_at_different_nesting_levels()
+    {
+        $parent = Page::factory()->create();
+        $child = Page::factory()->create([
+            'parent_id' => $parent,
+            'slug' => $parent->slug,
+        ]);
+        $grandChild = Page::factory()->create([
+            'parent_id' => $child,
+            'slug' => $parent->slug,
+        ]);
+
+        $this->assertEquals($parent->slug, $child->slug);
+        $this->assertEquals($parent->slug, $grandChild->slug);
+
+        $child->slug = 'child-slug';
+        $child->save();
+
+        $grandChild->slug = $child->slug;
+        $grandChild->save();
+    }
+
+    /** @test */
+    public function cannot_use_same_slug_at_root_level()
+    {
+        $this->expectException(InvalidSlugException::class);
+        $this->expectExceptionMessage("Slug is not allowed.");
+
+        $parent = Page::factory()->create();
+        Page::factory()->create([
+            'slug' => $parent->slug,
+        ]);
+    }
+
+    /** @test */
+    public function cannot_use_same_slug_at_nested_level()
+    {
+        $parent = Page::factory()->create();
+        Page::factory()->create([
+            'parent_id' => $parent,
+            'slug' => $parent->slug,
+        ]);
+
+        $this->expectException(InvalidSlugException::class);
+        $this->expectExceptionMessage("Slug is not allowed.");
+
+        Page::factory()->create([
+            'parent_id' => $parent,
+            'slug' => $parent->slug,
+        ]);
+    }
+
+    /**
+     * @test
+     * @dataProvider dataProviderForNovaSlug
+     */
+    public function cannot_use_nova_slug_at_root($slug)
+    {
+        $this->expectException(InvalidSlugException::class);
+        $this->expectExceptionMessage("Slug is not allowed.");
+
+        Page::factory()->create([
+            'slug' => is_callable($slug) ? ($slug)() : $slug,
+        ]);
+    }
+
+    public function dataProviderForNovaSlug()
+    {
+        return [
+            [ function() { return trim(Nova::path(), '/'); } ],     // Need to defer evaluation until app exists
+            [ 'nova-api' ],
+            [ 'nova-vendor' ],
+        ];
     }
 }

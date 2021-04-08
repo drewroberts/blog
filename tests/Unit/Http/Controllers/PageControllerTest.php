@@ -37,19 +37,6 @@ class PageControllerTest extends TestCase
     }
 
     /** @test */
-    public function index_top_level_page_with_topic()
-    {
-        $page = Page::factory()->create();
-        Topic::factory()->create([
-            'slug' => $page->slug,
-        ]);
-
-        $this->get($this->webUrl("/{$page->slug}"))
-            ->assertStatus(200)
-            ->assertDontSee("Page: {$page->name}");     // Topic has priority!
-    }
-
-    /** @test */
     public function index_child_page_no_grand_children()
     {
         $page = Page::factory()->create();

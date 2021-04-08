@@ -306,4 +306,22 @@ class PostTest extends TestCase
         $this->assertCount(1, $posts);
         $this->assertTrue($posts->contains($publishedPost));
     }
+
+    /** @test */
+    public function path_with_series()
+    {
+        $post = Post::factory()->create();
+
+        $this->assertStringNotContainsString('blog', $post->path);
+    }
+
+    /** @test */
+    public function path_without_series()
+    {
+        $post = Post::factory()->create([
+            'series_id' => null
+        ]);
+
+        $this->assertStringStartsWith('/blog', $post->path);
+    }
 }

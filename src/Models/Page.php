@@ -5,16 +5,15 @@ declare(strict_types=1);
 namespace DrewRoberts\Blog\Models;
 
 use Carbon\Carbon;
+use DrewRoberts\Blog\Exceptions\HasChildrenException;
 use DrewRoberts\Blog\Exceptions\InvalidSlugException;
 use DrewRoberts\Blog\Exceptions\NestingTooDeepException;
-use DrewRoberts\Blog\Exceptions\HasChildrenException;
 use DrewRoberts\Blog\Traits\HasPageViews;
 use DrewRoberts\Blog\Traits\Publishable;
 use DrewRoberts\Media\Models\Image;
 use DrewRoberts\Media\Models\Video;
 use DrewRoberts\Media\Traits\HasMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Laravel\Nova\Nova;
 use Tipoff\Authorization\Models\User;
 use Tipoff\Seo\Models\Webpage;
 use Tipoff\Support\Models\BaseModel;
@@ -81,7 +80,7 @@ class Page extends BaseModel
     protected $fillable = [
         'parent_id',
         'slug',
-        'title'
+        'title',
     ];
 
     protected static function boot()

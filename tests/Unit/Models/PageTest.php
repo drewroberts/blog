@@ -405,7 +405,9 @@ class PageTest extends TestCase
     public function dataProviderForNovaSlug()
     {
         return [
-            [ function() { return trim(Nova::path(), '/'); } ],     // Need to defer evaluation until app exists
+            [ function () {
+                return trim(Nova::path(), '/');
+            } ],     // Need to defer evaluation until app exists
             [ 'nova-api' ],
             [ 'nova-vendor' ],
         ];

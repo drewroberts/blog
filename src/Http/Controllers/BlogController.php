@@ -60,7 +60,7 @@ class BlogController extends BaseController
     private function handlePageRoute(Request $request, Page $page, ?string $slug2 = null, ?string $slug3 = null)
     {
         if (empty($slug2)) {
-            abort_unless($page->isLeaf(), 404);
+            abort_unless($page->is_leaf, 404);
 
             return app(PageController::class)($request, $page);
         }
@@ -71,7 +71,7 @@ class BlogController extends BaseController
             ->where('slug', '=', $slug2)
             ->first()) {
             if (empty($slug3)) {
-                abort_unless($childPage->isLeaf(), 404);
+                abort_unless($childPage->is_leaf, 404);
 
                 return app(PageController::class)($request, $page, $childPage);
             }

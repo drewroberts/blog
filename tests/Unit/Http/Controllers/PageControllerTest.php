@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace DrewRoberts\Blog\Tests\Unit\Http\Controllers;
 
 use DrewRoberts\Blog\Models\Page;
-use DrewRoberts\Blog\Models\Topic;
 use DrewRoberts\Blog\Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
@@ -34,19 +33,6 @@ class PageControllerTest extends TestCase
 
         $this->get($this->webUrl("/{$page->slug}"))
             ->assertStatus(404);
-    }
-
-    /** @test */
-    public function index_top_level_page_with_topic()
-    {
-        $page = Page::factory()->create();
-        Topic::factory()->create([
-            'slug' => $page->slug,
-        ]);
-
-        $this->get($this->webUrl("/{$page->slug}"))
-            ->assertStatus(200)
-            ->assertDontSee("Page: {$page->name}");     // Topic has priority!
     }
 
     /** @test */

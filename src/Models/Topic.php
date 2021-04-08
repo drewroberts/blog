@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace DrewRoberts\Blog\Models;
 
+use DrewRoberts\Blog\Exceptions\HasChildrenException;
+use DrewRoberts\Blog\Exceptions\InvalidSlugException;
 use DrewRoberts\Blog\Traits\HasPageViews;
 use DrewRoberts\Media\Traits\HasMedia;
 use Tipoff\Support\Models\BaseModel;
@@ -22,6 +24,38 @@ class Topic extends BaseModel
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saving(function (Topic $topic) {
+            $topic->validateSlug();
+        });
+
+        static::deleting(function (Topic $topic) {
+            throw_if($topic->series()->count(), HasChildrenException::class);
+        });
+    }
+
+    private function validateSlug(): void
+    {
+        InvalidSlugException::checkNovaRestrictions($this->slug);
+
+        // Prevent topic from having same slug as root pages
+        throw_if(Page::query()->whereNull('parent_id')->where('slug', '=', $this->slug)->count(), InvalidSlugException::class);
+
+        // Prevent topic from having same slug as topics
+        $count = Topic::query()
+            ->where(function ($builder) {
+                if ($this->id) {
+                    $builder->where('id', '<>', $this->id);
+                }
+            })
+            ->where('slug', '=', $this->slug)
+            ->count();
+        throw_if($count, InvalidSlugException::class);
     }
 
     /**

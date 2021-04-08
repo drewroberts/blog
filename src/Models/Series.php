@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DrewRoberts\Blog\Models;
 
+use DrewRoberts\Blog\Exceptions\HasChildrenException;
 use DrewRoberts\Blog\Traits\HasPageViews;
 use DrewRoberts\Media\Traits\HasMedia;
 use Tipoff\Support\Models\BaseModel;
@@ -20,6 +21,16 @@ class Series extends BaseModel
         HasPageViews;
 
     protected $table = 'series';
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function (Series $series) {
+            throw_if($series->posts()->count(), HasChildrenException::class);
+        });
+    }
+
 
     public function getRouteKeyName()
     {

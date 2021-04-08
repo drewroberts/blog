@@ -14,6 +14,7 @@ use DrewRoberts\Blog\Policies\PostPolicy;
 use DrewRoberts\Blog\Policies\SeriesPolicy;
 use DrewRoberts\Blog\Policies\TopicPolicy;
 use Illuminate\Contracts\Http\Kernel as HttpKernel;
+use Illuminate\Support\Facades\Route;
 use Laravel\Nova\Nova;
 use Tipoff\Support\TipoffPackage;
 use Tipoff\Support\TipoffServiceProvider;
@@ -35,6 +36,7 @@ class BlogServiceProvider extends TipoffServiceProvider
                 \DrewRoberts\Blog\Nova\Series::class,
                 \DrewRoberts\Blog\Nova\Topic::class,
             ])
+            ->hasWebRoute('web')
             ->hasViews()
             ->name('blog');
     }
@@ -42,6 +44,8 @@ class BlogServiceProvider extends TipoffServiceProvider
     public function bootingPackage()
     {
         parent::bootingPackage();
+
+        Route::model('post', Post::class);
 
         if (app()->runningInConsole() && ! app()->runningUnitTests()) {
             // Really just so route will appear in artisan route:list

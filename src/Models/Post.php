@@ -47,7 +47,6 @@ class Post extends BaseModel
      * Get a string path for the blog post.
      *
      * @return string
-     * @todo use config file for alternate paths
      */
     public function getPathAttribute(): string
     {
@@ -55,7 +54,6 @@ class Post extends BaseModel
             return route('post', ['post' => $this], false);
         }
 
-        // @todo - Set blog path based on config options
         return "/{$this->topic->slug}/{$this->series->slug}/{$this->slug}";
     }
 

@@ -14,7 +14,7 @@ class PostController extends BaseController
 {
     public function __invoke(Request $request, Post $post, ?Series $series = null, Topic $topic = null)
     {
-        if ($post->series && !$series) {
+        if ($post->series && ! $series) {
             return redirect(url($post->path));
         }
 

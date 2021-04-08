@@ -12,7 +12,7 @@ use Tipoff\Support\Http\Controllers\BaseController;
 
 class PostController extends BaseController
 {
-    public function __invoke(Request $request, Post $post, ?Series $series = null, Topic $topic = null)
+    public function __invoke(Request $request, Post $post, ?Series $series = null, ?Topic $topic = null)
     {
         if ($post->series && ! $series) {
             return redirect(url($post->path));

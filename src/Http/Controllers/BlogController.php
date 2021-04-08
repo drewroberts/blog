@@ -40,7 +40,7 @@ class BlogController extends BaseController
             ->where('slug', '=', $slug2)
             ->first()) {
             if (empty($slug3)) {
-                return app(SeriesController::class)($request, $topic, $series);
+                return app(SeriesController::class)($request, $series);
             }
 
             /** @var Post $post */
@@ -49,7 +49,7 @@ class BlogController extends BaseController
                 ->where('series_id', '=', $series->id)
                 ->where('slug', '=', $slug3)
                 ->first()) {
-                return app(PostController::class)($request, $topic, $series, $post);
+                return app(PostController::class)($request, $post, $series, $topic);
             }
         }
 

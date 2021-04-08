@@ -33,6 +33,30 @@ class PostControllerTest extends TestCase
     }
 
     /** @test */
+    public function index_post_with_no_series()
+    {
+        $post = Post::factory()->create([
+            'topic_id' => null,
+            'series_id' => null,
+        ]);
+
+        $this->get($this->webUrl("/blog/{$post->slug}"))
+            ->assertOk()
+            ->assertSee("Topic: NONE")
+            ->assertSee("Series: NONE")
+            ->assertSee("Post: {$post->name}");
+    }
+
+    /** @test */
+    public function index_post_with_series_redirects()
+    {
+        $post = Post::factory()->create();
+
+        $this->get($this->webUrl("/blog/{$post->slug}"))
+            ->assertRedirect(url($post->path));
+    }
+
+    /** @test */
     public function index_post_has_bad_series()
     {
         $topic = Topic::factory()->create();

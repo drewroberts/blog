@@ -33,13 +33,8 @@ class Post extends BaseModel
 
         static::saving(function ($post) {
             // Can specify a different author for a post than Auth user
-            if (empty($post->author_id)) {
-                $post->author_id = auth()->user()->id;
-            }
-
-            if (! empty($post->series_id)) {
-                $post->topic_id = $post->series->topic_id;
-            }
+            $post->author_id = $post->author_id ?: auth()->user()->id;
+            $post->topic_id = $post->series_id ? $post->series->topic_id : null;
         });
     }
 
@@ -52,11 +47,13 @@ class Post extends BaseModel
      * Get a string path for the blog post.
      *
      * @return string
-     * @todo use config file for alternate paths
      */
-    public function getPathAttribute()
+    public function getPathAttribute(): string
     {
-        // @todo - Set blog path based on config options
+        if (! $this->series_id) {
+            return route('post', ['post' => $this], false);
+        }
+
         return "/{$this->topic->slug}/{$this->series->slug}/{$this->slug}";
     }
     

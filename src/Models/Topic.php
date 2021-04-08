@@ -41,7 +41,7 @@ class Topic extends BaseModel
 
     private function validateSlug(): void
     {
-        InvalidSlugException::checkNovaRestrictions($this->slug);
+        InvalidSlugException::checkRootSlugRestrictions($this->slug);
 
         // Prevent topic from having same slug as root pages
         throw_if(Page::query()->whereNull('parent_id')->where('slug', '=', $this->slug)->count(), InvalidSlugException::class);

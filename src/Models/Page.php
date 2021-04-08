@@ -101,7 +101,7 @@ class Page extends BaseModel
     private function validateSlug(): void
     {
         if ($this->is_root) {
-            InvalidSlugException::checkNovaRestrictions($this->slug);
+            InvalidSlugException::checkRootSlugRestrictions($this->slug);
 
             // Prevent root pages from having same slug as topics
             throw_if(Topic::query()->where('slug', '=', $this->slug)->count(), InvalidSlugException::class);

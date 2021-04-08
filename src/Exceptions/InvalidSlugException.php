@@ -14,15 +14,16 @@ class InvalidSlugException extends \LogicException implements BlogException
         parent::__construct('Slug is not allowed.', $code, $previous);
     }
 
-    public static function checkNovaRestrictions(string $slug)
+    public static function checkRootSlugRestrictions(string $slug)
     {
-        // Prevent root pages from conflicting with Nova
-        $novaRestrictions = [
+        // Prevent root pages from conflicting with Nova and other fixed root segments
+        $restrictions = [
             trim(Nova::path(), '/'),
             'nova-api',
             'nova-vendor',
+            'blog',
         ];
 
-        throw_if(in_array($slug, $novaRestrictions), static::class);
+        throw_if(in_array($slug, $restrictions), static::class);
     }
 }

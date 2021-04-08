@@ -33,13 +33,8 @@ class Post extends BaseModel
 
         static::saving(function ($post) {
             // Can specify a different author for a post than Auth user
-            if (empty($post->author_id)) {
-                $post->author_id = auth()->user()->id;
-            }
-
-            if (! empty($post->series_id)) {
-                $post->topic_id = $post->series->topic_id;
-            }
+            $post->author_id = $post->author_id ?: auth()->user()->id;
+            $post->topic_id = $post->series_id ? $post->series->topic_id : null;
         });
     }
 

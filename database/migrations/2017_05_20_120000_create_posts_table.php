@@ -10,7 +10,7 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->string('slug')->index();
+            $table->string('slug')->unique()->index();
             $table->string('title')->unique();
             $table->foreignIdFor(app('topic'))->nullable(); // Group blog posts into topics
             $table->foreignIdFor(app('series'))->nullable(); // Group blog posts into series
@@ -32,8 +32,6 @@ class CreatePostsTable extends Migration
             $table->dateTime('published_at'); // Allows blog posts to be published at a later date.
             $table->softDeletes();
             $table->timestamps();
-
-            $table->unique(['slug', 'series_id']);
         });
     }
 }

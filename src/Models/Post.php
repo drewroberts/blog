@@ -51,7 +51,7 @@ class Post extends BaseModel
      */
     public function getPathAttribute(): string
     {
-        if (!$this->series_id) {
+        if (! $this->series_id) {
             return route('post', ['post' => $this], false);
         }
 

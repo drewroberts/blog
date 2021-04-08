@@ -319,7 +319,7 @@ class PostTest extends TestCase
     public function path_without_series()
     {
         $post = Post::factory()->create([
-            'series_id' => null
+            'series_id' => null,
         ]);
 
         $this->assertStringStartsWith('/blog', $post->path);

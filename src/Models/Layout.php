@@ -22,6 +22,6 @@ class Layout extends BaseModel
 
     public function pages()
     {
-    	return $this->hasMany(app('pages'));
+    	return $this->hasMany(app('page'));
     }
 }

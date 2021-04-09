@@ -14,4 +14,14 @@ class Layout extends BaseModel
     use HasCreator;
     use HasPackageFactory;
     use HasUpdater;
+
+    public function posts()
+    {
+    	return $this->hasMany(app('post'));
+    }
+
+    public function pages()
+    {
+    	return $this->hasMany(app('pages'));
+    }
 }

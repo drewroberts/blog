@@ -128,6 +128,11 @@ class Page extends BaseModel
     {
         return 'slug';
     }
+    
+    public function layout()
+    {
+        return $this->belongsTo(app('layout'));
+    }
 
     public function getPathAttribute(): ?string
     {

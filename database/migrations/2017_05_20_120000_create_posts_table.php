@@ -14,6 +14,7 @@ class CreatePostsTable extends Migration
             $table->string('title')->unique();
             $table->foreignIdFor(app('topic'))->nullable(); // Group blog posts into topics
             $table->foreignIdFor(app('series'))->nullable(); // Group blog posts into series
+            $table->foreignIdFor(app('layout'))->nullable(); // Will remove nullable and default a basic layout for posts. Allows some posts to have different layout (AMP or regular html & other variations)
             $table->text('content')->nullable(); // Will be written in Markdown.
 
             $table->foreignIdFor(app('webpage'))->nullable(); // Used to track seo rankings

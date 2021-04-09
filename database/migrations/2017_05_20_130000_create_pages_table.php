@@ -12,6 +12,7 @@ class CreatePagesTable extends Migration
             $table->id();
             $table->string('slug')->index();
             $table->string('title')->unique();
+            $table->foreignIdFor(app('layout'))->nullable(); // Will remove nullable and default a basic layout for pages. Allows some pages to have different layout (AMP or regular html & other variations)
             $table->boolean('location_based')->default('false');
             $table->foreignIdFor(app('page'), 'parent_id')->nullable(); // Parent Page
             $table->text('content')->nullable(); // Will be written in Markdown.

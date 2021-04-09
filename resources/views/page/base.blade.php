@@ -1,4 +1,4 @@
-@extends('support::layout')
+@extends('support::base')
 
 @section('content')
     <ul>

@@ -63,6 +63,8 @@ class PageControllerTest extends TestCase
     /** @test */
     public function index_child_page_all_sequence()
     {
+        $this->logToStderr();
+
         $page = Page::factory()->create();
         $child = Page::factory()->create()->setParent($page);
 

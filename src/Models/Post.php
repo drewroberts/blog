@@ -56,6 +56,11 @@ class Post extends BaseModel
 
         return "/{$this->topic->slug}/{$this->series->slug}/{$this->slug}";
     }
+    
+    public function layout()
+    {
+        return $this->belongsTo(app('layout'));
+    }
 
     public function author()
     {

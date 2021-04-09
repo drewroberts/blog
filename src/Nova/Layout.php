@@ -4,6 +4,7 @@ namespace DrewRoberts\Blog\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Markdown;
@@ -31,24 +32,22 @@ class Layout extends BaseResource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Slug')->sortable(),
-            Text::make('Title')->sortable(),
-            nova('page') ? BelongsTo::make('Page', 'page', nova('page'))->sortable() : null,
+            Text::make('Name')->sortable()->required(),
+            Text::make('Layout Type')->sortable()->required(),
+            Text::make('View')->sortable()->required(),
+            nova('page') ? HasMany::make('Pages') : null,
+            nova('post') ? HasMany::make('Posts') : null,
             nova('user') ? BelongsTo::make('Author', 'author', nova('user'))->sortable() : null,
-            DateTime::make('Published', 'published_at')->format('YYYY-MM-DD')->sortable(),
         ];
     }
 
     public function fields(Request $request)
     {
         return [
-            Text::make('Title')->required(),
-            Slug::make('Slug')->from('Title'),
-            DateTime::make('Published', 'published_at'),
-            nova('page') ? BelongsTo::make('Parent', 'parent', nova('page'))->nullable() : null,
-            Markdown::make('Content')->help(
-                '<a href="https://www.markdownguide.org">MarkdownGuide.org</a>'
-            )->stacked(),
+            Text::make('Name')->sortable()->required(),
+            Text::make('Layout Type')->sortable()->required(),
+            Text::make('View')->sortable()->required(),
+            Text::make('Note')->sortable()->nullable(),
 
             new Panel('Info Fields', $this->infoFields()),
             new Panel('Data Fields', $this->dataFields()),
@@ -58,12 +57,8 @@ class Layout extends BaseResource
     protected function infoFields()
     {
         return [
-            nova('user') ? BelongsTo::make('Author', 'author', nova('user'))->nullable() : null,
-            Textarea::make('Description'),
-            Textarea::make('Open Graph Description', 'ogdescription')->nullable(),
+            nova('user') ? BelongsTo::make('Author', 'author', nova('user'))->sortable() : null,
             nova('image') ? BelongsTo::make('Image', 'image', nova('image'))->nullable()->showCreateRelationButton() : null,
-            nova('image') ? BelongsTo::make('OG Image', 'ogimage', nova('image'))->nullable()->showCreateRelationButton() : null,
-            nova('video') ? BelongsTo::make('Video', 'video', nova('video'))->nullable()->showCreateRelationButton() : null,
         ];
     }
 

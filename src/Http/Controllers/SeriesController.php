@@ -15,7 +15,7 @@ class SeriesController extends BaseController
     {
         LayoutManager::setLayout($series->layout);
 
-        return view('blog::series.base', [
+        return view(LayoutManager::getViewName('blog::series.base'), [
             'topic' => $series->topic,
             'series' => $series,
         ]);

@@ -21,7 +21,7 @@ class PostController extends BaseController
 
         LayoutManager::setLayout($post->layout);
 
-        return view('blog::post.base', [
+        return view(LayoutManager::getViewName('blog::post.base'), [
             'topic' => $topic ?? $post->topic,
             'series' => $series ?? $post->series,
             'post' => $post,

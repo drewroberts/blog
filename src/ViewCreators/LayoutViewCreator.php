@@ -19,7 +19,6 @@ class LayoutViewCreator
     public function create(View $view)
     {
         $view->with([
-            'layoutName' => $this->layoutManager->getLayoutName(),
             'layout' => $this->layoutManager->getLayout(),
         ]);
     }

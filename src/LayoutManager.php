@@ -24,7 +24,7 @@ class LayoutManager
         return $this->layout;
     }
 
-    public function getLayoutName(): string
+    public function getViewName(string $default): string
     {
         if ($this->layout) {
             if (View::exists($this->layout->view)) {
@@ -35,6 +35,6 @@ class LayoutManager
             Log::error('Layout view does not exist: '.$this->layout->view);
         }
 
-        return 'support::layout';
+        return $default;
     }
 }

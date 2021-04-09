@@ -1,4 +1,4 @@
-@extends(support::amp)
+@extends('support::amp')
 
 @section('content')
     <ul>

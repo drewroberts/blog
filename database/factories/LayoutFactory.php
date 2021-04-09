@@ -6,6 +6,7 @@ namespace DrewRoberts\Blog\Database\Factories;
 
 use DrewRoberts\Blog\Models\Layout;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Tipoff\Support\Enums\LayoutType;
 
 class LayoutFactory extends Factory
 {
@@ -17,6 +18,7 @@ class LayoutFactory extends Factory
 
         return [
             'name'              => $word,
+            'layout_type'       => $this->faker->randomElement(LayoutType::getEnumerators()),
             'view'              => $word,
             'note'              => $this->faker->sentences(1, true),
             'creator_id'        => randomOrCreate(app('user')),

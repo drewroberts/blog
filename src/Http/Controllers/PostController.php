@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace DrewRoberts\Blog\Http\Controllers;
 
-use DrewRoberts\Blog\Facade\LayoutManager;
 use DrewRoberts\Blog\Models\Post;
 use DrewRoberts\Blog\Models\Series;
 use DrewRoberts\Blog\Models\Topic;
@@ -18,8 +17,6 @@ class PostController extends BaseController
         if ($post->series && ! $series) {
             return redirect(url($post->path));
         }
-
-        LayoutManager::setLayout($post->layout);
 
         return view('blog::post.base', [
             'topic' => $topic ?? $post->topic,

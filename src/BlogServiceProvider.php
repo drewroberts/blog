@@ -36,6 +36,7 @@ class BlogServiceProvider extends TipoffServiceProvider
                 \DrewRoberts\Blog\Nova\Post::class,
                 \DrewRoberts\Blog\Nova\Series::class,
                 \DrewRoberts\Blog\Nova\Topic::class,
+                \DrewRoberts\Blog\Nova\Layout::class,
             ])
             ->hasWebRoute('web')
             ->hasViews()

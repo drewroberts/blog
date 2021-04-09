@@ -26,7 +26,7 @@ class Layout extends BaseResource
         'name',
     ];
 
-    public static $group = 'Website Content';
+    public static $group = 'Website Layout';
 
     public function fieldsForIndex(NovaRequest $request)
     {

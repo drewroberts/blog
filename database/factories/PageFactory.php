@@ -7,6 +7,7 @@ namespace DrewRoberts\Blog\Database\Factories;
 use DrewRoberts\Blog\Models\Page;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use DrewRoberts\Blog\Models\Layout;
 
 class PageFactory extends Factory
 {
@@ -14,6 +15,9 @@ class PageFactory extends Factory
 
     public function definition()
     {
+        $view = $this->faker->numberBetween(0, 1) === 0 ? 'blog::page.base' : 'blog::page.amp';
+        $layout = Layout::where('view',$view)->first();
+        
         $word1 = $this->faker->name;
         $word2 = $this->faker->word;
 
@@ -29,7 +33,7 @@ class PageFactory extends Factory
             'author_id'        => randomOrCreate(app('user')),
             'creator_id'       => randomOrCreate(app('user')),
             'updater_id'       => randomOrCreate(app('user')),
-            'layout_id'       => randomOrCreate(app('layout')),
+            'layout_id'        => $layout->id,
             'published_at'     => $this->faker->dateTimeBetween($startDate = '-1 years', $endDate = '-1 days', $timezone = null)
         ];
     }

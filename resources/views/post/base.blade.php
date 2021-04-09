@@ -1,4 +1,4 @@
-@extends($layoutName)
+@extends(support::base)
 
 @section('content')
     <ul>

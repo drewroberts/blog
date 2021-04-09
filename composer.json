@@ -21,7 +21,7 @@
         "drewroberts/media": "^3.5.0",
         "tipoff/authorization": "^2.8.0",
         "tipoff/seo": "^2.6.0",
-        "tipoff/support": "dev-pdbreen/bugfix/views as 2.0.0"
+        "tipoff/support": "^2.0.1"
     },
     "require-dev": {
         "tipoff/test-support": "^2.0.0"

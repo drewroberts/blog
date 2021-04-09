@@ -13,8 +13,10 @@ use DrewRoberts\Blog\Policies\PagePolicy;
 use DrewRoberts\Blog\Policies\PostPolicy;
 use DrewRoberts\Blog\Policies\SeriesPolicy;
 use DrewRoberts\Blog\Policies\TopicPolicy;
+use DrewRoberts\Blog\ViewCreators\LayoutViewCreator;
 use Illuminate\Contracts\Http\Kernel as HttpKernel;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
 use Tipoff\Support\TipoffPackage;
 use Tipoff\Support\TipoffServiceProvider;
 
@@ -54,5 +56,15 @@ class BlogServiceProvider extends TipoffServiceProvider
         // Middleware to support dynamic registration if NOT a Nova request
         $this->app->make(HttpKernel::class)
             ->pushMiddleware(ServeBlog::class);
+
+        View::creator('*', LayoutViewCreator::class);
+    }
+
+    public function registeringPackage()
+    {
+        parent::registeringPackage();
+
+        $this->app->instance(LayoutManager::class, new LayoutManager);
+        $this->app->alias(LayoutManager::class, 'layoutmanager');
     }
 }

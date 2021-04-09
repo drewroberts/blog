@@ -55,7 +55,10 @@
         "laravel": {
             "providers": [
                 "DrewRoberts\\Blog\\BlogServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "LayoutManager": "DrewRoberts\\Blog\\Facade\\LayoutManager"
+            }
         }
     },
     "minimum-stability": "dev",

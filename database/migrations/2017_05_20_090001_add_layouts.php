@@ -31,7 +31,7 @@ class AddLayouts extends Migration
                 ],
                 [
                     'name'          => 'Base Post',
-                    'layout_type'   => LayoutType::PAGE,
+                    'layout_type'   => LayoutType::POST,
                     'view'          => 'blog::post.base',
                     'note'          => 'Base HTML Structure',
                     'created_at'    => '2021-04-09 10:00:00',
@@ -39,7 +39,7 @@ class AddLayouts extends Migration
                 ],
                 [
                     'name'          => 'AMP Post',
-                    'layout_type'   => LayoutType::PAGE,
+                    'layout_type'   => LayoutType::POST,
                     'view'          => 'blog::post.amp',
                     'note'          => 'AMP Structure',
                     'created_at'    => '2021-04-09 10:00:00',
@@ -54,7 +54,7 @@ class AddLayouts extends Migration
                     'updated_at'    => '2021-04-09 10:00:00',
                 ],
                 [
-                    'name'          => 'AMP Topic',
+                    'name'          => 'AMP Page',
                     'layout_type'   => LayoutType::TOPIC,
                     'view'          => 'blog::topic.amp',
                     'note'          => 'AMP Structure',

@@ -54,7 +54,7 @@ class AddLayouts extends Migration
                     'updated_at'    => '2021-04-09 10:00:00',
                 ],
                 [
-                    'name'          => 'AMP Page',
+                    'name'          => 'AMP Topic',
                     'layout_type'   => LayoutType::TOPIC,
                     'view'          => 'blog::topic.amp',
                     'note'          => 'AMP Structure',

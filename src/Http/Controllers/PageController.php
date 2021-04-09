@@ -16,7 +16,7 @@ class PageController extends BaseController
         $leafPage = $grandChildPage ?: ($childPage ?: $page);
         LayoutManager::setLayout($leafPage->layout);
 
-        return view('blog::page', [
+        return view('blog::page.base', [
             'page' => $page,
             'child_page' => $childPage,
             'grand_child_page' => $grandChildPage,

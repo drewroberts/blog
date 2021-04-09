@@ -15,7 +15,7 @@ class TopicController extends BaseController
     {
         LayoutManager::setLayout($topic->layout);
 
-        return view('blog::topic', [
+        return view('blog::topic.base', [
             'topic' => $topic,
         ]);
     }

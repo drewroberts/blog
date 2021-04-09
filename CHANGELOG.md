@@ -142,3 +142,7 @@ All notable changes to `blog` will be documented in this file
 
 - update migrations for webpage relationships
 - update migrations for location-based pages
+
+## 4.4.0 - 2021-04-09
+
+- add layouts

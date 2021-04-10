@@ -15,7 +15,7 @@ class SeriesFactory extends Factory
 
     public function definition()
     {
-        $view = $this->faker->numberBetween(0, 1) === 0 ? 'blog::post.base' : 'blog::post.amp';
+        $view = $this->faker->numberBetween(0, 1) === 0 ? 'blog::series.base' : 'blog::series.amp';
         $layout = Layout::where('view',$view)->first();
 
         $word = $this->faker->unique()->word;

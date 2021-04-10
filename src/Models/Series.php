@@ -52,6 +52,11 @@ class Series extends BaseModel
     {
         return $this->belongsTo(app('topic'));
     }
+    
+    public function layout()
+    {
+        return $this->belongsTo(app('layout'));
+    }
 
     public function posts()
     {

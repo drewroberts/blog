@@ -44,6 +44,7 @@ class Series extends BaseResource
             Text::make('Title')->required(),
             Slug::make('Slug')->from('Title'),
             nova('topic') ? BelongsTo::make('Topic', 'topic', nova('topic')) : null,
+            nova('layout') ? BelongsTo::make('Layout', 'layout', nova('layout'))->nullable() : null,
             Textarea::make('Note')->nullable(),
 
             new Panel('Content Fields', $this->contentFields()),

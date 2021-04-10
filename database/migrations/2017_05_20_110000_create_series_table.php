@@ -13,6 +13,7 @@ class CreateSeriesTable extends Migration
             $table->foreignIdFor(app('topic')); // Group series into larger topics
             $table->string('slug')->index();
             $table->string('title')->unique();
+            $table->foreignIdFor(app('layout'))->nullable(); // Will remove nullable and default a basic layout for series. Allows some series to have different layout (AMP or regular html & other variations)
             $table->string('note')->nullable(); // Just for internal reference purposes only, not displayed on website.
             $table->text('content')->nullable(); // Will be written in Markdown.
 

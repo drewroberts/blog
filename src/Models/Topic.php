@@ -58,15 +58,14 @@ class Topic extends BaseModel
         throw_if($count, InvalidSlugException::class);
     }
 
-    /**
-     * Get a string path for the topic.
-     *
-     * @return string
-     * @todo use config file for alternate paths
-     */
     public function getPathAttribute()
     {
         return "/{$this->slug}";
+    }
+
+    public function layout()
+    {
+        return $this->belongsTo(app('layout'));
     }
 
     public function series()

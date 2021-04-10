@@ -43,6 +43,7 @@ class Topic extends BaseResource
         return [
             Text::make('Title')->required(),
             Slug::make('Slug')->from('Title'),
+            nova('layout') ? BelongsTo::make('Layout', 'layout', nova('layout'))->nullable() : null,
             Textarea::make('Note')->nullable(),
 
             new Panel('Content Fields', $this->contentFields()),

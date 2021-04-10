@@ -44,6 +44,7 @@ class Post extends BaseResource
         return [
             Text::make('Title')->required(),
             Slug::make('Slug')->from('Title'),
+            nova('layout') ? BelongsTo::make('Layout', 'layout', nova('layout'))->nullable() : null,
             DateTime::make('Published', 'published_at'),
             nova('layout') ? BelongsTo::make('Layout', 'layout', nova('layout'))->nullable() : null,
             Markdown::make('Content')->help(

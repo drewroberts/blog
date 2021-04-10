@@ -35,7 +35,6 @@ class Post extends BaseResource
             Text::make('Title')->sortable(),
             nova('series') ? BelongsTo::make('Series', 'series', nova('series'))->sortable() : null,
             nova('user') ? BelongsTo::make('Author', 'author', nova('user'))->sortable() : null,
-            nova('layout') ? BelongsTo::make('Layout', 'layout', nova('layout'))->nullable() : null,
             DateTime::make('Published', 'published_at')->format('YYYY-MM-DD')->sortable(),
         ];
     }
@@ -46,6 +45,7 @@ class Post extends BaseResource
             Text::make('Title')->required(),
             Slug::make('Slug')->from('Title'),
             DateTime::make('Published', 'published_at'),
+            nova('layout') ? BelongsTo::make('Layout', 'layout', nova('layout'))->nullable() : null,
             Markdown::make('Content')->help(
                 '<a href="https://www.markdownguide.org">MarkdownGuide.org</a>'
             )->stacked(),

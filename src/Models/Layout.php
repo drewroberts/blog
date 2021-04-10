@@ -17,11 +17,11 @@ class Layout extends BaseModel
 
     public function posts()
     {
-    	return $this->hasMany(app('post'));
+        return $this->hasMany(app('post'));
     }
 
     public function pages()
     {
-    	return $this->hasMany(app('page'));
+        return $this->hasMany(app('page'));
     }
 }

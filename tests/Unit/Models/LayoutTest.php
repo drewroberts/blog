@@ -3,11 +3,9 @@
 namespace DrewRoberts\Blog\Tests\Unit\Models;
 
 use DrewRoberts\Blog\Models\Layout;
+use DrewRoberts\Blog\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Carbon;
-use DrewRoberts\Blog\Tests\TestCase;
-use Tipoff\Authorization\Models\User;
 
 class LayoutTest extends TestCase
 {

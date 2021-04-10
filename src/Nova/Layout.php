@@ -9,7 +9,9 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
+use Tipoff\Support\Enums\LayoutType;
 use Tipoff\Support\Nova\BaseResource;
+use Tipoff\Support\Nova\Filters\EnumFilter;
 
 class Layout extends BaseResource
 {
@@ -23,38 +25,42 @@ class Layout extends BaseResource
     ];
 
     public static $group = 'Website Layout';
+    
+    /** @psalm-suppress UndefinedClass */
+    protected array $filterClassList = [
+
+    ];
+
+    public function filters(Request $request)
+    {
+        return array_merge(parent::filters($request), [
+            EnumFilter::make('layout_type', LayoutType::class),
+        ]);
+    }
 
     public function fieldsForIndex(NovaRequest $request)
     {
         return [
             ID::make()->sortable(),
-            Text::make('Name')->sortable()->required(),
-            Text::make('Layout Type')->sortable()->required(),
-            Text::make('View')->sortable()->required(),
-            nova('page') ? HasMany::make('Pages') : null,
-            nova('post') ? HasMany::make('Posts') : null,
-            nova('user') ? BelongsTo::make('Author', 'author', nova('user'))->sortable() : null,
+            Text::make('Name')->sortable(),
+            \Tipoff\Support\Nova\Fields\Enum::make('Layout Type')
+                ->attach(LayoutType::class)
+                ->sortable(),
         ];
     }
 
     public function fields(Request $request)
     {
         return [
-            Text::make('Name')->sortable()->required(),
-            Text::make('Layout Type')->sortable()->required(),
-            Text::make('View')->sortable()->required(),
-            Text::make('Note')->sortable()->nullable(),
-
-            new Panel('Info Fields', $this->infoFields()),
-            new Panel('Data Fields', $this->dataFields()),
-        ];
-    }
-
-    protected function infoFields()
-    {
-        return [
-            nova('user') ? BelongsTo::make('Author', 'author', nova('user'))->sortable() : null,
+            Text::make('Name')->required(),
+            \Tipoff\Support\Nova\Fields\Enum::make('Layout Type')
+                ->attach(LayoutType::class)
+                ->required(),
+            Text::make('View')->required(),
+            Text::make('Note')->nullable(),
             nova('image') ? BelongsTo::make('Image', 'image', nova('image'))->nullable()->showCreateRelationButton() : null,
+
+            new Panel('Data Fields', $this->dataFields()),
         ];
     }
 

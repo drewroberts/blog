@@ -35,7 +35,6 @@ class Page extends BaseResource
             Text::make('Title')->sortable(),
             nova('page') ? BelongsTo::make('Parent', 'parent', nova('page'))->sortable() : null,
             nova('user') ? BelongsTo::make('Author', 'author', nova('user'))->sortable() : null,
-            nova('layout') ? BelongsTo::make('Layout', 'layout', nova('layout'))->nullable() : null,
             DateTime::make('Published', 'published_at')->format('YYYY-MM-DD')->sortable(),
         ];
     }
@@ -45,6 +44,7 @@ class Page extends BaseResource
         return [
             Text::make('Title')->required(),
             Slug::make('Slug')->from('Title'),
+            nova('layout') ? BelongsTo::make('Layout', 'layout', nova('layout'))->nullable() : null,
             DateTime::make('Published', 'published_at'),
             nova('page') ? BelongsTo::make('Parent', 'parent', nova('page'))->nullable() : null,
             Markdown::make('Content')->help(

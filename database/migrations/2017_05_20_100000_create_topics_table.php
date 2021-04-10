@@ -12,6 +12,7 @@ class CreateTopicsTable extends Migration
             $table->id();
             $table->string('slug')->unique()->index();
             $table->string('title')->unique();
+            $table->foreignIdFor(app('layout'))->nullable(); // Will remove nullable and default a basic layout for topics. Allows some pages to have different layout (AMP or regular html & other variations)
             $table->string('note')->nullable(); // Just for internal reference purposes only, not displayed on website.
             $table->text('content')->nullable(); // Will be written in Markdown.
             

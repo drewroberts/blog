@@ -154,3 +154,7 @@ All notable changes to `blog` will be documented in this file
 ## 4.4.2 - 2021-04-09
 
 - layout nova resource
+
+## 4.4.3 - 2021-04-12
+
+- layouts data migration

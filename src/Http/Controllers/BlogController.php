@@ -60,8 +60,6 @@ class BlogController extends BaseController
     private function handlePageRoute(Request $request, Page $page, ?string $slug2 = null, ?string $slug3 = null)
     {
         if (empty($slug2)) {
-            abort_unless($page->is_leaf, 404);
-
             return app(PageController::class)($request, $page);
         }
 
@@ -71,8 +69,6 @@ class BlogController extends BaseController
             ->where('slug', '=', $slug2)
             ->first()) {
             if (empty($slug3)) {
-                abort_unless($childPage->is_leaf, 404);
-
                 return app(PageController::class)($request, $page, $childPage);
             }
 
@@ -85,7 +81,7 @@ class BlogController extends BaseController
             }
         }
 
-        // Valid topic, but invalid nesting of series or post slugs
+        // Valid root page, but invalid nesting of pages
         abort(404);
     }
 }

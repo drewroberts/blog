@@ -13,6 +13,11 @@ class PageController extends BaseController
 {
     public function __invoke(Request $request, Page $page, ?Page $childPage = null, Page $grandChildPage = null)
     {
+        // If location based child is only child of parent, redirect to parent alone!!
+        if ($childPage && $childPage->location_based && $page->children->count() === 1) {
+            return redirect(url($page->path));
+        }
+
         $leafPage = $grandChildPage ?: ($childPage ?: $page);
         LayoutManager::setLayout($leafPage->layout);
 

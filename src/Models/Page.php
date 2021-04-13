@@ -128,7 +128,7 @@ class Page extends BaseModel
     {
         return 'slug';
     }
-    
+
     public function layout()
     {
         return $this->belongsTo(app('layout'));
@@ -136,7 +136,7 @@ class Page extends BaseModel
 
     public function getPathAttribute(): ?string
     {
-        return $this->is_leaf ? '/' . implode('/', $this->getParentPath()) : null;
+        return implode('/', $this->getParentPath());
     }
 
     public function getIsRootAttribute(): bool
@@ -159,7 +159,7 @@ class Page extends BaseModel
         $path = [];
         $parent = $this;
         while ($parent) {
-            $path[] = $parent;
+            $path[] = $parent->slug;
             $parent = $parent->parent;
         }
 

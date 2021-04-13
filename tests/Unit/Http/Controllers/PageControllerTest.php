@@ -43,7 +43,6 @@ class PageControllerTest extends TestCase
     /** @test */
     public function location_based_single_child_redirects_to_parent()
     {
-        $this->logToStderr();
         $page = Page::factory()->create([
             'location_based' => true,
         ]);
@@ -53,8 +52,11 @@ class PageControllerTest extends TestCase
         ])->setParent($page);
 
         $this->get($this->webUrl("/{$page->slug}"))
-            ->assertOk()
-            ->assertSee("-- P:{$page->id} C:0 GC:0 --");
+            ->assertRedirect('/');
+
+        Page::factory()->create([
+            'location_based' => true,
+        ]);
 
         $this->get($this->webUrl("/{$page->slug}/{$child->slug}"))
             ->assertRedirect("/{$page->slug}");
@@ -63,10 +65,9 @@ class PageControllerTest extends TestCase
     /** @test */
     public function location_based_single_grand_child_redirects_to_parent()
     {
-        $this->logToStderr();
-        $page = Page::factory()->create([
+        $page = Page::factory()->count(2)->create([
             'location_based' => true,
-        ]);
+        ])->first();
 
         $child1 = Page::factory()->create([
             'location_based' => true,
@@ -94,10 +95,9 @@ class PageControllerTest extends TestCase
     /** @test */
     public function location_based_multi_child_does_not_redirect()
     {
-        $this->logToStderr();
-        $page = Page::factory()->create([
+        $page = Page::factory()->count(2)->create([
             'location_based' => true,
-        ]);
+        ])->first();
 
         $child1 = Page::factory()->create([
             'location_based' => true,

@@ -30,6 +30,7 @@ use Tipoff\Support\Traits\HasUpdater;
  * @property bool is_leaf
  * @property bool is_root
  * @property bool is_only_child
+ * @property bool is_only_root_location
  * @property string|null path
  * @property int depth
  * @property string content
@@ -138,17 +139,27 @@ class Page extends BaseModel
 
     public function getPathAttribute(): ?string
     {
+        if ($this->is_only_root_location) {
+            return '/';
+        }
+
         $path = [];
         $parent = $this;
         while ($parent) {
-            // Start accumulating slugs when not only child
-            if ($path || !$parent->is_only_child) {
+            // Start accumulating slugs when not location based or not only child
+            if ($path || !$parent->location_based || !$parent->is_only_child) {
                 $path[] = $parent->slug;
             }
             $parent = $parent->parent;
         }
 
         return implode('/', array_reverse($path));
+    }
+
+    public function getIsOnlyRootLocationAttribute(): bool
+    {
+        return ($this->location_based && $this->is_root &&
+            static::query()->whereNull('parent_id')->where('location_based', true)->count() === 1);
     }
 
     public function getIsRootAttribute(): bool

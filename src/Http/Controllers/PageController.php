@@ -14,13 +14,20 @@ class PageController extends BaseController
     public function __invoke(Request $request, Page $page, ?Page $childPage = null, Page $grandChildPage = null)
     {
         // If location based grand child is only child, redirect!!
-        if ($grandChildPage && $grandChildPage->location_based && $grandChildPage->is_only_child) {
-            return redirect(url($grandChildPage->path));
-        }
-
-        // If location based child is only child, redirect!!!
-        if ($childPage && $childPage->location_based && $childPage->is_only_child) {
-            return redirect(url($childPage->path));
+        if ($grandChildPage) {
+            if ($grandChildPage->location_based && $grandChildPage->is_only_child) {
+                return redirect(url($grandChildPage->path));
+            }
+        } elseif ($childPage) {
+            // If location based child is only child, redirect!!!
+            if ($childPage->location_based && $childPage->is_only_child) {
+                return redirect(url($childPage->path));
+            }
+        } else {
+            // If there is only  location based root page, redirect home!
+            if ($page->is_only_root_location) {
+                return redirect(url($page->path));
+            }
         }
 
         $leafPage = $grandChildPage ?: ($childPage ?: $page);

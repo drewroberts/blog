@@ -29,6 +29,7 @@ use Tipoff\Support\Traits\HasUpdater;
  * @property Page parent
  * @property bool is_leaf
  * @property bool is_root
+ * @property bool is_only_child
  * @property string|null path
  * @property int depth
  * @property string content
@@ -81,6 +82,7 @@ class Page extends BaseModel
         'parent_id',
         'slug',
         'title',
+        'location_based',
     ];
 
     protected static function boot()
@@ -136,7 +138,17 @@ class Page extends BaseModel
 
     public function getPathAttribute(): ?string
     {
-        return implode('/', $this->getParentPath());
+        $path = [];
+        $parent = $this;
+        while ($parent) {
+            // Start accumulating slugs when not only child
+            if ($path || !$parent->is_only_child) {
+                $path[] = $parent->slug;
+            }
+            $parent = $parent->parent;
+        }
+
+        return implode('/', array_reverse($path));
     }
 
     public function getIsRootAttribute(): bool
@@ -149,21 +161,21 @@ class Page extends BaseModel
         return $this->children()->count() === 0;
     }
 
-    public function getDepthAttribute(): int
+    public function getIsOnlyChildAttribute(): bool
     {
-        return count($this->getParentPath());
+        return $this->parent && $this->parent->children->count() === 1;
     }
 
-    private function getParentPath(): array
+    public function getDepthAttribute(): int
     {
-        $path = [];
+        $depth = 0;
         $parent = $this;
         while ($parent) {
-            $path[] = $parent->slug;
+            $depth++;
             $parent = $parent->parent;
         }
 
-        return array_reverse($path);
+        return $depth;
     }
 
     public function author()

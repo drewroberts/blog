@@ -147,7 +147,7 @@ class Page extends BaseModel
         $parent = $this;
         while ($parent) {
             // Start accumulating slugs when not location based or not only child
-            if ($path || !$parent->location_based || !$parent->is_only_child) {
+            if ($path || ! $parent->location_based || ! $parent->is_only_child) {
                 $path[] = $parent->slug;
             }
             $parent = $parent->parent;

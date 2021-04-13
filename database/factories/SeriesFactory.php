@@ -23,7 +23,7 @@ class SeriesFactory extends Factory
         return [
             'slug'              => Str::slug($word),
             'title'             => $word,
-            'layout_id'         => $layout->id,
+            'layout_id'         => !empty($layout->id) ? $layout->id : randomOrCreate(app('layout')),
             'note'              => $this->faker->sentences(1, true),
             'description'       => $this->faker->sentences(1, true),
             'pageviews'         => $this->faker->numberBetween(0, 5000),

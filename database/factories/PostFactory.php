@@ -34,7 +34,7 @@ class PostFactory extends Factory
             'author_id'        => randomOrCreate(app('user')),
             'creator_id'       => randomOrCreate(app('user')),
             'updater_id'       => randomOrCreate(app('user')),
-            'layout_id'        => $layout->id,
+            'layout_id'        => !empty($layout->id) ? $layout->id : randomOrCreate(app('layout')),
             'published_at'     => $this->faker->dateTimeBetween($startDate = '-1 years', $endDate = '-1 days', $timezone = null)
         ];
     }

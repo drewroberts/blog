@@ -25,7 +25,7 @@ use Tipoff\Support\Traits\HasUpdater;
  * @property int id
  * @property string slug
  * @property string title
- * @property bool location_based
+ * @property bool is_location
  * @property Page parent
  * @property bool is_leaf
  * @property bool is_root
@@ -67,7 +67,7 @@ class Page extends BaseModel
         HasPageViews;
 
     protected $casts = [
-        'location_based' => 'boolean',
+        'is_location' => 'boolean',
         'parent_id' => 'integer',
         'webpage_id' => 'integer',
         'image_id' => 'integer',
@@ -83,7 +83,7 @@ class Page extends BaseModel
         'parent_id',
         'slug',
         'title',
-        'location_based',
+        'is_location',
     ];
 
     protected static function boot()
@@ -139,27 +139,23 @@ class Page extends BaseModel
 
     public function getPathAttribute(): ?string
     {
-        if ($this->is_only_root_location) {
-            return '/';
-        }
-
         $path = [];
         $parent = $this;
         while ($parent) {
             // Start accumulating slugs when not location based or not only child
-            if ($path || ! $parent->location_based || ! $parent->is_only_child) {
+            if ($path || ! $parent->is_location || (! $parent->is_only_child && ! $parent->is_only_root_location)) {
                 $path[] = $parent->slug;
             }
             $parent = $parent->parent;
         }
 
-        return implode('/', array_reverse($path));
+        return empty($path) ? '/' : implode('/', array_reverse($path));
     }
 
     public function getIsOnlyRootLocationAttribute(): bool
     {
-        return ($this->location_based && $this->is_root &&
-            static::query()->whereNull('parent_id')->where('location_based', true)->count() === 1);
+        return ($this->is_location && $this->is_root &&
+            static::query()->whereNull('parent_id')->where('is_location', true)->count() === 1);
     }
 
     public function getIsRootAttribute(): bool

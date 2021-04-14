@@ -27,9 +27,7 @@ class SeriesControllerTest extends TestCase
 
         $this->get($this->webUrl("/{$topic->slug}/{$series->slug}"))
             ->assertOk()
-            ->assertSee("Topic: {$topic->name}")
-            ->assertSee("Series: {$series->name}")
-            ->assertDontSee("Post: {$post->name}");
+            ->assertSee("-- T:{$topic->id} S:{$topic->id} --");
     }
 
     /** @test */

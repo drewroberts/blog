@@ -27,9 +27,7 @@ class PostControllerTest extends TestCase
 
         $this->get($this->webUrl("/{$topic->slug}/{$series->slug}/{$post->slug}"))
             ->assertOk()
-            ->assertSee("Topic: {$topic->name}")
-            ->assertSee("Series: {$series->name}")
-            ->assertSee("Post: {$post->name}");
+            ->assertSee("-- T:{$topic->id} S:{$topic->id} P:{$post->id} --");
     }
 
     /** @test */
@@ -42,9 +40,7 @@ class PostControllerTest extends TestCase
 
         $this->get($this->webUrl("/blog/{$post->slug}"))
             ->assertOk()
-            ->assertSee("Topic: NONE")
-            ->assertSee("Series: NONE")
-            ->assertSee("Post: {$post->name}");
+            ->assertSee("-- T:0 S:0 P:{$post->id} --");
     }
 
     /** @test */

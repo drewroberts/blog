@@ -139,21 +139,17 @@ class Page extends BaseModel
 
     public function getPathAttribute(): ?string
     {
-        if ($this->is_only_root_location) {
-            return '/';
-        }
-
         $path = [];
         $parent = $this;
         while ($parent) {
             // Start accumulating slugs when not location based or not only child
-            if ($path || ! $parent->is_location || ! $parent->is_only_child) {
+            if ($path || ! $parent->is_location || (! $parent->is_only_child && ! $parent->is_only_root_location)) {
                 $path[] = $parent->slug;
             }
             $parent = $parent->parent;
         }
 
-        return implode('/', array_reverse($path));
+        return empty($path) ? '/' : implode('/', array_reverse($path));
     }
 
     public function getIsOnlyRootLocationAttribute(): bool

@@ -166,3 +166,7 @@ All notable changes to `blog` will be documented in this file
 ## 4.4.5 - 2021-04-13
 
 - change page routing for location logic
+
+## 4.5.0 - 2021-04-14
+
+- routing update for location-based logic

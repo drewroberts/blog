@@ -16,7 +16,7 @@ class PageControllerTest extends TestCase
     public function index_top_level_page_no_children()
     {
         $page = Page::factory()->create([
-            'location_based' => false,
+            'is_location' => false,
         ]);
 
         $this->get($this->webUrl("/{$page->slug}"))
@@ -28,11 +28,11 @@ class PageControllerTest extends TestCase
     public function index_top_level_page_with_children()
     {
         $page = Page::factory()->create([
-            'location_based' => false,
+            'is_location' => false,
         ]);
 
         Page::factory()->create([
-            'location_based' => false,
+            'is_location' => false,
         ])->setParent($page);
 
         $this->get($this->webUrl("/{$page->slug}"))
@@ -44,18 +44,18 @@ class PageControllerTest extends TestCase
     public function location_based_single_child_redirects_to_parent()
     {
         $page = Page::factory()->create([
-            'location_based' => true,
+            'is_location' => true,
         ]);
 
         $child = Page::factory()->create([
-            'location_based' => true,
+            'is_location' => true,
         ])->setParent($page);
 
         $this->get($this->webUrl("/{$page->slug}"))
             ->assertRedirect('/');
 
         Page::factory()->create([
-            'location_based' => true,
+            'is_location' => true,
         ]);
 
         $this->get($this->webUrl("/{$page->slug}/{$child->slug}"))
@@ -66,15 +66,15 @@ class PageControllerTest extends TestCase
     public function location_based_single_grand_child_redirects_to_parent()
     {
         $page = Page::factory()->count(2)->create([
-            'location_based' => true,
+            'is_location' => true,
         ])->first();
 
         $child1 = Page::factory()->create([
-            'location_based' => true,
+            'is_location' => true,
         ])->setParent($page);
 
         $grandChild = Page::factory()->create([
-            'location_based' => true,
+            'is_location' => true,
         ])->setParent($child1);
 
         $this->get($this->webUrl("/{$page->slug}"))
@@ -85,7 +85,7 @@ class PageControllerTest extends TestCase
             ->assertRedirect("/{$page->slug}");
 
         $child2 = Page::factory()->create([
-            'location_based' => true,
+            'is_location' => true,
         ])->setParent($page);
 
         $this->get($this->webUrl("/{$page->slug}/{$child1->slug}/{$grandChild->slug}"))
@@ -96,15 +96,15 @@ class PageControllerTest extends TestCase
     public function location_based_multi_child_does_not_redirect()
     {
         $page = Page::factory()->count(2)->create([
-            'location_based' => true,
+            'is_location' => true,
         ])->first();
 
         $child1 = Page::factory()->create([
-            'location_based' => true,
+            'is_location' => true,
         ])->setParent($page);
 
         $child2 = Page::factory()->create([
-            'location_based' => true,
+            'is_location' => true,
         ])->setParent($page);
 
         $this->get($this->webUrl("/{$page->slug}"))
@@ -135,10 +135,10 @@ class PageControllerTest extends TestCase
     public function index_child_page_with_children()
     {
         $page = Page::factory()->create([
-            'location_based' => false,
+            'is_location' => false,
         ]);
         $child = Page::factory()->create([
-            'location_based' => false,
+            'is_location' => false,
         ])->setParent($page);
 
         Page::factory()->create()->setParent($child);
@@ -154,10 +154,10 @@ class PageControllerTest extends TestCase
         $this->logToStderr();
 
         $page = Page::factory()->create([
-            'location_based' => false,
+            'is_location' => false,
         ]);
         $child = Page::factory()->create([
-            'location_based' => false,
+            'is_location' => false,
         ])->setParent($page);
 
         $segments = [$page->slug, $child->slug];
@@ -178,13 +178,13 @@ class PageControllerTest extends TestCase
     public function index_grand_child_page()
     {
         $page = Page::factory()->create([
-            'location_based' => false,
+            'is_location' => false,
         ]);
         $child = Page::factory()->create([
-            'location_based' => false,
+            'is_location' => false,
         ])->setParent($page);
         $grandChild = Page::factory()->create([
-            'location_based' => false,
+            'is_location' => false,
         ])->setParent($child);
 
         $this->get($this->webUrl("/{$page->slug}/{$child->slug}/{$grandChild->slug}"))
@@ -196,13 +196,13 @@ class PageControllerTest extends TestCase
     public function index_grand_child_page_all_sequence()
     {
         $page = Page::factory()->create([
-            'location_based' => false,
+            'is_location' => false,
         ]);
         $child = Page::factory()->create([
-            'location_based' => false,
+            'is_location' => false,
         ])->setParent($page);
         $grandChild = Page::factory()->create([
-            'location_based' => false,
+            'is_location' => false,
         ])->setParent($child);
 
         $segments = [$page->slug, $child->slug, $grandChild->slug];

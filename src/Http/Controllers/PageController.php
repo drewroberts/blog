@@ -13,7 +13,7 @@ class PageController extends BaseController
 {
     public function __invoke(Request $request, Page $page, ?Page $childPage = null, Page $grandChildPage = null)
     {
-        $leafPage = $grandChildPage ?: ($childPage ?: $page);
+        $leafPage = static::determineLeafPage($page, $childPage, $grandChildPage);
         if ($request->path() !== $leafPage->path) {
             return redirect(url($leafPage->path));
         }
@@ -25,5 +25,18 @@ class PageController extends BaseController
             'child_page' => $childPage,
             'grand_child_page' => $grandChildPage,
         ]);
+    }
+
+    private static function determineLeafPage(Page $page, ?Page $childPage, ?Page $grandChildPage): Page
+    {
+        if ($grandChildPage) {
+            return $grandChildPage;
+        }
+
+        if ($childPage) {
+            return $childPage;
+        }
+
+        return $page;
     }
 }

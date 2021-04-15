@@ -170,3 +170,7 @@ All notable changes to `blog` will be documented in this file
 ## 4.5.0 - 2021-04-14
 
 - routing update for location-based logic
+
+## 4.5.1 - 2021-04-15
+
+- add partials to views

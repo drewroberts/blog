@@ -1,9 +1,7 @@
 @extends('support::amp')
 
 @section('content')
-    {{-- DO NOT REMOVE - page identity tag --}}
-    <!-- P:{{ $page->id }} C:{{ $child_page->id ?? '0' }} GC:{{ $grand_child_page->id ?? '0' }} -->
-
+    @include('blog::page.partials._identity_tag')
 
     {{-- Place holder content - safe to replace --}}
     <ul>

@@ -1,8 +1,7 @@
 @extends('support::base')
 
 @section('content')
-    {{-- DO NOT REMOVE - identity tag --}}
-    <!-- T:{{ $topic->id }} -->
+    @include('blog::topic.partials._identity_tag')
 
     {{-- Place holder content - safe to replace --}}
     <ul>

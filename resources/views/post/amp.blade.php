@@ -1,8 +1,7 @@
 @extends('support::amp')
 
 @section('content')
-    {{-- DO NOT REMOVE - identity tag --}}
-    <!-- T:{{ $topic->id ?? '0' }} S:{{ $series->id ?? '0' }} P:{{ $post->id }} -->
+    @include('blog::post.partials._identity_tag')
 
     {{-- Place holder content - safe to replace --}}
     <ul>

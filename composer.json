@@ -20,7 +20,7 @@
         "php": "^7.3|^8.0",
         "tipoff/authorization": "^2.8.2",
         "tipoff/seo": "^2.7.2",
-        "tipoff/support": "^2.1.0"
+        "tipoff/support": "^2.1.2"
     },
     "require-dev": {
         "tipoff/test-support": "^2.0.0"

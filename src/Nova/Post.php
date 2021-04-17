@@ -52,7 +52,6 @@ class Post extends BaseResource
             Slug::make('Slug')->from('Title'),
             nova('layout') ? BelongsTo::make('Layout', 'layout', nova('layout'))->nullable() : null,
             DateTime::make('Published', 'published_at'),
-            nova('layout') ? BelongsTo::make('Layout', 'layout', nova('layout'))->nullable() : null,
             Markdown::make('Content')->help(
                 '<a href="https://www.markdownguide.org">MarkdownGuide.org</a>'
             )->stacked(),

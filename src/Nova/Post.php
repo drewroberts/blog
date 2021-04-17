@@ -13,6 +13,7 @@ use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
 use Tipoff\Support\Nova\BaseResource;
+use Tipoff\Support\Enums\LayoutType;
 
 class Post extends BaseResource
 {
@@ -26,6 +27,11 @@ class Post extends BaseResource
     ];
 
     public static $group = 'Website Blog';
+
+    public static function relatableLayouts(NovaRequest $request, $query)
+    {
+        return $query->where('layout_type', LayoutType::POST);
+    }
 
     public function fieldsForIndex(NovaRequest $request)
     {

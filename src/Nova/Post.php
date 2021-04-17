@@ -28,6 +28,15 @@ class Post extends BaseResource
 
     public static $group = 'Website Blog';
 
+    public function actions(Request $request)
+    {
+        return [
+            (new Actions\PreviewPost($this->id))
+                ->onlyOnTableRow()
+                ->withoutConfirmation()
+        ];
+    }
+
     public static function relatableLayouts(NovaRequest $request, $query)
     {
         return $query->where('layout_type', LayoutType::POST);

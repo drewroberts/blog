@@ -174,3 +174,7 @@ All notable changes to `blog` will be documented in this file
 ## 4.5.1 - 2021-04-15
 
 - add partials to views
+
+## 4.5.2 - 2021-04-16
+
+- filter layouts for resource relationships

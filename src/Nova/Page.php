@@ -34,7 +34,7 @@ class Page extends BaseResource
         return [
             (new Actions\PreviewPage($this->id))
                 ->onlyOnTableRow()
-                ->withoutConfirmation()
+                ->withoutConfirmation(),
         ];
     }
 

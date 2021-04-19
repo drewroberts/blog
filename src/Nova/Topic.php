@@ -34,7 +34,7 @@ class Topic extends BaseResource
         return [
             (new Actions\PreviewTopic($this->id))
                 ->onlyOnTableRow()
-                ->withoutConfirmation()
+                ->withoutConfirmation(),
         ];
     }
 

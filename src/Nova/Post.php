@@ -33,7 +33,7 @@ class Post extends BaseResource
         return [
             (new Actions\PreviewPost($this->id))
                 ->onlyOnTableRow()
-                ->withoutConfirmation()
+                ->withoutConfirmation(),
         ];
     }
 

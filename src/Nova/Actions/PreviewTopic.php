@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Fields\ActionFields;
 
-class PreviewPost extends Action
+class PreviewTopic extends Action
 {
     use InteractsWithQueue, Queueable;
 
@@ -24,7 +24,7 @@ class PreviewPost extends Action
     public function handle(ActionFields $fields, Collection $models)
     {
         return Action::openInNewTab(config
-            ('tipoff.web.uri_prefix') . '/blog/' . $models->first()->slug
+            ('tipoff.web.uri_prefix') . '/topic/' . $models->first()->slug
         );
     }
 

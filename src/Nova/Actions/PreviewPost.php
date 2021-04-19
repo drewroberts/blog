@@ -23,9 +23,7 @@ class PreviewPost extends Action
      */
     public function handle(ActionFields $fields, Collection $models)
     {
-        return Action::openInNewTab(
-            config('app.url') . config('tipoff.web.uri_prefix') . $models->first()->path . $models->first()->slug
-        );
+        return Action::openInNewTab(config('app.url') . config('tipoff.web.uri_prefix') . $models->first()->path);
     }
 
     /**

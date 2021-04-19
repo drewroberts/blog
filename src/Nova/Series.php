@@ -32,7 +32,7 @@ class Series extends BaseResource
     public function actions(Request $request)
     {
         return [
-            (new Actions\PreviewSeries($this->id))
+            (new Actions\PreviewSeries())
                 ->onlyOnTableRow()
                 ->withoutConfirmation(),
         ];
@@ -60,7 +60,7 @@ class Series extends BaseResource
             Text::make('Title')->required(),
             Slug::make('Slug')->from('Title'),
             TextCopy::make('Link',  function () {
-                return config('app.url') . config('tipoff.web.uri_prefix') . $this->path . $this->slug;
+                return config('app.url') . config('tipoff.web.uri_prefix') . $this->path;
             })->hideWhenCreating()->hideWhenUpdating(),
             nova('topic') ? BelongsTo::make('Topic', 'topic', nova('topic')) : null,
             nova('layout') ? BelongsTo::make('Layout', 'layout', nova('layout'))->nullable() : null,

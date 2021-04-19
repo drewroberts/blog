@@ -32,7 +32,7 @@ class Topic extends BaseResource
     public function actions(Request $request)
     {
         return [
-            (new Actions\PreviewTopic($this->id))
+            (new Actions\PreviewTopic())
                 ->onlyOnTableRow()
                 ->withoutConfirmation(),
         ];
@@ -60,7 +60,7 @@ class Topic extends BaseResource
             Text::make('Title')->required(),
             Slug::make('Slug')->from('Title'),
             TextCopy::make('Link',  function () {
-                return config('app.url') . config('tipoff.web.uri_prefix') . $this->path . $this->slug;
+                return config('app.url') . config('tipoff.web.uri_prefix') . $this->path;
             })->hideWhenCreating()->hideWhenUpdating(),
             nova('layout') ? BelongsTo::make('Layout', 'layout', nova('layout'))->nullable() : null,
             Textarea::make('Note')->nullable(),

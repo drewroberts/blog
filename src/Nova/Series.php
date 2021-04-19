@@ -34,7 +34,7 @@ class Series extends BaseResource
         return [
             (new Actions\PreviewSeries($this->id))
                 ->onlyOnTableRow()
-                ->withoutConfirmation()
+                ->withoutConfirmation(),
         ];
     }
 

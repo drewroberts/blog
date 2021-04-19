@@ -24,7 +24,7 @@ class PreviewPage extends Action
     public function handle(ActionFields $fields, Collection $models)
     {
         return Action::openInNewTab(
-            config('tipoff.web.uri_prefix') . '/' . $models->first()->slug
+            config('app.url') . config('tipoff.web.uri_prefix') . $models->first()->path . $models->first()->slug
         );
     }
 

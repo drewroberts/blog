@@ -61,9 +61,7 @@ class Page extends BaseResource
             Text::make('Title')->required(),
             Slug::make('Slug')->from('Title'),
             TextCopy::make('Link',  function () {
-                return (config('tipoff.web.uri_prefix'))
-                    ? config('app.url') . config('tipoff.web.uri_prefix') . '/' . $this->slug
-                    : config('app.url') . '/' . $this->slug;
+                return config('app.url') . config('tipoff.web.uri_prefix') . $this->path . $this->slug;
             })->hideWhenCreating()->hideWhenUpdating(),
             nova('layout') ? BelongsTo::make('Layout', 'layout', nova('layout'))->nullable() : null,
             DateTime::make('Published', 'published_at'),

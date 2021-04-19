@@ -60,9 +60,7 @@ class Series extends BaseResource
             Text::make('Title')->required(),
             Slug::make('Slug')->from('Title'),
             TextCopy::make('Link',  function () {
-                return (config('tipoff.web.uri_prefix'))
-                    ? config('app.url') . config('tipoff.web.uri_prefix') . '/series/' . $this->slug
-                    : config('app.url') . '/series/' . $this->slug;
+                return config('app.url') . config('tipoff.web.uri_prefix') . $this->path . $this->slug;
             })->hideWhenCreating()->hideWhenUpdating(),
             nova('topic') ? BelongsTo::make('Topic', 'topic', nova('topic')) : null,
             nova('layout') ? BelongsTo::make('Layout', 'layout', nova('layout'))->nullable() : null,

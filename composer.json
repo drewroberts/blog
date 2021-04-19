@@ -18,6 +18,7 @@
     ],
     "require": {
         "php": "^7.3|^8.0",
+        "sixlive/nova-text-copy-field": "^1.5",
         "tipoff/authorization": "^2.8.5",
         "tipoff/seo": "^2.7.3",
         "tipoff/support": "^2.1.3"

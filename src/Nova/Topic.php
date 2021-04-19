@@ -12,6 +12,7 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
+use Sixlive\TextCopy\TextCopy;
 use Tipoff\Support\Enums\LayoutType;
 use Tipoff\Support\Nova\BaseResource;
 
@@ -27,6 +28,15 @@ class Topic extends BaseResource
     ];
 
     public static $group = 'Website Blog';
+
+    public function actions(Request $request)
+    {
+        return [
+            (new Actions\PreviewTopic($this->id))
+                ->onlyOnTableRow()
+                ->withoutConfirmation()
+        ];
+    }
 
     public static function relatableLayouts(NovaRequest $request, $query)
     {
@@ -49,6 +59,11 @@ class Topic extends BaseResource
         return [
             Text::make('Title')->required(),
             Slug::make('Slug')->from('Title'),
+            TextCopy::make('Link',  function () {
+                return (config('tipoff.web.uri_prefix'))
+                    ? config('app.url') . config('tipoff.web.uri_prefix') . '/topic/' . $this->slug
+                    : config('app.url') . '/topic/' . $this->slug;
+            })->hideWhenCreating()->hideWhenUpdating(),
             nova('layout') ? BelongsTo::make('Layout', 'layout', nova('layout'))->nullable() : null,
             Textarea::make('Note')->nullable(),
 

@@ -12,6 +12,7 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
+use Sixlive\TextCopy\TextCopy;
 use Tipoff\Support\Enums\LayoutType;
 use Tipoff\Support\Nova\BaseResource;
 
@@ -59,6 +60,11 @@ class Post extends BaseResource
         return [
             Text::make('Title')->required(),
             Slug::make('Slug')->from('Title'),
+            TextCopy::make('Link',  function () {
+                return (config('tipoff.web.uri_prefix'))
+                    ? config('app.url') . config('tipoff.web.uri_prefix') . '/blog/' . $this->slug
+                    : config('app.url') . '/blog/' . $this->slug;
+            })->hideWhenCreating()->hideWhenUpdating(),
             nova('layout') ? BelongsTo::make('Layout', 'layout', nova('layout'))->nullable() : null,
             DateTime::make('Published', 'published_at'),
             Markdown::make('Content')->help(

@@ -23,8 +23,8 @@ class PreviewPage extends Action
      */
     public function handle(ActionFields $fields, Collection $models)
     {
-        return Action::openInNewTab(config
-            ('tipoff.web.uri_prefix') . '/' . $models->first()->slug
+        return Action::openInNewTab(
+            config('tipoff.web.uri_prefix') . '/' . $models->first()->slug
         );
     }
 

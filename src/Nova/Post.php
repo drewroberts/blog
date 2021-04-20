@@ -12,6 +12,7 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
+use Sixlive\TextCopy\TextCopy;
 use Tipoff\Support\Enums\LayoutType;
 use Tipoff\Support\Nova\BaseResource;
 
@@ -27,6 +28,15 @@ class Post extends BaseResource
     ];
 
     public static $group = 'Website Blog';
+
+    public function actions(Request $request)
+    {
+        return [
+            (new Actions\PreviewPost())
+                ->onlyOnTableRow()
+                ->withoutConfirmation(),
+        ];
+    }
 
     public static function relatableLayouts(NovaRequest $request, $query)
     {
@@ -50,9 +60,11 @@ class Post extends BaseResource
         return [
             Text::make('Title')->required(),
             Slug::make('Slug')->from('Title'),
+            TextCopy::make('Link',  function () {
+                return config('app.url') . config('tipoff.web.uri_prefix') . $this->path;
+            })->hideWhenCreating()->hideWhenUpdating(),
             nova('layout') ? BelongsTo::make('Layout', 'layout', nova('layout'))->nullable() : null,
             DateTime::make('Published', 'published_at'),
-            nova('layout') ? BelongsTo::make('Layout', 'layout', nova('layout'))->nullable() : null,
             Markdown::make('Content')->help(
                 '<a href="https://www.markdownguide.org">MarkdownGuide.org</a>'
             )->stacked(),

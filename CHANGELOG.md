@@ -178,3 +178,7 @@ All notable changes to `blog` will be documented in this file
 ## 4.5.2 - 2021-04-16
 
 - filter layouts for resource relationships
+
+## 4.5.3 - 2021-04-20
+
+- path links to nova resources

@@ -182,3 +182,7 @@ All notable changes to `blog` will be documented in this file
 ## 4.5.3 - 2021-04-20
 
 - path links to nova resources
+
+## 4.5.4 - 2021-04-23
+
+- bump dependencies

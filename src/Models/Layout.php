@@ -24,4 +24,9 @@ class Layout extends BaseModel
     {
         return $this->hasMany(app('page'));
     }
+
+    public function image()
+    {
+        return $this->belongsTo(app('image'));
+    }
 }

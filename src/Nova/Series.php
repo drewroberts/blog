@@ -65,10 +65,9 @@ class Series extends BaseResource
             nova('topic') ? BelongsTo::make('Topic', 'topic', nova('topic')) : null,
             nova('layout') ? BelongsTo::make('Layout', 'layout', nova('layout'))->nullable() : null,
             Textarea::make('Note')->nullable(),
-
             new Panel('Content Fields', $this->contentFields()),
 
-            nova('post') ? HasMany::make('Posts', 'post', nova('post')) : null,
+            nova('post') ? HasMany::make('Posts', 'posts', nova('post')) : null,
 
             new Panel('Data Fields', $this->dataFields()),
         ];

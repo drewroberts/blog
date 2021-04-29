@@ -50,8 +50,10 @@ class BlogServiceProvider extends TipoffServiceProvider
         Route::model('post', Post::class);
 
         if (app()->runningInConsole() && ! app()->runningUnitTests()) {
+            // @codeCoverageIgnoreStart
             // Really just so route will appear in artisan route:list
             app()->booted(ServeBlog::blogRoutes());
+            // @codeCoverageIgnoreEnd
         }
 
         // Middleware to support dynamic registration if NOT a Nova request

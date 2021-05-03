@@ -14,8 +14,7 @@ class LayoutManagerTest extends TestCase
 {
     use DatabaseTransactions;
 
-    /** @test
-     */
+    /** @test */
     public function can_log_error_if_view_doesnt_exist() {
         $layout = Layout::factory()->create();
         LayoutManager::setLayout($layout);

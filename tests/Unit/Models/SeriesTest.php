@@ -2,6 +2,7 @@
 
 namespace DrewRoberts\Blog\Tests\Unit\Models;
 
+use DrewRoberts\Blog\Exceptions\HasChildrenException;
 use DrewRoberts\Blog\Models\Post;
 use DrewRoberts\Blog\Models\Series;
 use DrewRoberts\Blog\Models\Topic;
@@ -225,5 +226,15 @@ class SeriesTest extends TestCase
 
         $this->assertInstanceOf(User::class, $series->updater);
         $this->assertEquals($user->id, $series->updater->id);
+    }
+
+    /** @test */
+    public function it_cannot_be_deleted_if_it_has_posts()
+    {
+        $series = Series::factory()->create();
+        Post::factory()->create(['series_id' => $series->id]);
+
+        $this->expectException(HasChildrenException::class);
+        $series->delete();
     }
 }

@@ -190,11 +190,13 @@ class Page extends BaseModel
         return $this->belongsTo(app('user'), 'author_id');
     }
 
+    /** @codeCoverageIgnore */
     public function market()
     {
         return $this->hasOne(app('market'));
     }
 
+    /** @codeCoverageIgnore */
     public function location()
     {
         return $this->hasOne(app('location'));

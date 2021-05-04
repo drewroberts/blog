@@ -2,6 +2,7 @@
 
 namespace DrewRoberts\Blog\Nova;
 
+use DrewRoberts\Blog\Nova\Fields\TextCopy;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\DateTime;
@@ -12,7 +13,6 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
-use Sixlive\TextCopy\TextCopy;
 use Tipoff\Support\Enums\LayoutType;
 use Tipoff\Support\Nova\BaseResource;
 

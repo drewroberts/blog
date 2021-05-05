@@ -31,6 +31,16 @@ class TopicTest extends TestCase
     }
 
     /** @test */
+    public function it_throws_exception_when_slug_not_unique()
+    {
+        $slug = $this->faker->slug;
+        Topic::factory()->create(['slug' => $slug]);
+
+        $this->expectException(InvalidSlugException::class);
+        Topic::factory()->create(['slug' => $slug]);
+    }
+
+    /** @test */
     public function it_uses_its_slug_for_route_model_binding()
     {
         $topic = Topic::factory()->create();

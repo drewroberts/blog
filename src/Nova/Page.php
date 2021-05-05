@@ -62,7 +62,7 @@ class Page extends BaseResource
             Slug::make('Slug')->from('Title'),
             TextCopy::make('Link',  function () {
                 return config('app.url') ."/". config('tipoff.web.uri_prefix') . $this->path;
-            })->hideWhenCreating()->hideWhenUpdating(),
+            })->hideWhenCreating()->hideWhenUpdating()->asHtml(),
             nova('layout') ? BelongsTo::make('Layout', 'layout', nova('layout'))->nullable() : null,
             DateTime::make('Published', 'published_at'),
             nova('page') ? BelongsTo::make('Parent', 'parent', nova('page'))->nullable() : null,

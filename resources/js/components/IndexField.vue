@@ -1,6 +1,6 @@
 <template>
     <div class="flex" @mouseover="hover = true" @mouseleave="hover = false">
-        <div class="flex-no-shrink" v-if="field.asHtml" v-html="fieldDisplayValue"></div>
+        <div class="flex-no-shrink" v-if="field.asHtml" v-html="fieldDisplayValue"/>
         <div class="flex-no-shrink" v-else>{{ fieldDisplayValue }}</div>
         <copy-button
             :value="copyFieldValue"

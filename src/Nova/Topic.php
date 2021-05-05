@@ -68,7 +68,7 @@ class Topic extends BaseResource
             new Panel('Content Fields', $this->contentFields()),
 
             nova('series') ? HasMany::make('Series', 'series', nova('series')) : null,
-            nova('post') ? HasMany::make('Posts', 'post', nova('post')) : null,
+            nova('post') ? HasMany::make('Posts', 'posts', nova('post')) : null,
 
             new Panel('Data Fields', $this->dataFields()),
         ];

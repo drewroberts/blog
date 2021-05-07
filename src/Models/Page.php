@@ -14,6 +14,8 @@ use DrewRoberts\Media\Models\Image;
 use DrewRoberts\Media\Models\Video;
 use DrewRoberts\Media\Traits\HasMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Mail\Markdown;
+use Illuminate\Support\HtmlString;
 use Tipoff\Authorization\Models\User;
 use Tipoff\Seo\Models\Webpage;
 use Tipoff\Support\Models\BaseModel;
@@ -135,6 +137,14 @@ class Page extends BaseModel
     public function layout()
     {
         return $this->belongsTo(app('layout'));
+    }
+
+    /**
+     * @return HtmlString
+     */
+    public function getHtmlContentAttribute(): HtmlString
+    {
+        return Markdown::parse($this->content ?? '');
     }
 
     public function getPathAttribute(): ?string

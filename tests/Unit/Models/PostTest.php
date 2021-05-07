@@ -10,6 +10,7 @@ use DrewRoberts\Media\Models\Image;
 use DrewRoberts\Media\Models\Video;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Mail\Markdown;
 use Illuminate\Support\Carbon;
 use Tipoff\Authorization\Models\User;
 
@@ -62,6 +63,15 @@ class PostTest extends TestCase
         $post = Post::factory()->create(['content' => $content]);
 
         $this->assertEquals($content, $post->content);
+    }
+
+    /** @test */
+    public function it_has_html_content()
+    {
+        $content = $this->faker->text;
+        $post = Post::factory()->create(['content' => $content]);
+
+        $this->assertEquals(Markdown::parse($content), $post->html_content);
     }
 
     /** @test */

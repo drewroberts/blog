@@ -12,6 +12,7 @@ use DrewRoberts\Media\Models\Image;
 use DrewRoberts\Media\Models\Video;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Mail\Markdown;
 use Illuminate\Support\Carbon;
 use Laravel\Nova\Nova;
 use Tipoff\Authorization\Models\User;
@@ -54,6 +55,15 @@ class PageTest extends TestCase
         $page = Page::factory()->create(['content' => $content]);
 
         $this->assertEquals($content, $page->content);
+    }
+
+    /** @test */
+    public function it_has_html_content()
+    {
+        $content = $this->faker->text;
+        $page = Page::factory()->create(['content' => $content]);
+
+        $this->assertEquals(Markdown::parse($content), $page->html_content);
     }
 
     /** @test */

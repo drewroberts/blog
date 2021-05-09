@@ -8,6 +8,8 @@ use DrewRoberts\Blog\Traits\HasPageViews;
 use DrewRoberts\Blog\Traits\Publishable;
 use DrewRoberts\Media\Traits\HasMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Mail\Markdown;
+use Illuminate\Support\HtmlString;
 use Tipoff\Support\Models\BaseModel;
 use Tipoff\Support\Traits\HasCreator;
 use Tipoff\Support\Traits\HasPackageFactory;
@@ -37,6 +39,15 @@ class Post extends BaseModel
             $post->topic_id = $post->series_id ? $post->series->topic_id : null;
         });
     }
+
+    /**
+     * @return HtmlString
+     */
+    public function getHtmlContentAttribute(): HtmlString
+    {
+        return Markdown::parse($this->content ?? '');
+    }
+
 
     public function getRouteKeyName()
     {

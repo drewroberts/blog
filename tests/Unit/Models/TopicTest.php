@@ -2,6 +2,7 @@
 
 namespace DrewRoberts\Blog\Tests\Unit\Models;
 
+use DrewRoberts\Blog\Exceptions\HasChildrenException;
 use DrewRoberts\Blog\Exceptions\InvalidSlugException;
 use DrewRoberts\Blog\Models\Page;
 use DrewRoberts\Blog\Models\Post;
@@ -274,6 +275,30 @@ class TopicTest extends TestCase
         Topic::factory()->create([
             'slug' => is_callable($slug) ? ($slug)() : $slug,
         ]);
+    }
+
+    /** @test */
+    public function boot_deleting_throw_an_exception()
+    {
+        $this->expectException(HasChildrenException::class);
+        $this->expectExceptionMessage('Cannot delete when children exist.');
+
+        $topic = Topic::factory()->hasSeries(3)->create();
+
+        $topic->delete();
+    }
+
+    /** @test */
+    public function same_slug_as_topic_exception()
+    {
+        $this->expectException(InvalidSlugException::class);
+        $this->expectExceptionMessage('Slug is not allowed.');
+
+        Topic::factory()->create(['slug' => 'test']);
+        
+        $topic = Topic::factory()->make();
+        $topic->forceFill(['slug' => 'test', 'id' => 10]);
+        $topic->save();
     }
 
     public function dataProviderForNovaSlug()

@@ -5,7 +5,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/drewroberts/blog.svg?style=flat-square)](https://packagist.org/packages/drewroberts/blog)
 
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+Laravel blog package similar to WordPress design with Pages & Posts.
 
 ## Installation
 

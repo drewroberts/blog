@@ -186,3 +186,7 @@ All notable changes to `blog` will be documented in this file
 ## 4.5.4 - 2021-04-23
 
 - bump dependencies
+
+## 4.6.0 - 2022-08-17
+
+- clickable links in Laravel Nova

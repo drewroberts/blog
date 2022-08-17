@@ -23,9 +23,9 @@ use Tipoff\Support\TipoffServiceProvider;
 
 class BlogServiceProvider extends TipoffServiceProvider
 {
-    public function configureTipoffPackage(TipoffPackage $package): void
+    public function configureTipoffPackage(TipoffPackage $tipoffPackage): void
     {
-        $package
+        $tipoffPackage
             ->hasPolicies([
                 Page::class => PagePolicy::class,
                 Post::class => PostPolicy::class,

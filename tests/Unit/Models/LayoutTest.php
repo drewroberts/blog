@@ -9,8 +9,8 @@ use Illuminate\Foundation\Testing\WithFaker;
 
 class LayoutTest extends TestCase
 {
-    use RefreshDatabase,
-    WithFaker;
+    use RefreshDatabase;
+    use WithFaker;
 
     /** @test */
     public function create_layout()

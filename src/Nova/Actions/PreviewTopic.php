@@ -10,7 +10,8 @@ use Laravel\Nova\Fields\ActionFields;
 
 class PreviewTopic extends Action
 {
-    use InteractsWithQueue, Queueable;
+    use InteractsWithQueue;
+    use Queueable;
 
     public $name = 'View';
 

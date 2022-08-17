@@ -18,8 +18,8 @@ use Tipoff\Authorization\Models\User;
 
 class PageTest extends TestCase
 {
-    use RefreshDatabase,
-        WithFaker;
+    use RefreshDatabase;
+    use WithFaker;
 
     /** @test */
     public function it_has_a_slug()

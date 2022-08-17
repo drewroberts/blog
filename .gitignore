@@ -3,7 +3,11 @@ composer.lock
 docs
 vendor
 coverage
+.php-cs-fixer.cache
 .phpunit.result.cache
 .idea
 .php_cs.cache
+node_modules
+package-lock.json
+yarn.lock
 

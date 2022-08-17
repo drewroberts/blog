@@ -60,13 +60,13 @@ use Tipoff\Support\Traits\HasUpdater;
  */
 class Page extends BaseModel
 {
-    use SoftDeletes,
-        HasCreator,
-        HasUpdater,
-        HasPackageFactory,
-        Publishable,
-        HasMedia,
-        HasPageViews;
+    use SoftDeletes;
+    use HasCreator;
+    use HasUpdater;
+    use HasPackageFactory;
+    use Publishable;
+    use HasMedia;
+    use HasPageViews;
 
     protected $casts = [
         'is_location' => 'boolean',

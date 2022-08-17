@@ -15,11 +15,11 @@ use Tipoff\Support\Traits\HasUpdater;
 
 class Topic extends BaseModel
 {
-    use HasCreator,
-        HasUpdater,
-        HasPackageFactory,
-        HasMedia,
-        HasPageViews;
+    use HasCreator;
+    use HasUpdater;
+    use HasPackageFactory;
+    use HasMedia;
+    use HasPageViews;
 
     public function getRouteKeyName()
     {

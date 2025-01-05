@@ -5,7 +5,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/drewroberts/blog.svg?style=flat-square)](https://packagist.org/packages/drewroberts/blog)
 
 
-Laravel blog package similar to WordPress design with Pages & Posts.
+Laravel blog package similar to WordPress design with Pages & Posts. NEED TO UPDATE!!
 
 ## Installation
 

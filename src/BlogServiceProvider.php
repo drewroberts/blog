@@ -2,9 +2,9 @@
 
 namespace DrewRoberts\Blog;
 
+use DrewRoberts\Blog\Commands\BlogCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use DrewRoberts\Blog\Commands\BlogCommand;
 
 class BlogServiceProvider extends PackageServiceProvider
 {

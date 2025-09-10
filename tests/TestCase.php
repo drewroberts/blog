@@ -2,9 +2,9 @@
 
 namespace DrewRoberts\Blog\Tests;
 
+use DrewRoberts\Blog\BlogServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use DrewRoberts\Blog\BlogServiceProvider;
 
 class TestCase extends Orchestra
 {

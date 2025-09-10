@@ -1,11 +1,11 @@
-# Laravel package for opinionated blog implementation
+# Laravel package for my opinionated implementation of blog posts
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/drewroberts/blog.svg?style=flat-square)](https://packagist.org/packages/drewroberts/blog)
-![Tests](https://github.com/drewroberts/blog/workflows/Tests/badge.svg)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/drewroberts/blog/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/drewroberts/blog/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/drewroberts/blog/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/drewroberts/blog/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/drewroberts/blog.svg?style=flat-square)](https://packagist.org/packages/drewroberts/blog)
 
-
-Laravel blog package similar to WordPress design with Pages & Posts. NEED TO UPDATE!!
+This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
 
 ## Installation
 
@@ -15,10 +15,17 @@ You can install the package via composer:
 composer require drewroberts/blog
 ```
 
+You can publish and run the migrations with:
+
+```bash
+php artisan vendor:publish --tag="blog-migrations"
+php artisan migrate
+```
+
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --provider="DrewRoberts\Blog\BlogServiceProvider" --tag="config"
+php artisan vendor:publish --tag="blog-config"
 ```
 
 This is the contents of the published config file:
@@ -28,24 +35,22 @@ return [
 ];
 ```
 
-## Models
+Optionally, you can publish the views using
 
-We include the following models in this package:
+```bash
+php artisan vendor:publish --tag="blog-views"
+```
 
-**List of Models**
+## Usage
 
-- Page
-- Post
-- Series
-- Topic
-
-For each of these models, this package implements an [authorization policy](https://laravel.com/docs/8.x/authorization) that extends the roles and permissions approach of the [tipoff/authorization](https://github.com/tipoff/authorization) package. The policies for each model in this package are registered through the package and do not need to be registered manually.
-
-The models also have [Laravel Nova resources](https://nova.laravel.com/docs/3.0/resources/) in this package and they are also registered through the package and do not need to be registered manually.
+```php
+$blog = new DrewRoberts\Blog();
+echo $blog->echoPhrase('Hello, DrewRoberts!');
+```
 
 ## Testing
 
-``` bash
+```bash
 composer test
 ```
 
@@ -57,9 +62,9 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
-## Security
+## Security Vulnerabilities
 
-If you discover any security related issues, please email packages@drewroberts.com instead of using the issue tracker.
+Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
 
 ## Credits
 
@@ -68,4 +73,4 @@ If you discover any security related issues, please email packages@drewroberts.c
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE) for more information.
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.

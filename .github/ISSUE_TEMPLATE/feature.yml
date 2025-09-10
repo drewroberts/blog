@@ -1,0 +1,24 @@
+name: Feature Request
+description: Request a feature for this Laravel package
+title: "[FEATURE]: "
+labels: ["feature"]
+body:
+    - type: markdown
+      attributes:
+          value: |
+              We look forward to adding more features to this Laravel package. Can you be as detailed as possible in describing what you want added
+    - type: textarea
+      id: desired-feature
+      attributes:
+          label: What feature do you want?
+          description: What do you want to improve?
+          placeholder: I cannot currently do X thing and I would like too add it because..
+      validations:
+          required: true
+    - type: textarea
+      id: notes
+      attributes:
+          label: Notes
+          description: Use this field to provide detailed notes if what you think is necessary to implement the feature issue you are creating.
+      validations:
+          required: false
